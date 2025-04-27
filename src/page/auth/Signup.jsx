@@ -41,8 +41,9 @@ export default function Signup() {
     const user = { fullName, email, password };
 
     try {
+      const apiUrl = import.meta.env.VITE_SIGNUP;
       const response = await axios.post(
-        'http://localhost:3000/apis/v1/usersdata/register', 
+        `${apiUrl}`, 
         user,
         {
           headers: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';  // Added useEffect
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -37,7 +37,7 @@ const questionSets = [
 ];
 
 const MCQApp = () => {
-  const [mobileOpen, setMobileOpen] = useState(true);  // Changed to true to show drawer initially
+  const [mobileOpen, setMobileOpen] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [currentSet, setCurrentSet] = useState(null);
@@ -46,10 +46,11 @@ const MCQApp = () => {
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState(null);
   const [showResults, setShowResults] = useState(false);
+  const [showAnswers, setShowAnswers] = useState(false);
+  const [showAnswerPreview, setShowAnswerPreview] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Automatically open the drawer on mobile when the component mounts
     if (window.innerWidth < 960) {
       setMobileOpen(true);
     }
@@ -64,11 +65,12 @@ const MCQApp = () => {
       setLoading(true);
       setResults(null);
       setShowResults(false);
-      
-      // Close drawer when subject is selected (both mobile and desktop)
+      setShowAnswers(false);
+      setShowAnswerPreview(false);
       setMobileOpen(false);
       
-      const response = await fetch(`http://localhost:3000/apis/v2/medical/getmcqs`, {
+      const apiUrl = import.meta.env.VITE_GET_MCQ;
+      const response = await fetch(`${apiUrl}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,7 +106,6 @@ const MCQApp = () => {
     }
   };
 
-  // ... rest of the component code remains the same ...
   const handleAnswerSelect = (event) => {
     const newAnswers = { ...answers, [currentQuestion]: event.target.value };
     setAnswers(newAnswers);
@@ -149,14 +150,18 @@ const MCQApp = () => {
     });
     
     setShowResults(true);
+    setShowAnswers(true);
   };
 
   const handleCloseResults = () => {
     setShowResults(false);
+    setShowAnswerPreview(false);
   };
 
   const handleResetQuiz = () => {
     setShowResults(false);
+    setShowAnswers(false);
+    setShowAnswerPreview(false);
     setCurrentQuestion(0);
     setSelectedAnswer('');
     const resetAnswers = {};
@@ -227,7 +232,6 @@ const MCQApp = () => {
 
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
-      {/* Mobile AppBar */}
       <AppBar
         position="fixed"
         sx={{
@@ -250,7 +254,6 @@ const MCQApp = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Sidebar Navigation */}
       <Box
         component="nav"
         sx={{
@@ -258,7 +261,6 @@ const MCQApp = () => {
           flexShrink: { md: 0 }
         }}
       >
-        {/* Mobile drawer */}
         <Drawer
           variant="temporary"
           open={mobileOpen}
@@ -277,7 +279,6 @@ const MCQApp = () => {
           {drawerContent}
         </Drawer>
 
-        {/* Desktop drawer */}
         <Drawer
           variant="permanent"
           sx={{
@@ -293,14 +294,13 @@ const MCQApp = () => {
         </Drawer>
       </Box>
 
-      {/* Main Content Area */}
       <Box 
         component="main" 
         sx={{ 
           flexGrow: 1, 
           p: 3, 
           overflow: 'auto',
-          mt: { xs: '64px', md: 0 } // Account for mobile app bar
+          mt: { xs: '64px', md: 0 }
         }}
       >
         {loading ? (
@@ -388,26 +388,56 @@ const MCQApp = () => {
               <RadioGroup
                 value={selectedAnswer}
                 onChange={handleAnswerSelect}
+                disabled={showAnswers}
               >
-                {questions[currentQuestion].options.map((option, index) => (
-                  <FormControlLabel
-                    key={index}
-                    value={option}
-                    control={<Radio sx={{ color: currentSetData.color }} />}
-                    label={
-                      <Typography variant="body1">
-                        {option}
-                      </Typography>
-                    }
-                    sx={{ 
-                      mb: 1,
-                      p: '8px 12px',
-                      borderRadius: 1,
-                      bgcolor: selectedAnswer === option ? `${currentSetData.color}20` : 'transparent',
-                      '&:hover': { bgcolor: `${currentSetData.color}10` }
-                    }}
-                  />
-                ))}
+                {questions[currentQuestion].options.map((option, index) => {
+                  const isCorrect = option === questions[currentQuestion].correctAnswer;
+                  const isSelected = selectedAnswer === option;
+                  
+                  return (
+                    <FormControlLabel
+                      key={index}
+                      value={option}
+                      control={<Radio sx={{ 
+                        color: showAnswers 
+                          ? isCorrect 
+                            ? '#4CAF50' 
+                            : isSelected 
+                              ? '#F44336' 
+                              : currentSetData.color
+                          : currentSetData.color 
+                      }} />}
+                      label={
+                        <Typography variant="body1">
+                          {option}
+                          {showAnswers && isCorrect && (
+                            <span style={{ marginLeft: '8px', color: '#4CAF50' }}>✓ Correct Answer</span>
+                          )}
+                          {showAnswers && isSelected && !isCorrect && (
+                            <span style={{ marginLeft: '8px', color: '#F44336' }}>✗ Your Answer</span>
+                          )}
+                        </Typography>
+                      }
+                      sx={{ 
+                        mb: 1,
+                        p: '8px 12px',
+                        borderRadius: 1,
+                        bgcolor: showAnswers 
+                          ? isCorrect 
+                            ? '#E8F5E9' 
+                            : isSelected 
+                              ? '#FFEBEE' 
+                              : 'transparent'
+                          : selectedAnswer === option 
+                            ? `${currentSetData.color}20` 
+                            : 'transparent',
+                        '&:hover': { 
+                          bgcolor: !showAnswers && `${currentSetData.color}10` 
+                        }
+                      }}
+                    />
+                  );
+                })}
               </RadioGroup>
             </Paper>
 
@@ -429,6 +459,7 @@ const MCQApp = () => {
               <Button
                 variant="contained"
                 onClick={currentQuestion === questions.length - 1 ? handleSubmit : handleNextQuestion}
+                disabled={showAnswers && currentQuestion === questions.length - 1}
                 sx={{ 
                   width: { xs: '100%', sm: 120 },
                   bgcolor: currentSetData.color,
@@ -467,7 +498,6 @@ const MCQApp = () => {
         )}
       </Box>
 
-      {/* Results Dialog */}
       <Dialog
         open={showResults}
         onClose={handleCloseResults}
@@ -536,6 +566,54 @@ const MCQApp = () => {
                   </Paper>
                 </Grid>
               </Grid>
+
+              {showAnswerPreview && (
+                <Box sx={{ mt: 4, textAlign: 'left' }}>
+                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+                    Answer Review:
+                  </Typography>
+                  {questions.map((question, index) => (
+                    <Box key={index} sx={{ mb: 3, p: 2, border: '1px solid #eee', borderRadius: 1 }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 'medium' }}>
+                        {index + 1}. {question.question}
+                      </Typography>
+                      <Typography 
+                        variant="body1" 
+                        sx={{ 
+                          color: '#4CAF50',
+                          fontWeight: 'bold',
+                          mt: 1
+                        }}
+                      >
+                        ✓ Correct: {question.correctAnswer}
+                      </Typography>
+                      {answers[index] && answers[index] !== question.correctAnswer && (
+                        <Typography 
+                          variant="body1" 
+                          sx={{ 
+                            color: '#F44336',
+                            mt: 0.5
+                          }}
+                        >
+                          ✗ Your Answer: {answers[index]}
+                        </Typography>
+                      )}
+                      {!answers[index] && (
+                        <Typography 
+                          variant="body1" 
+                          sx={{ 
+                            color: '#757575',
+                            mt: 0.5,
+                            fontStyle: 'italic'
+                          }}
+                        >
+                          (Not answered)
+                        </Typography>
+                      )}
+                    </Box>
+                  ))}
+                </Box>
+              )}
             </Box>
           )}
         </DialogContent>
@@ -552,10 +630,27 @@ const MCQApp = () => {
             Try Again
           </Button>
           <Button 
+            variant="outlined"
+            onClick={() => setShowAnswerPreview(!showAnswerPreview)}
+            sx={{ 
+              mr: 2,
+              borderColor: currentSetData?.color,
+              color: currentSetData?.color,
+              '&:hover': { borderColor: currentSetData?.color }
+            }}
+          >
+            {showAnswerPreview ? 'Hide Answers' : 'Answer Preview'}
+          </Button>
+          <Button 
             variant="outlined" 
             onClick={() => {
               handleCloseResults();
               setCurrentSet(null);
+            }}
+            sx={{
+              borderColor: currentSetData?.color,
+              color: currentSetData?.color,
+              '&:hover': { borderColor: currentSetData?.color }
             }}
           >
             Choose Another Subject

@@ -7,7 +7,9 @@ import {
   Button, 
   InputAdornment, 
   IconButton,
-  Divider
+  Divider,
+  Snackbar,
+  Alert
 } from '@mui/material';
 import { 
   Email, 
@@ -21,12 +23,59 @@ import AuthLayout from './AuthLayout';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   
+  const handleLogin = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Validate inputs
+      if (!email || !password) {
+        throw new Error('Email and password are required');
+      }
+
+      const response = await fetch('http://localhost:3000/apis/v1/usersdata/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        }),
+        credentials: 'include'
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // Successful login - handle tokens and redirect
+      console.log('Login successful:', data);
+      navigate('/');
+
+    } catch (err) {
+      setError(err.message);
+      console.error('Login error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic
-    navigate('/dashboard');
+    handleLogin();
+  };
+
+  const handleCloseError = () => {
+    setError(null);
   };
 
   return (
@@ -58,6 +107,8 @@ export default function Login() {
             type="email"
             margin="normal"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -77,6 +128,8 @@ export default function Login() {
             type={showPassword ? 'text' : 'password'}
             margin="normal"
             required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -118,6 +171,7 @@ export default function Login() {
             variant="contained"
             size="large"
             type="submit"
+            disabled={loading}
             sx={{ 
               mt: 3,
               py: 1.5,
@@ -134,7 +188,7 @@ export default function Login() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
           >
-            Log In
+            {loading ? 'Logging in...' : 'Log In'}
           </Button>
 
           <Divider sx={{ my: 3 }} />
@@ -153,6 +207,17 @@ export default function Login() {
             </Link>
           </Typography>
         </Box>
+
+        <Snackbar
+          open={!!error}
+          autoHideDuration={6000}
+          onClose={handleCloseError}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        >
+          <Alert onClose={handleCloseError} severity="error" sx={{ width: '100%' }}>
+            {error}
+          </Alert>
+        </Snackbar>
       </Box>
     </AuthLayout>
   );
