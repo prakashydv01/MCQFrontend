@@ -30,8 +30,8 @@ import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
 const questionSets = [
-  { id: 'physics-1', name: 'Physics_Set_1', color: '#4CAF50', questionCount: '20' },
-  { id: 'Bsc.Csit', name: 'Bsc.Csit', color: '#2196F3', questionCount: '15' },
+  { id: 'nepal', name: 'nepal', color: '#4CAF50', questionCount: '20' },
+  { id: 'physiology', name: 'Physiology', color: '#2196F3', questionCount: '15' },
   { id: 'biochemistry', name: 'Biochemistry', color: '#9C27B0', questionCount: '12' },
   { id: 'pathology', name: 'Pathology', color: '#F44336', questionCount: '18' },
   { id: 'pharmacology', name: 'Pharmacology', color: '#FF9800', questionCount: '10' },
@@ -41,20 +41,16 @@ const questionSets = [
 const TextWithLatex = ({ text }) => {
   if (!text) return null;
 
-  // Split text by LaTeX delimiters
   const parts = text.split(/(\$\$.*?\$\$|\$.*?\$)/g);
   
   return (
     <>
       {parts.map((part, i) => {
         if (part.startsWith('$$') && part.endsWith('$$')) {
-          // Block math ($$...$$)
           return <BlockMath key={i} math={part.slice(2, -2)} />;
         } else if (part.startsWith('$') && part.endsWith('$')) {
-          // Inline math ($...$)
           return <InlineMath key={i} math={part.slice(1, -1)} />;
         } else {
-          // Regular text
           return <span key={i}>{part}</span>;
         }
       })}
@@ -62,7 +58,7 @@ const TextWithLatex = ({ text }) => {
   );
 };
 
-const MCQApp = () => {
+const PMCQApp = () => {
   const [mobileOpen, setMobileOpen] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -133,9 +129,10 @@ const MCQApp = () => {
   };
 
   const handleAnswerSelect = (event) => {
-    const newAnswers = { ...answers, [currentQuestion]: event.target.value };
+    const answer = event.target.value;
+    const newAnswers = { ...answers, [currentQuestion]: answer };
     setAnswers(newAnswers);
-    setSelectedAnswer(event.target.value);
+    setSelectedAnswer(answer);
   };
 
   const handleNextQuestion = () => {
@@ -419,49 +416,67 @@ const MCQApp = () => {
                 {questions[currentQuestion].options.map((option, index) => {
                   const isCorrect = option === questions[currentQuestion].correctAnswer;
                   const isSelected = selectedAnswer === option;
+                  const showFeedback = selectedAnswer && (isSelected || isCorrect);
                   
                   return (
-                    <FormControlLabel
-                      key={index}
-                      value={option}
-                      control={<Radio sx={{ 
-                        color: showAnswers 
-                          ? isCorrect 
-                            ? '#4CAF50' 
-                            : isSelected 
-                              ? '#F44336' 
-                              : currentSetData.color
-                          : currentSetData.color 
-                      }} />}
-                      label={
-                        <Typography variant="body1">
-                          <TextWithLatex text={option} />
-                          {showAnswers && isCorrect && (
-                            <span style={{ marginLeft: '8px', color: '#4CAF50' }}>✓ Correct Answer</span>
-                          )}
-                          {showAnswers && isSelected && !isCorrect && (
-                            <span style={{ marginLeft: '8px', color: '#F44336' }}>✗ Your Answer</span>
-                          )}
-                        </Typography>
-                      }
-                      sx={{ 
-                        mb: 1,
-                        p: '8px 12px',
-                        borderRadius: 1,
-                        bgcolor: showAnswers 
-                          ? isCorrect 
-                            ? '#E8F5E9' 
-                            : isSelected 
-                              ? '#FFEBEE' 
-                              : 'transparent'
-                          : selectedAnswer === option 
-                            ? `${currentSetData.color}20` 
-                            : 'transparent',
-                        '&:hover': { 
-                          bgcolor: !showAnswers && `${currentSetData.color}10` 
+                    <Box key={index} sx={{ mb: 1 }}>
+                      <FormControlLabel
+                        value={option}
+                        control={<Radio sx={{ 
+                          color: showAnswers 
+                            ? isCorrect 
+                              ? '#4CAF50' 
+                              : isSelected 
+                                ? '#F44336' 
+                                : currentSetData.color
+                            : currentSetData.color 
+                        }} />}
+                        label={
+                          <Typography variant="body1">
+                            <TextWithLatex text={option} />
+                          </Typography>
                         }
-                      }}
-                    />
+                        sx={{ 
+                          p: '8px 12px',
+                          borderRadius: 1,
+                          width: '100%',
+                          bgcolor: showAnswers 
+                            ? isCorrect 
+                              ? '#E8F5E9' 
+                              : isSelected 
+                                ? '#FFEBEE' 
+                                : 'transparent'
+                            : selectedAnswer === option 
+                              ? `${currentSetData.color}20` 
+                              : 'transparent',
+                          '&:hover': { 
+                            bgcolor: !showAnswers && `${currentSetData.color}10` 
+                          }
+                        }}
+                      />
+                      {showFeedback && (
+                        <Typography 
+                          variant="body2" 
+                          sx={{ 
+                            ml: 4,
+                            color: isCorrect ? '#4CAF50' : '#F44336',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1
+                          }}
+                        >
+                          {isCorrect ? (
+                            <>
+                              <span style={{ fontSize: '1.2rem' }}>✓</span> Correct Answer
+                            </>
+                          ) : isSelected ? (
+                            <>
+                              <span style={{ fontSize: '1.2rem' }}>✗</span> Your Answer
+                            </>
+                          ) : null}
+                        </Typography>
+                      )}
+                    </Box>
                   );
                 })}
               </RadioGroup>
@@ -687,4 +702,4 @@ const MCQApp = () => {
   );
 };
 
-export default MCQApp;
+export default PMCQApp;

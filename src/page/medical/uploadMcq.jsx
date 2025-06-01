@@ -4,10 +4,7 @@ import {
   Typography,
   TextField,
   Button,
-  Grid,
   Paper,
-  FormControl,
-  IconButton,
   CircularProgress,
   Snackbar,
   Alert,
@@ -15,64 +12,39 @@ import {
   Tab,
   TextareaAutosize
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
 import UploadIcon from '@mui/icons-material/Upload';
 import CodeIcon from '@mui/icons-material/Code';
 
 const MCQUploadForm = () => {
-  const [formData, setFormData] = useState({
-    category: '',
-    question: '',
-    options: ['', ''],
-    correctAnswer: ''
-  });
-  const [jsonFile, setJsonFile] = useState(null);
   const [jsonText, setJsonText] = useState('');
   const [activeTab, setActiveTab] = useState(0);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [globalCategory, setGlobalCategory] = useState('');
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
+    setError('');
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleOptionChange = (index, value) => {
-    const newOptions = [...formData.options];
-    newOptions[index] = value;
-    setFormData(prev => ({
-      ...prev,
-      options: newOptions
-    }));
-  };
-
-  const addOption = () => {
-    if (formData.options.length < 6) {
-      setFormData(prev => ({
-        ...prev,
-        options: [...prev.options, '']
-      }));
+  const validateQuestions = (questions) => {
+    if (!Array.isArray(questions)) {
+      throw new Error('Input must be an array of question objects');
     }
-  };
 
-  const removeOption = (index) => {
-    if (formData.options.length > 2) {
-      const newOptions = formData.options.filter((_, i) => i !== index);
-      setFormData(prev => ({
-        ...prev,
-        options: newOptions,
-        correctAnswer: prev.correctAnswer === formData.options[index] ? '' : prev.correctAnswer
-      }));
-    }
+    questions.forEach((q, index) => {
+      if (!q.question || typeof q.question !== 'string') {
+        throw new Error(`Question ${index + 1}: Missing or invalid question text`);
+      }
+      if (!Array.isArray(q.options) || q.options.length !== 4) {
+        throw new Error(`Question ${index + 1}: Exactly 4 options required`);
+      }
+      if (!q.correctAnswer || !q.options.includes(q.correctAnswer)) {
+        throw new Error(`Question ${index + 1}: Correct answer must match one of the options`);
+      }
+      // Category validation removed since we'll override it
+    });
   };
 
   const handleFileUpload = (e) => {
@@ -83,35 +55,17 @@ const MCQUploadForm = () => {
     reader.onload = (event) => {
       try {
         const jsonData = JSON.parse(event.target.result);
-        setJsonFile(jsonData);
+        validateQuestions(jsonData);
         setJsonText(JSON.stringify(jsonData, null, 2));
-        if (jsonData.category) {
-          setFormData(prev => ({
-            ...prev,
-            category: jsonData.category
-          }));
+        // Auto-set category from first question if exists
+        if (jsonData[0]?.category && !globalCategory) {
+          setGlobalCategory(jsonData[0].category);
         }
       } catch (err) {
-        setError('Invalid JSON file');
+        setError(`Invalid JSON file: ${err.message}`);
       }
     };
     reader.readAsText(file);
-  };
-
-  const handleJsonTextChange = (e) => {
-    setJsonText(e.target.value);
-    try {
-      const jsonData = JSON.parse(e.target.value);
-      setJsonFile(jsonData);
-      if (jsonData.category) {
-        setFormData(prev => ({
-          ...prev,
-          category: jsonData.category
-        }));
-      }
-    } catch (err) {
-      setJsonFile(null);
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -120,68 +74,32 @@ const MCQUploadForm = () => {
     setError('');
 
     try {
-      if (!formData.category) {
-        throw new Error('Category is required');
-      }
-
-      let mcqData = {};
+      if (!jsonText.trim()) throw new Error('JSON input is empty');
+      if (!globalCategory.trim()) throw new Error('Global category is required');
       
-      if (activeTab === 1 && jsonText) {
-        // Use JSON from text area
-        try {
-          mcqData = JSON.parse(jsonText);
-          mcqData.category = formData.category; // Ensure category from form is used
-        } catch (err) {
-          throw new Error('Invalid JSON in text area');
-        }
-      } else if (activeTab === 2 && jsonFile) {
-        // Use uploaded JSON file
-        mcqData = {
-          ...jsonFile,
-          category: formData.category
-        };
-      } else {
-        // Use manual form data
-        if (!formData.question.trim()) {
-          throw new Error('Question is required');
-        }
-        if (formData.options.some(opt => !opt.trim())) {
-          throw new Error('All options must be filled');
-        }
-        if (!formData.correctAnswer) {
-          throw new Error('Correct answer must be selected');
-        }
+      const questions = JSON.parse(jsonText);
+      validateQuestions(questions);
 
-        mcqData = {
-          question: formData.question,
-          options: formData.options,
-          correctAnswer: formData.correctAnswer,
-          category: formData.category
-        };
-      }
+      // Override all categories with the global value
+      const normalizedQuestions = questions.map(q => ({
+        ...q,
+        category: globalCategory
+      }));
 
-      const response = await fetch('http://localhost:3000/apis/v2/medical/createmcqs', {
+      const response = await fetch('http://localhost:7000/apis/v2/medical/createmcqs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(mcqData),
+        body: JSON.stringify({
+          category: globalCategory,
+          questions: normalizedQuestions
+        }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to create MCQ');
-      }
-
-      const result = await response.json();
+      if (!response.ok) throw new Error('Failed to upload questions');
+      
       setSuccess(true);
-      setFormData({
-        category: '',
-        question: '',
-        options: ['', ''],
-        correctAnswer: ''
-      });
-      setJsonFile(null);
       setJsonText('');
     } catch (err) {
       setError(err.message);
@@ -190,186 +108,79 @@ const MCQUploadForm = () => {
     }
   };
 
-  const handleCloseSnackbar = () => {
-    setSuccess(false);
-    setError('');
-  };
-
   return (
     <Box sx={{ maxWidth: 800, mx: 'auto', p: 3 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
-        <Typography variant="h4" gutterBottom sx={{ mb: 3, fontWeight: 'bold' }}>
-          Create New MCQ
+        <Typography variant="h4" gutterBottom>
+          Bulk Upload MCQs (Single Category)
         </Typography>
 
-        <form onSubmit={handleSubmit}>
-          <Grid container spacing={3}>
-            {/* Category Input */}
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Category"
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
+        {/* Global Category Input */}
+        <TextField
+          fullWidth
+          label="Category for ALL questions"
+          value={globalCategory}
+          onChange={(e) => setGlobalCategory(e.target.value)}
+          required
+          sx={{ mb: 3 }}
+        />
 
-            {/* Input Method Tabs */}
-            <Grid item xs={12}>
-              <Tabs value={activeTab} onChange={handleTabChange} centered>
-                <Tab label="Manual Input" icon={<AddIcon />} />
-                <Tab label="JSON Text" icon={<CodeIcon />} />
-                <Tab label="JSON File" icon={<UploadIcon />} />
-              </Tabs>
-            </Grid>
+        <Tabs value={activeTab} onChange={handleTabChange} sx={{ mb: 3 }}>
+          <Tab label="Paste JSON" icon={<CodeIcon />} />
+          <Tab label="Upload JSON File" icon={<UploadIcon />} />
+        </Tabs>
 
-            {/* Manual Input Tab */}
-            {activeTab === 0 && (
-              <>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Question"
-                    name="question"
-                    value={formData.question}
-                    onChange={handleChange}
-                    multiline
-                    rows={3}
-                    required
-                  />
-                </Grid>
+        {activeTab === 0 && (
+          <TextareaAutosize
+            minRows={15}
+            style={{ 
+              width: '100%', 
+              padding: '8px',
+              fontFamily: 'monospace',
+              marginBottom: '16px'
+            }}
+            placeholder={`Paste your questions array (category will be overridden):\n[\n  {\n    "question": "What is 2+2?",\n    "options": ["3", "4", "5", "6"],\n    "correctAnswer": "4"\n  },\n  {\n    "question": "Capital of France?",\n    "options": ["London", "Paris", "Berlin", "Madrid"],\n    "correctAnswer": "Paris"\n  }\n]`}
+            value={jsonText}
+            onChange={(e) => setJsonText(e.target.value)}
+          />
+        )}
 
-                <Grid item xs={12}>
-                  <Typography variant="h6" gutterBottom>
-                    Options
-                  </Typography>
-                  {formData.options.map((option, index) => (
-                    <Box key={index} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <TextField
-                        fullWidth
-                        label={`Option ${index + 1}`}
-                        value={option}
-                        onChange={(e) => handleOptionChange(index, e.target.value)}
-                        required
-                      />
-                      <IconButton
-                        onClick={() => removeOption(index)}
-                        color="error"
-                        disabled={formData.options.length <= 2}
-                        sx={{ ml: 1 }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                      <Button
-                        variant={formData.correctAnswer === option ? 'contained' : 'outlined'}
-                        color={formData.correctAnswer === option ? 'success' : 'primary'}
-                        onClick={() => setFormData(prev => ({
-                          ...prev,
-                          correctAnswer: option
-                        }))}
-                        sx={{ ml: 1, minWidth: 120 }}
-                      >
-                        {formData.correctAnswer === option ? 'Correct' : 'Mark Correct'}
-                      </Button>
-                    </Box>
-                  ))}
-                  <Button
-                    startIcon={<AddIcon />}
-                    onClick={addOption}
-                    disabled={formData.options.length >= 6}
-                    variant="outlined"
-                    sx={{ mt: 1 }}
-                  >
-                    Add Option
-                  </Button>
-                </Grid>
-              </>
-            )}
+        {activeTab === 1 && (
+          <Button
+            variant="outlined"
+            component="label"
+            fullWidth
+            sx={{ mb: 3 }}
+            startIcon={<UploadIcon />}
+          >
+            Upload JSON File
+            <input
+              type="file"
+              accept=".json"
+              hidden
+              onChange={handleFileUpload}
+            />
+          </Button>
+        )}
 
-            {/* JSON Text Tab */}
-            {activeTab === 1 && (
-              <Grid item xs={12}>
-                <TextareaAutosize
-                  minRows={10}
-                  maxRows={15}
-                  style={{ 
-                    width: '100%', 
-                    padding: '8px', 
-                    border: '1px solid #ccc', 
-                    borderRadius: '4px',
-                    fontFamily: 'monospace'
-                  }}
-                  placeholder={`Paste your JSON here, e.g.:\n{\n  "question": "Sample question?",\n  "options": ["Option 1", "Option 2"],\n  "correctAnswer": "Option 1"\n}`}
-                  value={jsonText}
-                  onChange={handleJsonTextChange}
-                />
-              </Grid>
-            )}
-
-            {/* JSON File Tab */}
-            {activeTab === 2 && (
-              <Grid item xs={12}>
-                <Button
-                  variant="outlined"
-                  component="label"
-                  startIcon={<UploadIcon />}
-                  fullWidth
-                >
-                  Upload JSON File
-                  <input
-                    type="file"
-                    accept=".json"
-                    hidden
-                    onChange={handleFileUpload}
-                  />
-                </Button>
-                {jsonFile && (
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                    File loaded: {Object.keys(jsonFile).length} properties
-                  </Typography>
-                )}
-              </Grid>
-            )}
-
-            {/* Submit Button */}
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                size="large"
-                fullWidth
-                disabled={loading}
-                startIcon={loading ? <CircularProgress size={20} /> : null}
-              >
-                {loading ? 'Creating MCQ...' : 'Create MCQ'}
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          fullWidth
+          onClick={handleSubmit}
+          disabled={loading || !jsonText.trim() || !globalCategory.trim()}
+        >
+          {loading ? <CircularProgress size={24} /> : 'Upload Questions'}
+        </Button>
       </Paper>
 
-      {/* Success/Error Snackbars */}
-      <Snackbar
-        open={success}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-          MCQ created successfully!
-        </Alert>
+      <Snackbar open={success} autoHideDuration={6000} onClose={() => setSuccess(false)}>
+        <Alert severity="success">Questions uploaded successfully!</Alert>
       </Snackbar>
 
-      <Snackbar
-        open={!!error}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: '100%' }}>
-          {error}
-        </Alert>
+      <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')}>
+        <Alert severity="error">{error}</Alert>
       </Snackbar>
     </Box>
   );

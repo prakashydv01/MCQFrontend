@@ -30,12 +30,25 @@ import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
 const questionSets = [
-  { id: 'physics-1', name: 'Physics_Set_1', color: '#4CAF50', questionCount: '20' },
-  { id: 'Bsc.Csit', name: 'Bsc.Csit', color: '#2196F3', questionCount: '15' },
-  { id: 'biochemistry', name: 'Biochemistry', color: '#9C27B0', questionCount: '12' },
-  { id: 'pathology', name: 'Pathology', color: '#F44336', questionCount: '18' },
-  { id: 'pharmacology', name: 'Pharmacology', color: '#FF9800', questionCount: '10' },
-  { id: 'math', name: 'Math', color: '#3F51B5', questionCount: '25' },
+  { id: 'csit-physics-1', name: 'Physics_Set_1', color: '#4CAF50', questionCount: '25' },
+    { id: 'csit-physics-2', name: 'Physics_Set_2', color: '#4CAF50', questionCount: '25' },
+    { id: 'csit-physics-3', name: 'Physics_Set_3', color: '#4CAF50', questionCount: '25' },
+    { id: 'csit-physics-4', name: 'Physics_Set_4', color: '#4CAF50', questionCount: '25' },
+    { id: 'csit-physics-5', name: 'Physics_Set_5', color: '#4CAF50', questionCount: '25' },
+    // Chemistry Sets
+    { id: 'csit-chemistry-1', name: 'Chemistry_Set_1', color: '#FF5722', questionCount: '25' },
+    { id: 'csit-chemistry-2', name: 'Chemistry_Set_2', color: '#FF5722', questionCount: '25' },
+    { id: 'csit-chemistry-3', name: 'Chemistry_Set_3', color: '#FF5722', questionCount: '25' },
+    { id: 'csit-chemistry-4', name: 'Chemistry_Set_4', color: '#FF5722', questionCount: '25' },
+    { id: 'csit-chemistry-5', name: 'Chemistry_Set_5', color: '#FF5722', questionCount: '25' },
+    // Mathematics Sets
+    { id: 'csit-math-1', name: 'Mathematics_Set_1', color: '#2196F3', questionCount: '25' },
+    { id: 'csit-math-2', name: 'Mathematics_Set_2', color: '#2196F3', questionCount: '25' },
+    { id: 'csit-math-3', name: 'Mathematics_Set_3', color: '#2196F3', questionCount: '25' },
+    { id: 'csit-math-4', name: 'Mathematics_Set_4', color: '#2196F3', questionCount: '25' },
+    { id: 'csit-math-5', name: 'Mathematics_Set_5', color: '#2196F3', questionCount: '25' },
+
+ 
 ];
 
 const TextWithLatex = ({ text }) => {
@@ -62,7 +75,7 @@ const TextWithLatex = ({ text }) => {
   );
 };
 
-const MCQApp = () => {
+const BscCsit = () => {
   const [mobileOpen, setMobileOpen] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -687,4 +700,4 @@ const MCQApp = () => {
   );
 };
 
-export default MCQApp;
+export default BscCsit;

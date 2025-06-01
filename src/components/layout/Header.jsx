@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { 
   AppBar, 
   Toolbar, 
@@ -7,84 +7,222 @@ import {
   Typography, 
   Avatar, 
   IconButton,
-  Menu,
-  MenuItem,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
   useMediaQuery,
-  useTheme
+  useTheme,
+  styled
 } from '@mui/material';
-import { School, Menu as MenuIcon } from '@mui/icons-material';
+import { 
+  Menu as MenuIcon,
+  Close,
+  Home,
+  Login,
+  LibraryBooks,
+  PersonAdd,
+  Book
+  // Add more icons here as needed
+} from '@mui/icons-material';
+
 import { Link } from 'react-router-dom';
+import MCQMasterLogo from '../../assets/images/Hamro-Exam.png';
+
+// 1. Define your navigation items in a config array
+const NAV_ITEMS = [
+  { 
+    path: '/', 
+    label: 'Home', 
+    icon: 'Home',
+    showInMobile: true
+  },
+  { 
+    path: '/syllabus', 
+    label: 'Syllabus', 
+    icon: 'LibraryBooks',
+    showInMobile: true
+  },
+  { 
+    path: '/blog', 
+    label: 'Blog', 
+    icon: 'LibraryBooks', // Change to appropriate icon
+    showInMobile: true
+  },
+  { 
+    path: '/login', 
+    label: 'Login', 
+    icon: 'Login',
+    showInMobile: true
+  }
+  // Add more items here as needed
+];
+
+const SIGNUP_ITEM = {
+  path: '/signup', 
+  label: 'Sign Up', 
+  icon: 'PersonAdd',
+  isSignUp: true
+};
+
+// 2. Styled components
+const StyledButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
+
+const SignUpButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.primary.contrastText,
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+  },
+}));
+
+// 3. Icon mapping
+const iconComponents = {
+  Home: Home,
+  Login: Login,
+  LibraryBooks: LibraryBooks,
+  PersonAdd: PersonAdd,
+  // Add more icon mappings here
+};
+
+// 4. Dynamic icon component
+const DynamicIcon = ({ iconName }) => {
+  const IconComponent = iconComponents[iconName];
+  return IconComponent ? <IconComponent /> : null;
+};
 
 export default function Header() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = 'primary-search-account-menu';
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-
+  // 5. Render desktop menu items
   const renderDesktopMenu = (
-    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-      <Button variant="text" sx={{ mr: 1 }}>Home</Button>
-      <Button component={Link} to="/login">Login</Button>
-      <Button 
+    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, alignItems: 'center' }}>
+      {NAV_ITEMS.map((item) => (
+        <StyledButton 
+          key={item.path}
+          component={Link} 
+          to={item.path} 
+          startIcon={<DynamicIcon iconName={item.icon} />}
+        >
+          {item.label}
+        </StyledButton>
+      ))}
+      
+      <SignUpButton 
         component={Link}
-        to="/signup"
+        to={SIGNUP_ITEM.path}
         variant="contained" 
         sx={{ px: 3, ml: 1 }}
-        color="primary"
+        startIcon={<DynamicIcon iconName={SIGNUP_ITEM.icon} />}
       >
-        Sign Up
-      </Button>
+        {SIGNUP_ITEM.label}
+      </SignUpButton>
     </Box>
   );
 
+  // 6. Render mobile menu items
   const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
+    <Drawer
+      anchor="right"
+      open={mobileOpen}
+      onClose={handleDrawerToggle}
+      PaperProps={{
+        sx: {
+          width: '100%',
+          maxWidth: '300px',
+          bgcolor: 'background.paper',
+        }
+      }}
     >
-      <MenuItem component={Link} to="/" onClick={handleMobileMenuClose}>Home</MenuItem>
-      <MenuItem component={Link} to="/login" onClick={handleMobileMenuClose}>Login</MenuItem>
-      <MenuItem component={Link} to="/signup" onClick={handleMobileMenuClose}>Sign Up</MenuItem>
-    </Menu>
+      <Box sx={{ 
+        p: 2, 
+        display: 'flex', 
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+      }}>
+        <IconButton onClick={handleDrawerToggle}>
+          <Close />
+        </IconButton>
+      </Box>
+      <Divider />
+      
+      <List>
+        {NAV_ITEMS.filter(item => item.showInMobile).map((item) => (
+          <ListItem key={item.path} disablePadding>
+            <ListItemButton 
+              component={Link} 
+              to={item.path} 
+              onClick={handleDrawerToggle}
+            >
+              <ListItemIcon>
+                <DynamicIcon iconName={item.icon} color="primary" />
+              </ListItemIcon>
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        
+        <Divider sx={{ my: 1 }} />
+        
+        <ListItem disablePadding>
+          <ListItemButton 
+            component={Link} 
+            to={SIGNUP_ITEM.path} 
+            onClick={handleDrawerToggle}
+            sx={{
+              backgroundColor: 'primary.main',
+              color: 'primary.contrastText',
+              '&:hover': {
+                backgroundColor: 'primary.dark',
+              }
+            }}
+          >
+            <ListItemIcon>
+              <DynamicIcon 
+                iconName={SIGNUP_ITEM.icon} 
+                sx={{ color: 'primary.contrastText' }} 
+              />
+            </ListItemIcon>
+            <ListItemText primary={SIGNUP_ITEM.label} />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Drawer>
   );
 
   return (
-    <AppBar position="sticky" color="default" elevation={1}>
+    <AppBar 
+      position="sticky" 
+      color="default" 
+      elevation={1}
+      sx={{
+        bgcolor: 'background.default',
+        borderBottom: `1px solid ${theme.palette.divider}`
+      }}
+    >
       <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 4 } }}>
         {/* Logo */}
-        <Box display="flex" alignItems="center" gap={1}>
-          <Avatar sx={{ bgcolor: 'primary.main' }}>
-            <School />
-          </Avatar>
-          <Typography variant="h6" fontWeight="bold">MCQMaster</Typography>
+        <Box component={Link} to="/" display="flex" alignItems="center" gap={1} sx={{ textDecoration: 'none', color: 'inherit' }}>
+          <Avatar 
+            src={MCQMasterLogo} 
+            alt="MCQMaster Logo" 
+            sx={{ width: 40, height: 40 }}
+          />
+          <Typography variant="h6" fontWeight="bold">Hamro Exam</Typography>
         </Box>
 
         {/* Desktop Menu */}
@@ -92,17 +230,17 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         {isMobile && (
-          <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-controls={menuId}
-            aria-haspopup="true"
-            onClick={handleMobileMenuOpen}
-            color="inherit"
-          >
-            <MenuIcon />
-          </IconButton>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <IconButton
+              size="large"
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleDrawerToggle}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
         )}
       </Toolbar>
 

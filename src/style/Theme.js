@@ -5,7 +5,7 @@ export default createTheme({
     primary: { main: '#2563eb' },   // Blue
     secondary: { main: '#7c3aed' }, // Purple
     error: { main: '#dc2626' },     // Red
-    background: { default: '#f8fafc' }
+    background: { default: '#F8F8F8' }
   },
   typography: {
     fontFamily: '"Inter", sans-serif',

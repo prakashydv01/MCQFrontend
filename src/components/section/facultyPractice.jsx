@@ -13,19 +13,23 @@ import { Link } from 'react-router-dom';
 
 const faculties = [
   { id: 'csit', name: 'Bsc.Csit', icon: <Computer fontSize="large" />, color: 'success.main', count: 580 },
-  { id: 'Pmedical', name: 'Medical', icon: <MedicalServices fontSize="large" />, color: 'error.main', count: 520 },
-  { id: 'engineering', name: 'Engineering', icon: <Engineering fontSize="large" />, color: 'warning.main', count: 650 }
-  
+  { id: "Pmedical",name: 'Medical', icon: <MedicalServices fontSize="large" />,  color: 'error.main', count: 520 },
+  { name: 'Engineering', icon: <Engineering fontSize="large" />, color: 'warning.main', count: 650 },
+  { name: 'Science', icon: <Science fontSize="large" />, color: 'success.main', count: 580 },
+  { name: 'Management', icon: <AccountBalance fontSize="large" />, color: 'info.main', count: 490 },
+  { name: 'Law', icon: <Gavel fontSize="large" />, color: 'secondary.main', count: 320 },
+  { name: 'Arts', icon: <Palette fontSize="large" />, color: 'primary.main', count: 210 },
+  { name: 'Agriculture', icon: <Agriculture fontSize="large" />, color: 'success.dark', count: 180 }
 ];
 
-export default function FacultyBoxes() {
+export default function FacultyPractice() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box sx={{ py: 8, px: 4 }}>
       <Typography variant="h4" textAlign="center" mb={6}>
-        For MockTest
+        Choose Your Faculty for Practice
       </Typography>
       <Box sx={{
         display: 'flex',

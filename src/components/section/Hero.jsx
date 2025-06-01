@@ -69,7 +69,7 @@ export default function Hero() {
               color: theme.palette.text.primary
             }}
           >
-            Ace Your Exams with <span style={{ color: '#2563eb' }}>Smart MCQs</span>
+            Ace Your Exams with <span style={{ color: '#2563eb' }}>Hamro Exam</span>
           </Typography>
           <Typography
             variant="h5"
@@ -84,17 +84,19 @@ export default function Hero() {
           >
             Practice faculty-specific questions and track your progress.
           </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              px: 5,
-              fontSize: '1rem',
-              fontWeight: 600
-            }}
-          >
-            Let's Practice
-          </Button>
+          
+  <Button
+    variant="contained"
+    size="large"
+    sx={{
+      px: 5,
+      fontSize: '1rem',
+      fontWeight: 600,
+    }}
+  >
+    Let's Practice
+  </Button>
+
         </Box>
       </Container>
     </Box>
