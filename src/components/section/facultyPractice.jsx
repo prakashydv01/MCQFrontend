@@ -12,14 +12,9 @@ import {
 import { Link } from 'react-router-dom';
 
 const faculties = [
-  { id: 'csit', name: 'Bsc.Csit', icon: <Computer fontSize="large" />, color: 'success.main', count: 580 },
+  { id: 'Pcsit', name: 'Bsc.Csit', icon: <Computer fontSize="large" />, color: 'success.main', count: 580 },
   { id: "Pmedical",name: 'Medical', icon: <MedicalServices fontSize="large" />,  color: 'error.main', count: 520 },
   { name: 'Engineering', icon: <Engineering fontSize="large" />, color: 'warning.main', count: 650 },
-  { name: 'Science', icon: <Science fontSize="large" />, color: 'success.main', count: 580 },
-  { name: 'Management', icon: <AccountBalance fontSize="large" />, color: 'info.main', count: 490 },
-  { name: 'Law', icon: <Gavel fontSize="large" />, color: 'secondary.main', count: 320 },
-  { name: 'Arts', icon: <Palette fontSize="large" />, color: 'primary.main', count: 210 },
-  { name: 'Agriculture', icon: <Agriculture fontSize="large" />, color: 'success.dark', count: 180 }
 ];
 
 export default function FacultyPractice() {
