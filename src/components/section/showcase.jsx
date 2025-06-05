@@ -41,7 +41,7 @@ const WhyLearnWithUs = () => {
             color: theme.palette.mode === 'dark' ? 'primary.light' : 'primary.main'
           }}
         >
-          Why Learn With Hamro CSIT
+          Why Learn With Hamro Exam
         </Typography>
         <Typography 
           variant="body1" 
@@ -51,7 +51,7 @@ const WhyLearnWithUs = () => {
             mx: 'auto'
           }}
         >
-          Complete set of reference material to prepare CSIT Entrance exam.
+          Complete set of reference material to prepare  Entrance exam.
         </Typography>
       </Box>
 
