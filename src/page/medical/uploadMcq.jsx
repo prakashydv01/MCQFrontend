@@ -86,7 +86,7 @@ const MCQUploadForm = () => {
         category: globalCategory
       }));
 
-      const response = await fetch('http://localhost:7000/apis/v2/medical/createmcqs', {
+      const response = await fetch('http://localhost:9000/apis/v2/medical/createmcqs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
