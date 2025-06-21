@@ -17,7 +17,7 @@ import AboutPage from '../page/support/aboutUs';
 import PrivacyPolicy from '../page/support/PrivacyPolicy';
 import TermsAndConditions from '../page/support/Terms';
 import PracticeGuides from '../page/Resources/practiceGuides';
-import BlogPage from '../page/Resources/blogs';
+
 
 
 export default function AppRoutes() {
@@ -46,7 +46,7 @@ export default function AppRoutes() {
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsAndConditions />} />
       <Route path="/practice-guides" element={<PracticeGuides />} />
-      <Route path="/blog" element={<BlogPage />} />
+      
       
       
       {/* Catch-all route for 404 Not Found */}
