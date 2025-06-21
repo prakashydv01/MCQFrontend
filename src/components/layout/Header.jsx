@@ -30,7 +30,7 @@ import {
 } from '@mui/icons-material';
 
 import { Link } from 'react-router-dom';
-import MCQMasterLogo from '../../assets/images/Hamro-Exam.png';
+
 
 // 1. Define your navigation items in a config array
 const NAV_ITEMS = [
@@ -207,7 +207,7 @@ export default function Header() {
         {/* Logo */}
         <Box component={Link} to="/" display="flex" alignItems="center" gap={1} sx={{ textDecoration: 'none', color: 'inherit' }}>
           <Avatar 
-            src={MCQMasterLogo} 
+            src="https://res.cloudinary.com/backendsrc/image/upload/v1750496030/Hamro-Exam_dvxxum.png"
             alt="MCQMaster Logo" 
             sx={{ width: 40, height: 40 }}
           />
