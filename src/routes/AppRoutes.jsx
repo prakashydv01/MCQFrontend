@@ -49,7 +49,7 @@ export default function AppRoutes() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />      
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/blog" element={<BlogPage />} />
-          <Route path="/practice-guide" element={<PracticeGuide />} />
+          <Route path="/practice-guides" element={<PracticeGuide />} />
 
 
           {/* Add more faculty routes as needed */}
