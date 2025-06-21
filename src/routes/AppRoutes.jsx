@@ -17,6 +17,7 @@ import AboutPage from '../page/support/aboutUs';
 import PrivacyPolicy from '../page/support/PrivacyPolicy';
 import TermsAndConditions from '../page/support/Terms';
 import PracticeGuides from '../page/Resources/practiceGuides';
+import SimpleBlog from '../page/support/blog';
 
 
 
@@ -46,6 +47,7 @@ export default function AppRoutes() {
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsAndConditions />} />
       <Route path="/practice-guides" element={<PracticeGuides />} />
+      <Route path="/blog" element={<SimpleBlog />} />
       
       
       
