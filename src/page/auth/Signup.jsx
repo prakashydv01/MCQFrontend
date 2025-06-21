@@ -178,7 +178,7 @@ export default function Signup() {
           <Typography textAlign="center" color="text.secondary">
             Already have an account?{' '}
             <Link 
-              to="/login" 
+              to="/" 
               style={{ 
                 color: 'primary.main',
                 fontWeight: 600,

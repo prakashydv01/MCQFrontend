@@ -14,8 +14,7 @@ import { Link } from 'react-router-dom';
 const faculties = [
   { id: 'csit', name: 'Bsc.Csit', icon: <Computer fontSize="large" />, color: 'success.main', count: 580 },
   { id: 'bit', name: 'Bit', icon: <Computer fontSize="large" />, color: 'primary.main', count: 450 },
-  { id: 'Pmedical', name: 'Medical', icon: <MedicalServices fontSize="large" />, color: 'error.main', count: 520 },
-  { id: 'engineering', name: 'Engineering', icon: <Engineering fontSize="large" />, color: 'warning.main', count: 650 }
+  { id: 'ioe', name: 'IOE', icon: <Engineering fontSize="large" />, color: 'warning.main', count: 650 }
   
 ];
 

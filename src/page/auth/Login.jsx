@@ -23,32 +23,12 @@ import AuthLayout from './AuthLayout';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('demo@example.com'); // Pre-filled for testing
-  const [password, setPassword] = useState('password123'); // Pre-filled for testing
+  const [email, setEmail] = useState('demo@example.com');
+  const [password, setPassword] = useState('password123');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
-
-  // Mock login function for development
-  const mockLogin = async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          status: 200,
-          data: {
-            user: {
-              _id: 'mock-user-id',
-              email: email,
-              fullName: 'Demo User'
-            },
-            accessToken: 'mock-access-token'
-          },
-          message: 'Mock login successful'
-        });
-      }, 1000);
-    });
-  };
 
   const handleLogin = async () => {
     setLoading(true);
@@ -60,49 +40,48 @@ export default function Login() {
         throw new Error("Email and password are required");
       }
 
-      // Try real API first
-      let data;
-      try {
-        const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/apis/v1/usersdata/login";
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-          credentials: "include",
-        });
-        data = await response.json();
+      const apiUrl = import.meta.env.VITE_LOGIN;
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: "include", // Required for cookies
+      });
 
-        if (!response.ok) {
-          throw new Error(data.message || "Login failed");
-        }
-      } catch (apiError) {
-        console.warn("API login failed, falling back to mock:", apiError);
-        // Fallback to mock login if API fails
-        data = await mockLogin();
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle API errors from your backend
+        const errorMessage = data?.message || 
+                            (response.status === 401 ? "Invalid credentials" : "Login failed");
+        throw new Error(errorMessage);
       }
 
-      if (!data?.data?.user) {
-        throw new Error("No user data received");
+      // Verify the response structure matches your backend
+      if (!data?.data?.user || !data.data.user._id) {
+        throw new Error("Invalid response from server");
       }
 
-      // Store user data (simplified for demo)
-      localStorage.setItem('user', JSON.stringify(data.data.user));
-      if (data.data.accessToken) {
-        localStorage.setItem('token', data.data.accessToken);
-      }
+      // Store only non-sensitive user data in localStorage
+      const userData = {
+        _id: data.data.user._id,
+        email: data.data.user.email,
+      };
+      localStorage.setItem('user', JSON.stringify(userData));
 
       setSuccess(true);
-      console.log("Login successful:", data);
       
-      // Redirect after slight delay to show success state
+      // Redirect after successful login
       setTimeout(() => {
         navigate("/", { replace: true });
       }, 1000);
 
     } catch (err) {
       console.error("Login error:", err);
-      setError(err.message);
-      setPassword(''); // Clear password on error
+      setError(err.message || "An unexpected error occurred");
+      setPassword('');
     } finally {
       setLoading(false);
     }

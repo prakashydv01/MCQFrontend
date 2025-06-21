@@ -41,23 +41,12 @@ const NAV_ITEMS = [
     showInMobile: true
   },
   { 
-    path: '/syllabus', 
-    label: 'Syllabus', 
-    icon: 'LibraryBooks',
-    showInMobile: true
-  },
-  { 
     path: '/blog', 
     label: 'Blog', 
     icon: 'LibraryBooks', // Change to appropriate icon
     showInMobile: true
   },
-  { 
-    path: '/login', 
-    label: 'Login', 
-    icon: 'Login',
-    showInMobile: true
-  }
+  
   // Add more items here as needed
 ];
 

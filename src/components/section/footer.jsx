@@ -1,7 +1,8 @@
 import { Box, Container, Grid, Typography, Link, Divider } from '@mui/material';
-import { Facebook, Twitter, Instagram, LinkedIn } from '@mui/icons-material';
+import { Facebook, Twitter, Instagram, LinkedIn, YouTube } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { keyframes } from '@emotion/react';
+import { useNavigate } from 'react-router-dom'; // Changed from next/router
 
 const gradientAnimation = keyframes`
   0% { background-position: 0% 50% }
@@ -10,6 +11,29 @@ const gradientAnimation = keyframes`
 `;
 
 const Footer = () => {
+  const navigate = useNavigate(); // Changed from useRouter
+
+  // Define all routes in one place for easy management
+  const routes = {
+    home: '/',
+    PracticeGuides: '/practice-guides',
+    about: '/about',
+    contact: '/contact',
+    PrivacyPolicy: '/privacy-policy',
+    terms: '/terms',
+    // Social media links
+    social: {
+      facebook: 'https://www.facebook.com/profile.php?id=61577236957852',
+      linkedin: 'www.linkedin.com/in/prakash-yadav-6b7b00320',
+      YouTube: 'https://youtube.com/@hamroexam1?si=d0Jzyq0OZEipXOLx'
+    }
+  };
+
+  // Handle navigation
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   return (
     <Box 
       component="footer" 
@@ -54,7 +78,7 @@ const Footer = () => {
                   textShadow: '0 2px 4px rgba(0,0,0,0.2)'
                 }}
               >
-                MCQMaster
+                Hamro Exam
               </Typography>
               <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)', mb: 2 }}>
                 The ultimate platform for exam preparation through smart practice.
@@ -64,7 +88,11 @@ const Footer = () => {
                 gap: 2,
                 justifyContent: { xs: 'center', md: 'flex-start' }
               }}>
-                {[Facebook, Twitter, Instagram, LinkedIn].map((Icon, index) => (
+                {[
+                  { Icon: Facebook, link: routes.social.facebook },
+                  { Icon: LinkedIn, link: routes.social.linkedin },
+                  { Icon: YouTube, link: routes.social.YouTube }
+                ].map(({ Icon, link }, index) => (
                   <motion.div
                     key={index}
                     whileHover={{ 
@@ -73,7 +101,12 @@ const Footer = () => {
                       transition: { type: 'spring', stiffness: 400 }
                     }}
                   >
-                    <Link href="#" sx={{ color: 'white' }}>
+                    <Link 
+                      href={link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      sx={{ color: 'white' }}
+                    >
                       <Icon fontSize="medium" />
                     </Link>
                   </motion.div>
@@ -95,24 +128,32 @@ const Footer = () => {
             >
               Resources
             </Typography>
-            {['MCQ Library', 'Exam Prep', 'Study Guides'].map((item, i) => (
+            {[
+              { name: 'Practice Guides', path: routes.PracticeGuides },
+            ].map(({ name, path }, i) => (
               <motion.div
-                key={item}
+                key={name}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
               >
                 <Link 
-                  href="#" 
+                  component="button" // Changed to button for better navigation handling
+                  onClick={() => handleNavigation(path)}
                   sx={{ 
                     display: 'block', 
                     mb: 1,
-                    color: 'rgba(255,255,255,0.8)',
+                    color: window.location.pathname === path ? 'white' : 'rgba(255,255,255,0.8)',
                     '&:hover': { color: 'white' },
-                    textAlign: { xs: 'center', sm: 'left' }
+                    textAlign: { xs: 'center', sm: 'left' },
+                    fontWeight: window.location.pathname === path ? 600 : 'normal',
+                    textDecoration: 'none',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer'
                   }}
                 >
-                  {item}
+                  {name}
                 </Link>
               </motion.div>
             ))}
@@ -131,24 +172,35 @@ const Footer = () => {
             >
               Support
             </Typography>
-            {['Help Center', 'Contact Us', 'Feedback'].map((item, i) => (
+            {[
+              { name: 'About us', path: routes.about },
+              { name: 'Contact Us', path: routes.contact },
+              { name: 'Privacy Policy', path: routes.PrivacyPolicy },
+              { name: 'Terms & Conditions ', path: '/terms' }
+            ].map(({ name, path }, i) => (
               <motion.div
-                key={item}
+                key={name}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1 + 0.2, duration: 0.5 }}
               >
                 <Link 
-                  href="#" 
+                  component="button"
+                  onClick={() => handleNavigation(path)}
                   sx={{ 
                     display: 'block', 
                     mb: 1,
-                    color: 'rgba(255,255,255,0.8)',
+                    color: window.location.pathname === path ? 'white' : 'rgba(255,255,255,0.8)',
                     '&:hover': { color: 'white' },
-                    textAlign: { xs: 'center', sm: 'left' }
+                    textAlign: { xs: 'center', sm: 'left' },
+                    fontWeight: window.location.pathname === path ? 600 : 'normal',
+                    textDecoration: 'none',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer'
                   }}
                 >
-                  {item}
+                  {name}
                 </Link>
               </motion.div>
             ))}
