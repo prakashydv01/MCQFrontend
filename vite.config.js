@@ -5,14 +5,13 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['react', 'react-dom'],
-      output: {
-        manualChunks: {
-          react: ['react', 'react-dom'],
-          blogdata: ['./src/blogs.js'] // Separate your blog data
-        }
-      }
+      external: [
+        // List problematic dependencies here
+        'react',
+        'react-dom',
+        'react-router-dom',
+        // Add other modules causing issues
+      ],
     },
-    chunkSizeWarningLimit: 1000
-  }
+  },
 });
