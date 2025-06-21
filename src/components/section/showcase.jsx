@@ -1,6 +1,17 @@
 import React from 'react';
-import { Box, Typography, Button, Grid, Paper, useTheme } from '@mui/material';
-import { CheckCircle, School, LiveHelp } from '@mui/icons-material';
+// MUI Components
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import { useTheme } from '@mui/material/styles';
+
+// MUI Icons
+import CheckCircle from '@mui/icons-material/CheckCircle';
+import School from '@mui/icons-material/School';
+import LiveHelp from '@mui/icons-material/LiveHelp';
+
 
 const WhyLearnWithUs = () => {
   const theme = useTheme();

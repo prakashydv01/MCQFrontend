@@ -1,4 +1,10 @@
-import { Box, Typography, Button, Container, useTheme } from '@mui/material';
+// MUI Components
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import { useTheme } from '@mui/material/styles';
+
 
 export default function Hero() {
   const theme = useTheme();

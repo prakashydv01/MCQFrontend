@@ -1,24 +1,26 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { 
-  Box, 
-  Typography, 
-  TextField, 
-  Button, 
-  InputAdornment, 
-  IconButton,
-  Divider,
-  Snackbar,
-  Alert
-} from '@mui/material';
-import { 
-  Email, 
-  Lock, 
-  Visibility, 
-  VisibilityOff,
-  School
-} from '@mui/icons-material';
+// MUI Components
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+
+// MUI Icons
+import Email from '@mui/icons-material/Email';
+import Lock from '@mui/icons-material/Lock';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import School from '@mui/icons-material/School';
+
+// Framer Motion
 import { motion } from 'framer-motion';
+
 import AuthLayout from './AuthLayout';
 
 export default function Login() {

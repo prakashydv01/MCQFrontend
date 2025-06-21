@@ -1,20 +1,19 @@
-import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
-import { 
-  Science, 
-  MedicalServices, 
-  Engineering, 
-  AccountBalance,
-  Gavel,
-  Palette,
-  Agriculture,
-  Computer
-} from '@mui/icons-material';
+// MUI Components
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+
+// MUI Icons
+import Engineering from '@mui/icons-material/Engineering';
+import Computer from '@mui/icons-material/Computer';
+
 import { Link } from 'react-router-dom';
 
 const faculties = [
   { id: 'Pcsit', name: 'Bsc.Csit', icon: <Computer fontSize="large" />, color: 'success.main', count: 580 },
   { id: 'PBit', name: 'Bit', icon: <Computer fontSize="large" />, color: 'primary.main', count: 450 },
-  { id: 'ioe', name: 'IOE', icon: <Engineering fontSize="large" />, color: 'warning.main', count: 650 },
+  { id: 'pioe', name: 'IOE', icon: <Engineering fontSize="large" />, color: 'warning.main', count: 650 },
 ];
 
 export default function FacultyPractice() {

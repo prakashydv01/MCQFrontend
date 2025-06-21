@@ -1,14 +1,13 @@
-import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
-import { 
-  Science, 
-  MedicalServices, 
-  Engineering, 
-  AccountBalance,
-  Gavel,
-  Palette,
-  Agriculture,
-  Computer
-} from '@mui/icons-material';
+// MUI Components
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+
+// MUI Icons
+import Engineering from '@mui/icons-material/Engineering';
+import Computer from '@mui/icons-material/Computer';
+
 import { Link } from 'react-router-dom';
 
 const faculties = [

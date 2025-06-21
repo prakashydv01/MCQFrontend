@@ -1,61 +1,63 @@
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from '../page/Home';
-import Signup from '../page/auth/Signup';
 
-import MedicalPage from '../page/medical/medicalpage';
-import MCQUploadForm from '../page/medical/uploadMcq';
-// Importing all the necessary pages for routing
-import IOE from '../page/IOE/IOE';
-import PMCQApp from '../page/medical/medicalPractice';
-import BscCsit from '../page/Bsc.Csit/csit';
-import Pcsit from '../page/Bsc.Csit/csit.practice';
-import Bit from '../page/BIT/Bit';
-import PBit from '../page/BIT/BitPractice';
-// Importing support and resources pages
-import ContactPage from '../page/support/contact';
-import AboutPage from '../page/support/aboutUs';
-import PrivacyPolicy from '../page/support/PrivacyPolicy';
-import TermsAndConditions from '../page/support/Terms';
-import PracticeGuides from '../page/Resources/practiceGuides';
-import SimpleBlog from '../page/support/blog';
-
+// Lazy loaded pages
+const HomePage = lazy(() => import('../page/Home'));
+const Signup = lazy(() => import('../page/auth/Signup'));
+const MedicalPage = lazy(() => import('../page/medical/medicalpage'));
+const MCQUploadForm = lazy(() => import('../page/medical/uploadMcq'));
+const PMCQApp = lazy(() => import('../page/medical/medicalPractice'));
+const BscCsit = lazy(() => import('../page/Bsc.Csit/csit'));
+const Pcsit = lazy(() => import('../page/Bsc.Csit/csit.practice'));
+const Bit = lazy(() => import('../page/BIT/Bit'));
+const PBit = lazy(() => import('../page/BIT/BitPractice'));
+const IOE = lazy(() => import('../page/IOE/IOE'));
+const PIOE = lazy(() => import('../page/IOE/PIOE'));
+//resource:eoute
+const AboutPage = lazy(() => import('../page/support/aboutUs'));
+const ContactPage = lazy(() => import('../page/support/contact'));
+const PrivacyPolicyPage = lazy(() => import('../page/support/privacyPolicy'));
+const TermsAndConditions = lazy(() => import('../page/support/Terms'));
+const BlogPage = lazy(() => import('../page/support/blog'));
+const PracticeGuide = lazy(() => import('../page/Resources/practiceGuides'));
 
 
 export default function AppRoutes() {
- 
   return (
     <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/Signup" element={<Signup />} />
-      
-      // Define routes for different faculties and pages
-      <Route path="/MCQUploadForm" element={<MCQUploadForm />} />
-      <Route path="/medical" element={<MedicalPage />} />
-      <Route path='/ioe' element={<IOE />} />
-      <Route path='/csit' element={<BscCsit />} />
-      <Route path='/bit' element={<Bit />} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/Signup" element={<Signup />} />
 
-      {/* Medical Practice Route */}
-      <Route path='/Pmedical' element={<PMCQApp/>} />
-      <Route path='/Pcsit' element={<Pcsit />} />
-      <Route path='/PBit' element={<PBit />} />
-      
-      {/* Add more routes as needed */}
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="/terms" element={<TermsAndConditions />} />
-      <Route path="/practice-guides" element={<PracticeGuides />} />
-      <Route path="/blog" element={<SimpleBlog />} />
-      
-      
-      
-      {/* Catch-all route for 404 Not Found */}
-    
-      
-    
-    </Routes>
+          <Route path="/MCQUploadForm" element={<MCQUploadForm />} />
+          <Route path="/medical" element={<MedicalPage />} />
+
+          <Route path="/csit" element={<BscCsit />} />
+          <Route path="/bit" element={<Bit />} />
+
+          <Route path="/Pmedical" element={<PMCQApp />} />
+          <Route path="/Pcsit" element={<Pcsit />} />
+          <Route path="/PBit" element={<PBit />} />
+
+          <Route path="/ioe" element={<IOE />} />
+          <Route path="/pioe" element={<PIOE />} />
+
+          // Resource routes
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />      
+          <Route path="/terms" element={<TermsAndConditions />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/practice-guide" element={<PracticeGuide />} />
+
+
+          {/* Add more faculty routes as needed */}
+          
+
+          {/* Add more routes as needed */}
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

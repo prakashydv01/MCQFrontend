@@ -1,33 +1,33 @@
 import { useState } from 'react';
-import { 
-  AppBar, 
-  Toolbar, 
-  Box, 
-  Button, 
-  Typography, 
-  Avatar, 
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-  useMediaQuery,
-  useTheme,
-  styled
-} from '@mui/material';
-import { 
-  Menu as MenuIcon,
-  Close,
-  Home,
-  Login,
-  LibraryBooks,
-  PersonAdd,
-  Book
-  // Add more icons here as needed
-} from '@mui/icons-material';
+// MUI Components
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+
+// MUI Icons
+import MenuIcon from '@mui/icons-material/Menu';
+import Close from '@mui/icons-material/Close';
+import Home from '@mui/icons-material/Home';
+import Login from '@mui/icons-material/Login';
+import LibraryBooks from '@mui/icons-material/LibraryBooks';
+import PersonAdd from '@mui/icons-material/PersonAdd';
+import Book from '@mui/icons-material/Book';
+// Add more icons here as needed
+
 
 import { Link } from 'react-router-dom';
 

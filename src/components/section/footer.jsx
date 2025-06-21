@@ -1,8 +1,27 @@
-import { Box, Container, Grid, Typography, Link, Divider } from '@mui/material';
-import { Facebook, Twitter, Instagram, LinkedIn, YouTube } from '@mui/icons-material';
+// MUI Components
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import Divider from '@mui/material/Divider';
+
+// MUI Icons
+import Facebook from '@mui/icons-material/Facebook';
+import Twitter from '@mui/icons-material/Twitter';
+import Instagram from '@mui/icons-material/Instagram';
+import LinkedIn from '@mui/icons-material/LinkedIn';
+import YouTube from '@mui/icons-material/YouTube';
+
+// Framer Motion
 import { motion } from 'framer-motion';
+
+// Emotion (for animation keyframes)
 import { keyframes } from '@emotion/react';
-import { useNavigate } from 'react-router-dom'; // Changed from next/router
+
+// React Router
+import { useNavigate } from 'react-router-dom';
+ // Changed from next/router
 
 const gradientAnimation = keyframes`
   0% { background-position: 0% 50% }
