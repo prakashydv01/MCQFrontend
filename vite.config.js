@@ -6,12 +6,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       external: [
-        // List problematic dependencies here
         'react',
         'react-dom',
-        'react-router-dom',
-        // Add other modules causing issues
+        'react-router-dom'
       ],
     },
   },
+  optimizeDeps: {
+    include: ['react', 'react-dom']
+  }
 });
