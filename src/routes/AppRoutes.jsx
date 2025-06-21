@@ -16,7 +16,7 @@ const PIOE = lazy(() => import('../page/IOE/PIOE'));
 //resource:eoute
 const AboutPage = lazy(() => import('../page/support/aboutUs'));
 const ContactPage = lazy(() => import('../page/support/contact'));
-const PrivacyPolicy = lazy(() => import('../page/support/privacyPolicy'));
+const PrivacyPolicy = lazy(() => import('../page/support/PrivacyPolicy'));
 const TermsAndConditions = lazy(() => import('../page/support/Terms'));
 const BlogPage = lazy(() => import('../page/support/blog'));
 const PracticeGuide = lazy(() => import('../page/Resources/practiceGuides'));
