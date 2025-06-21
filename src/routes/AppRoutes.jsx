@@ -16,7 +16,7 @@ const PIOE = lazy(() => import('../page/IOE/PIOE'));
 //resource:eoute
 const AboutPage = lazy(() => import('../page/support/aboutUs'));
 const ContactPage = lazy(() => import('../page/support/contact'));
-const PrivacyPolicyPage = lazy(() => import('../page/support/privacyPolicy'));
+const PrivacyPolicy = lazy(() => import('../page/support/privacyPolicy'));
 const TermsAndConditions = lazy(() => import('../page/support/Terms'));
 const BlogPage = lazy(() => import('../page/support/blog'));
 const PracticeGuide = lazy(() => import('../page/Resources/practiceGuides'));
@@ -46,7 +46,7 @@ export default function AppRoutes() {
           // Resource routes
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />      
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />      
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/practice-guide" element={<PracticeGuide />} />
