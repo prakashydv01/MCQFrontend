@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FiClock, FiCalendar, FiSearch, FiArrowLeft } from 'react-icons/fi';
 
 const BlogPage = () => {
   // Complete blog posts data with full articles
@@ -10,11 +9,11 @@ const BlogPage = () => {
       excerpt: 'Discover proven techniques to improve your performance in multiple-choice exams and maximize your scores.',
       content: `Mastering multiple-choice exams requires a strategic approach beyond just knowing the material. First, always read questions carefully, underlining keywords to avoid misinterpretation. Studies show that 23% of errors come from misreading questions.
 
-      The process of elimination is your most powerful tool - systematically eliminate obviously wrong answers to increase your odds from 25% to 33% or even 50%. Time management is crucial; allocate specific minutes per section and don't get stuck on difficult questions. 
-      
-      When unsure, trust your first instinct - research from the University of Chicago shows initial guesses are correct 68% of the time. Practice with timed mock tests to build stamina and identify weak areas. Analyze patterns in questions, as certain phrasing often indicates correct answers.
-      
-      For memorization-heavy topics, create mnemonics or visual associations. Always review all options before selecting, as the "best" answer may differ from the "correct" one. During the exam, maintain steady pacing and keep an eye on the clock. Finally, ensure you get adequate rest before test day - cognitive performance drops by 30% with sleep deprivation.`,
+The process of elimination is your most powerful tool - systematically eliminate obviously wrong answers to increase your odds from 25% to 33% or even 50%. Time management is crucial; allocate specific minutes per section and don't get stuck on difficult questions. 
+
+When unsure, trust your first instinct - research from the University of Chicago shows initial guesses are correct 68% of the time. Practice with timed mock tests to build stamina and identify weak areas. Analyze patterns in questions, as certain phrasing often indicates correct answers.
+
+For memorization-heavy topics, create mnemonics or visual associations. Always review all options before selecting, as the "best" answer may differ from the "correct" one. During the exam, maintain steady pacing and keep an eye on the clock. Finally, ensure you get adequate rest before test day - cognitive performance drops by 30% with sleep deprivation.`,
       category: 'Exam Tips',
       date: 'May 15, 2023',
       readTime: '5 min read',
@@ -30,11 +29,11 @@ const BlogPage = () => {
       excerpt: 'Learn how mental preparation and psychological techniques can significantly impact your exam results.',
       content: `Test-taking psychology often makes the difference between average and exceptional performance. The phenomenon of "test anxiety" affects nearly 40% of students, triggering fight-or-flight responses that impair recall. 
 
-      Combat this with the 4-4-4 box breathing technique: inhale for 4 seconds, hold for 4, exhale for 4. This activates the parasympathetic nervous system, reducing stress hormones by up to 50%. Growth mindset principles show that viewing exams as learning opportunities rather than threats improves outcomes by an average of 17%.
-      
-      The "hard start" technique suggests beginning with difficult questions then switching to easier ones, leveraging your brain's background processing. Research from the University of Chicago reveals that writing down worries before an exam can improve scores by 15% by freeing working memory.
-      
-      Familiarity breeds confidence - practice in environments resembling your testing center. Beware of the "illusion of competence" where recognition masquerades as recall; test yourself actively. Positive self-talk rewires neural pathways - replace "I'll fail" with "I'm prepared." Visualization techniques used by Olympic athletes apply equally to exams: mentally rehearse success scenarios.`,
+Combat this with the 4-4-4 box breathing technique: inhale for 4 seconds, hold for 4, exhale for 4. This activates the parasympathetic nervous system, reducing stress hormones by up to 50%. Growth mindset principles show that viewing exams as learning opportunities rather than threats improves outcomes by an average of 17%.
+
+The "hard start" technique suggests beginning with difficult questions then switching to easier ones, leveraging your brain's background processing. Research from the University of Chicago reveals that writing down worries before an exam can improve scores by 15% by freeing working memory.
+
+Familiarity breeds confidence - practice in environments resembling your testing center. Beware of the "illusion of competence" where recognition masquerades as recall; test yourself actively. Positive self-talk rewires neural pathways - replace "I'll fail" with "I'm prepared." Visualization techniques used by Olympic athletes apply equally to exams: mentally rehearse success scenarios.`,
       category: 'Psychology',
       date: 'April 28, 2023',
       readTime: '7 min read',
@@ -50,11 +49,11 @@ const BlogPage = () => {
       excerpt: 'Essential tips to allocate your time effectively during exams to ensure you complete all sections.',
       content: `Effective time management during competitive exams requires strategic planning and disciplined execution. Begin by analyzing the exam structure during preparation - note sections by difficulty and mark weightage. 
 
-      The 80/20 rule applies: 20% of your study time should address 80% of high-value content. During the exam, implement the "2-pass" system: first quickly answer all questions you're certain about (completing ~60% in half the allotted time), then return for deeper analysis.
-      
-      Allocate time proportionally to marks - a 10-mark question deserves twice the time of a 5-mark one. Set mini-deadlines; if a 60-minute section has 30 questions, you have 2 minutes per question. Watch for time sinks - questions consuming disproportionate time should be marked and revisited.
-      
-      Practice with a visible clock to develop internal timing radar. Include 5-minute buffers for review - catching one mistake often justifies the time investment. For computer-based tests, disable notifications and use full-screen mode to minimize distractions. These techniques prevent the common pitfall of leaving high-value questions unanswered due to poor time allocation.`,
+The 80/20 rule applies: 20% of your study time should address 80% of high-value content. During the exam, implement the "2-pass" system: first quickly answer all questions you're certain about (completing ~60% in half the allotted time), then return for deeper analysis.
+
+Allocate time proportionally to marks - a 10-mark question deserves twice the time of a 5-mark one. Set mini-deadlines; if a 60-minute section has 30 questions, you have 2 minutes per question. Watch for time sinks - questions consuming disproportionate time should be marked and revisited.
+
+Practice with a visible clock to develop internal timing radar. Include 5-minute buffers for review - catching one mistake often justifies the time investment. For computer-based tests, disable notifications and use full-screen mode to minimize distractions. These techniques prevent the common pitfall of leaving high-value questions unanswered due to poor time allocation.`,
       category: 'Exam Tips',
       date: 'April 15, 2023',
       readTime: '4 min read',
@@ -70,11 +69,11 @@ const BlogPage = () => {
       excerpt: 'Explore cognitive science principles that can help you study smarter, not harder.',
       content: `Cognitive science reveals powerful evidence-based learning techniques. Spaced repetition, where you review material at increasing intervals, can improve retention by up to 200% compared to cramming. The forgetting curve shows we lose 70% of new information within 24 hours unless reinforced.
 
-      Active recall (testing yourself) is 50% more effective than passive review. A University of Waterloo study found students using this technique scored a full letter grade higher. Interleaving - mixing different subjects/problems - improves discrimination skills by 43%.
-      
-      The Feynman Technique (explaining concepts simply) exposes knowledge gaps. Sleep plays a crucial role - during deep sleep, the brain replays and consolidates memories at 20x daytime speed. Exercise increases BDNF (brain-derived neurotrophic factor) by 30%, enhancing neuroplasticity.
-      
-      Contextual learning (studying in similar environments to testing) improves recall by 40%. Dual coding (combining words + visuals) leverages both verbal and visual memory systems. These science-backed methods can triple learning efficiency when applied consistently.`,
+Active recall (testing yourself) is 50% more effective than passive review. A University of Waterloo study found students using this technique scored a full letter grade higher. Interleaving - mixing different subjects/problems - improves discrimination skills by 43%.
+
+The Feynman Technique (explaining concepts simply) exposes knowledge gaps. Sleep plays a crucial role - during deep sleep, the brain replays and consolidates memories at 20x daytime speed. Exercise increases BDNF (brain-derived neurotrophic factor) by 30%, enhancing neuroplasticity.
+
+Contextual learning (studying in similar environments to testing) improves recall by 40%. Dual coding (combining words + visuals) leverages both verbal and visual memory systems. These science-backed methods can triple learning efficiency when applied consistently.`,
       category: 'Learning Science',
       date: 'March 30, 2023',
       readTime: '8 min read',
@@ -83,6 +82,46 @@ const BlogPage = () => {
       author: 'Dr. Neha Gupta',
       authorBio: 'Neuroscience researcher and education consultant',
       authorImage: 'https://randomuser.me/api/portraits/women/68.jpg'
+    },
+    {
+      id: 5,
+      title: 'How to Analyze Your Mock Test Results',
+      excerpt: 'A step-by-step guide to interpreting your practice test scores and identifying areas for improvement.',
+      content: `Mock tests are only valuable if you properly analyze your results. Begin by categorizing mistakes into knowledge gaps (content you didn't know), application errors (misapplied concepts), and careless mistakes. Research shows this classification improves subsequent performance by 28%.
+
+Create an error log tracking question types, topics, and mistake patterns. The 80/20 rule applies here - focus on the 20% of topics causing 80% of errors. Calculate your accuracy rate per subject area to identify weakest sections.
+
+Time analysis is crucial - note questions that took disproportionately long. For computer-adaptive tests, the difficulty level of questions you got wrong reveals your true capability ceiling. Review correct answers too - ensure your reasoning matches the optimal approach.
+
+Track progress quantitatively - aim for at least 5% improvement in weakest areas before the next mock. This data-driven approach transforms practice tests from anxiety-inducing chores to powerful diagnostic tools.`,
+      category: 'Exam Analysis',
+      date: 'March 22, 2023',
+      readTime: '6 min read',
+      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+      featured: false,
+      author: 'Sanjay Kapoor',
+      authorBio: 'Test preparation strategist and data analyst',
+      authorImage: 'https://randomuser.me/api/portraits/men/45.jpg'
+    },
+    {
+      id: 6,
+      title: 'Memory Techniques for Long-Term Retention',
+      excerpt: 'Powerful memorization methods that can help you retain information for your exams and beyond.',
+      content: `Effective memorization requires understanding how memory works. The forgetting curve shows we lose 70% of new information within 24 hours, but spaced repetition can reduce this to just 10%. The Leitner system, using progressively longer review intervals, boosts retention by up to 200%.
+
+Mnemonic devices like acronyms and acrostics improve recall of lists by 35%. The method of loci (memory palace) leverages spatial memory - ancient Greek orators could recall hours-long speeches using this technique. Chunking information into groups of 3-4 items matches our working memory capacity.
+
+Elaborative encoding connects new information to existing knowledge - creating vivid mental images improves recall by 40%. Sleep is crucial for memory consolidation - students who sleep after learning retain 50% more than those who pull all-nighters.
+
+Regular retrieval practice strengthens neural pathways - testing yourself is far more effective than passive review. These techniques combined can transform your ability to retain complex information for exams and beyond.`,
+      category: 'Study Techniques',
+      date: 'March 10, 2023',
+      readTime: '7 min read',
+      image: 'https://images.unsplash.com/photo-1495465798138-718f86d1a4bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+      featured: false,
+      author: 'Ananya Desai',
+      authorBio: 'Memory coach and learning specialist',
+      authorImage: 'https://randomuser.me/api/portraits/women/52.jpg'
     }
   ];
 
@@ -233,11 +272,12 @@ const BlogPage = () => {
       '> *': {
         marginRight: '15px',
         display: 'flex',
-        alignItems: 'center',
-        'svg': {
-          marginRight: '5px'
-        }
+        alignItems: 'center'
       }
+    },
+    metaIcon: {
+      marginRight: '5px',
+      fontWeight: 'bold'
     },
     readMoreLink: {
       display: 'inline-flex',
@@ -248,13 +288,6 @@ const BlogPage = () => {
       marginTop: '15px',
       ':hover': {
         textDecoration: 'underline'
-      },
-      'svg': {
-        marginLeft: '5px',
-        transition: 'transform 0.3s ease'
-      },
-      ':hover svg': {
-        transform: 'translateX(3px)'
       }
     },
     blogControls: {
@@ -279,7 +312,7 @@ const BlogPage = () => {
     },
     searchInput: {
       width: '100%',
-      padding: '12px 15px 12px 40px',
+      padding: '12px 15px',
       border: '1px solid #e2e8f0',
       borderRadius: '8px',
       fontSize: '1rem',
@@ -289,13 +322,6 @@ const BlogPage = () => {
         borderColor: '#3182ce',
         boxShadow: '0 0 0 3px rgba(49, 130, 206, 0.2)'
       }
-    },
-    searchIcon: {
-      position: 'absolute',
-      left: '15px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      color: '#a0aec0'
     },
     categoryButtons: {
       display: 'flex',
@@ -387,11 +413,7 @@ const BlogPage = () => {
       '> *': {
         marginRight: '12px',
         display: 'flex',
-        alignItems: 'center',
-        'svg': {
-          marginRight: '5px',
-          fontSize: '0.9rem'
-        }
+        alignItems: 'center'
       }
     },
     pagination: {
@@ -441,12 +463,13 @@ const BlogPage = () => {
       cursor: 'pointer',
       marginBottom: '30px',
       padding: '8px 0',
-      'svg': {
-        marginRight: '8px'
-      },
       ':hover': {
         textDecoration: 'underline'
       }
+    },
+    backIcon: {
+      marginRight: '8px',
+      fontWeight: 'bold'
     },
     expandedPostTitle: {
       fontSize: '2rem',
@@ -524,7 +547,7 @@ const BlogPage = () => {
     return (
       <div style={styles.container}>
         <button onClick={() => setExpandedPost(null)} style={styles.backButton}>
-          <FiArrowLeft /> Back to articles
+          <span style={styles.backIcon}>←</span> Back to articles
         </button>
         
         <h1 style={styles.expandedPostTitle}>{expandedPost.title}</h1>
@@ -575,8 +598,8 @@ const BlogPage = () => {
                     <h3 style={styles.postTitle}>{post.title}</h3>
                     <p style={styles.postExcerpt}>{post.excerpt}</p>
                     <div style={styles.postMeta}>
-                      <span><FiCalendar /> {post.date}</span>
-                      <span><FiClock /> {post.readTime}</span>
+                      <span><span style={styles.metaIcon}>📅</span> {post.date}</span>
+                      <span><span style={styles.metaIcon}>⏱</span> {post.readTime}</span>
                     </div>
                   </div>
                 </div>
@@ -613,11 +636,11 @@ const BlogPage = () => {
                 <h3 style={styles.featuredPostTitle}>{post.title}</h3>
                 <p style={styles.featuredPostExcerpt}>{post.excerpt}</p>
                 <div style={styles.featuredPostMeta}>
-                  <span><FiCalendar /> {post.date}</span>
-                  <span><FiClock /> {post.readTime}</span>
+                  <span><span style={styles.metaIcon}>📅</span> {post.date}</span>
+                  <span><span style={styles.metaIcon}>⏱</span> {post.readTime}</span>
                 </div>
                 <div style={styles.readMoreLink}>
-                  Read more 
+                  Read more →
                 </div>
               </div>
             </div>
@@ -629,10 +652,9 @@ const BlogPage = () => {
       <div>
         <div style={styles.blogControls}>
           <div style={styles.searchContainer}>
-            <FiSearch style={styles.searchIcon} />
             <input
               type="text"
-              placeholder="Search articles..."
+              placeholder="🔍 Search articles..."
               style={styles.searchInput}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -667,8 +689,8 @@ const BlogPage = () => {
                 <h3 style={styles.postTitle}>{post.title}</h3>
                 <p style={styles.postExcerpt}>{post.excerpt}</p>
                 <div style={styles.postMeta}>
-                  <span><FiCalendar /> {post.date}</span>
-                  <span><FiClock /> {post.readTime}</span>
+                  <span><span style={styles.metaIcon}>📅</span> {post.date}</span>
+                  <span><span style={styles.metaIcon}>⏱</span> {post.readTime}</span>
                 </div>
               </div>
             </div>
@@ -680,7 +702,7 @@ const BlogPage = () => {
           <button style={getStyles('paginationButton', true)}>1</button>
           <button style={getStyles('paginationButton')}>2</button>
           <button style={getStyles('paginationButton')}>3</button>
-          <button style={getStyles('paginationButton')}>Next</button>
+          <button style={getStyles('paginationButton')}>Next →</button>
         </div>
       </div>
     </div>
