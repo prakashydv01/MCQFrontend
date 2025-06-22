@@ -1,24 +1,31 @@
-import React, { lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 
-// Lazy load components
-const Header = lazy(() => import('../components/layout/Header'));
-const Hero = lazy(() => import('../components/section/Hero'));
-const FacultyBoxes = lazy(() => import('../components/section/FacultyBoxes'));
+
+// Lazy load only the heaviest components (prioritize above-the-fold content)
 const FacultyPractice = lazy(() => import('../components/section/facultyPractice'));
-const WhyLearnWithUs = lazy(() => import('../components/section/showcase'));
 const Leaderboard = lazy(() => import('../components/section/LeaderBoard'));
-const Footer = lazy(() => import('../components/section/footer'));
+
+// Keep these synchronous as they're likely needed immediately
+import Header from '../components/layout/Header';
+import Hero from '../components/section/Hero';
+import FacultyBoxes from '../components/section/FacultyBoxes';
+import WhyLearnWithUs from '../components/section/showcase';
+import Footer from '../components/section/footer';
 
 export default function HomePage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <>
       <Header />
       <Hero />
       <FacultyBoxes />
-      <FacultyPractice />
+      
+      <Suspense fallback={<div>Loading...</div>}>
+        <FacultyPractice />
+        <Leaderboard />
+      </Suspense>
+      
       <WhyLearnWithUs />
-      <Leaderboard />
       <Footer />
-    </Suspense>
+    </>
   );
 }
