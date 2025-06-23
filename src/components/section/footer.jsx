@@ -310,7 +310,7 @@ const Footer = () => {
               px: 2
             }}
           >
-            © {new Date().getFullYear()} MCQMaster. All rights reserved.
+            © {new Date().getFullYear()} Hamro Exam. All rights reserved.
           </Typography>
         </motion.div>
       </Container>
