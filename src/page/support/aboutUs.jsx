@@ -422,7 +422,7 @@ const AboutPage = () => {
             <div style={getStyles('statLabel')}>User Satisfaction</div>
           </div>
           <div style={getStyles('statItem')}>
-            <div style={getStyles('statNumber')}>50+</div>
+            <div style={getStyles('statNumber')}>5+</div>
             <div style={getStyles('statLabel')}>Exam Categories</div>
           </div>
         </div>
