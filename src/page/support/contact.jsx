@@ -169,7 +169,7 @@ const ContactPage = () => {
     },
     {
       question: "Where are your offices located?",
-      answer: "Our headquarters are at 123 MCQ Street in Knowledge City. We also have regional offices in several major cities worldwide.",
+      answer: "Our headquarters are at imadol , Lalitpur. We also have regional offices in several major cities worldwide.",
       isOpen: false
     },
     {
@@ -213,12 +213,12 @@ const ContactPage = () => {
             <div style={styles.infoContent}>
               <h3 style={styles.infoHeading}>Email</h3>
               <p style={styles.infoText}>
-                <a href="mailto:support@mcqsite.com" style={{ color: '#4299e1', textDecoration: 'none' }}>
-                  support@mcqsite.com
+                <a href="hamroexam1@gmail.com" style={{ color: '#4299e1', textDecoration: 'none' }}>
+                  hamroexam1@gmail.com
                 </a>
                 <br />
-                <a href="mailto:info@mcqsite.com" style={{ color: '#4299e1', textDecoration: 'none' }}>
-                  info@mcqsite.com
+                <a href="hamroexam1@gmail.com" style={{ color: '#4299e1', textDecoration: 'none' }}>
+                  hamroexam1@gmail.com
                 </a>
               </p>
             </div>
@@ -229,9 +229,9 @@ const ContactPage = () => {
             <div style={styles.infoContent}>
               <h3 style={styles.infoHeading}>Phone</h3>
               <p style={styles.infoText}>
-                Main: <a href="tel:+15551234567" style={{ color: '#4299e1', textDecoration: 'none' }}>+1 (555) 123-4567</a>
+                Main: <a href="Phone: 9701128606" style={{ color: '#4299e1', textDecoration: 'none' }}>+(977)9701128606</a>
                 <br />
-                Support: <a href="tel:+15559876543" style={{ color: '#4299e1', textDecoration: 'none' }}>+1 (555) 987-6543</a>
+                Support: <a href="tel:+15559876543" style={{ color: '#4299e1', textDecoration: 'none' }}>+(977)9701128606</a>
               </p>
             </div>
           </div>
@@ -241,9 +241,9 @@ const ContactPage = () => {
             <div style={styles.infoContent}>
               <h3 style={styles.infoHeading}>Address</h3>
               <p style={styles.infoText}>
-                123 MCQ Street<br />
-                Knowledge City, Ed 54321<br />
-                United States
+                Imadol<br />
+                Lalitpur<br />
+                Nepal
               </p>
             </div>
           </div>
@@ -261,9 +261,7 @@ const ContactPage = () => {
           </div>
 
           <div style={styles.socialLinks}>
-            <a href="https://twitter.com" style={styles.socialLink} aria-label="Twitter">
-              🐦
-            </a>
+            
             <a href="https://facebook.com" style={styles.socialLink} aria-label="Facebook">
               👍
             </a>

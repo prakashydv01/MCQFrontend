@@ -3,10 +3,10 @@ import { useState } from 'react';
 const AboutPage = () => {
   // Single operator data
   const operator = {
-    name: 'Your Name', // Replace with your name
+    name: 'Prakash Yadav', // Replace with your name
     role: 'Founder & Developer',
     bio: 'I created Hamro Exam to provide high-quality MCQ practice for students and professionals. With a passion for education technology, I built this platform to make test preparation accessible and effective for everyone.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80', // Replace with your photo
+    image: 'https://res.cloudinary.com/backendsrc/image/upload/v1750821073/WhatsApp_Image_2025-06-15_at_10.21.29_PM_pv13na.jpg', // Replace with your photo
     funFact: 'Believes in the power of education to transform lives'
   };
 

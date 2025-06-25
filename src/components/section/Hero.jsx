@@ -4,6 +4,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
+// Image import
+import studentImg from '../../assets/images/student.jpg';
 
 
 export default function Hero() {
@@ -26,7 +28,7 @@ export default function Hero() {
           right: 0,
           bottom: 0,
           left: 0,
-          backgroundImage: 'url("https://res.cloudinary.com/backendsrc/image/upload/v1750496005/student_xlhnmy.jpg")',
+          backgroundImage: `url(${studentImg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',

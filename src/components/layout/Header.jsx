@@ -27,6 +27,7 @@ import LibraryBooks from '@mui/icons-material/LibraryBooks';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Book from '@mui/icons-material/Book';
 // Add more icons here as needed
+import logo from '../../assets/images/Hamro-Exam.png';
 
 
 import { Link } from 'react-router-dom';
@@ -205,14 +206,24 @@ export default function Header() {
     >
       <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 4 } }}>
         {/* Logo */}
-        <Box component={Link} to="/" display="flex" alignItems="center" gap={1} sx={{ textDecoration: 'none', color: 'inherit' }}>
-          <Avatar 
-            src="https://res.cloudinary.com/backendsrc/image/upload/v1750496030/Hamro-Exam_dvxxum.png"
-            alt="MCQMaster Logo" 
-            sx={{ width: 40, height: 40 }}
-          />
-          <Typography variant="h6" fontWeight="bold">Hamro Exam</Typography>
-        </Box>
+       <Box
+  component={Link}
+  to="/"
+  display="flex"
+  alignItems="center"
+  gap={1}
+  sx={{ textDecoration: 'none', color: 'inherit' }}
+>
+  <Avatar 
+    src={logo}
+    alt="MCQMaster Logo" 
+    sx={{ width: 40, height: 40 }}
+  />
+  <Typography variant="h6" fontWeight="bold">
+    Hamro Exam
+  </Typography>
+</Box>
+
 
         {/* Desktop Menu */}
         {renderDesktopMenu}
