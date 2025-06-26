@@ -24,7 +24,7 @@ export default defineConfig({
         '/bca',
         '/ioe',
         '/pioe',
-        'Pcsit',
+        '/Pcsit',
         '/PBit',
         '/Pmedical',
         '/login',
