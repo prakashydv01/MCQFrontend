@@ -1,8 +1,124 @@
 import React, { useState } from 'react';
+import Prakash from '../../assets/images/Prakash.jpeg';
 
 const BlogPage = () => {
   // Complete blog posts data with full articles
   const blogPosts = [
+    {
+  id: 1,
+  title: 'BIT Entrance Exam in Nepal: A Complete Guide for Aspiring Students',
+  excerpt: 'Everything you need to know about the BIT entrance exam in Nepal, including syllabus, preparation tips, and career prospects.',
+  content: `The Bachelor of Information Technology (BIT) is one of the most sought-after programs in Nepal for students interested in IT, software development, and computer science. With increasing demand for tech professionals, securing a seat in a reputed college requires thorough preparation for the BIT entrance exam.  
+
+Understanding the BIT Entrance Exam  
+The BIT entrance exam in Nepal is a competitive test conducted by various universities, including Tribhuvan University (TU), Purbanchal University (PU), and Pokhara University (PoU). The exam typically includes:  
+- Multiple-Choice Questions (MCQs) covering Mathematics, English, and Computer Fundamentals.  
+- Logical Reasoning and General Knowledge sections in some universities.  
+- Time duration: Usually 1.5 to 2 hours.  
+
+Syllabus Breakdown  
+1. Mathematics (40-50% weightage): Algebra, Trigonometry, Calculus, Probability, and Statistics.  
+2. English (20-30% weightage): Grammar, Comprehension, Vocabulary.  
+3. Computer Fundamentals (20-30% weightage): Basics of Programming, Hardware, Software, Networking.  
+
+Top 5 Preparation Strategies  
+1. Master the Basics: Strengthen your foundation in Mathematics and Computer concepts.  
+2. Practice Previous Year Questions: Familiarize yourself with the exam pattern.  
+3. Take Mock Tests: Simulate exam conditions to improve speed and accuracy.  
+4. Focus on Weak Areas: Identify and improve topics where you struggle.  
+5. Time Management: Allocate time per section to avoid last-minute rushing.  
+
+Career Prospects After BIT  
+- Software Developer  
+- IT Consultant  
+- Network Administrator  
+- Data Analyst  
+- Cybersecurity Specialist  
+
+Top Colleges Offering BIT in Nepal  
+1. Tribhuvan University (TU): Institute of Science and Technology (IOST), Amrit Science Campus (ASCOL).  
+2. Purbanchal University (PU): Nobel College, Kathford International College.  
+3. Pokhara University (PoU): Pokhara University School of Engineering.  
+
+Pro Tip: Many colleges also consider +2 grades, so maintain a good academic record.  
+
+With proper preparation and dedication, cracking the BIT entrance exam in Nepal is achievable. Start early, stay consistent, and aim for excellence!`,
+  category: 'BIT Entrance Exam',
+  date: 'July 3, 2025',
+  readTime: '6 min read',
+  image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+  featured: true,
+  author: 'Prakash Yadav',
+  authorBio: 'Education specialist with 10+ years of exam preparation experience',
+  authorImage: `${Prakash} `
+},
+{
+  id: 2,
+  title: 'B.Sc. CSIT Entrance Exam in Nepal: A Complete Guide',
+  excerpt: 'Everything you need to know about the B.Sc. CSIT entrance exam in Nepal, including syllabus, preparation tips, and career opportunities.',
+  content: `The Bachelor of Science in Computer Science and Information Technology (B.Sc. CSIT) is one of the most prestigious and competitive undergraduate programs in Nepal for students aspiring to build a career in IT and computer science. Conducted by Tribhuvan University (TU), the B.Sc. CSIT entrance exam is the gateway to securing a seat in this highly sought-after program.
+
+Understanding the B.Sc. CSIT Entrance Exam
+
+The B.Sc. CSIT entrance exam is a centralized test conducted by the Institute of Science and Technology (IOST), Tribhuvan University. The exam is highly competitive, with thousands of applicants vying for limited seats in reputed colleges across Nepal. The exam typically consists of:
+- Multiple-Choice Questions (MCQs) covering Physics, Chemistry, Mathematics,  English and Computer Science.
+- Questions designed to test analytical and logical reasoning skills.
+- A total of 100 questions to be completed in 2 hours.
+
+Syllabus Breakdown
+
+1. Physics (25% weightage): Mechanics, Heat and Thermodynamics, Waves and Optics, Electricity and Magnetism, Modern Physics.
+
+2. Chemistry (25% weightage): General and Physical Chemistry, Inorganic Chemistry, Organic Chemistry.
+
+3. Mathematics (25% weightage): Algebra, Trigonometry, Calculus, Coordinate Geometry, Probability and Statistics.
+
+4. English (15% weightage): Grammar, Vocabulary, Comprehension, Basic Writing Skills.
+
+5. Computer Science (10% weightage): Basics of Computer, Programming Concepts, Data Structures, Algorithms.
+
+Top 5 Preparation Strategies :
+
+1. Understand the Syllabus: Familiarize yourself with the detailed syllabus and focus on high-weightage topics.
+
+2. Practice Past Papers: Solve previous years' question papers to understand the exam pattern and difficulty level.
+
+3. Strengthen Basics: Build a strong foundation in Physics, Chemistry, and Mathematics, especially topics from your +2 curriculum.
+
+4. Time Management: Practice solving questions within the time limit to improve speed and accuracy.
+
+5. Take Mock Tests: Regular mock tests will help you assess your preparation and identify areas for improvement.
+
+Career Prospects After B.Sc. CSIT:
+- Software Engineer/Developer,
+- Data Scientist/Analyst,
+- Network and Security Engineer,
+- AI/ML Engineer,
+- IT Consultant,
+- System Analyst,
+- Cybersecurity Specialist
+
+👉Top Colleges Offering B.Sc. CSIT in Nepal
+
+1. Tribhuvan University: Institute of Science and Technology (IOST), Amrit Science Campus (ASCOL), Patan Multiple Campus.
+
+2. Kathmandu University: School of Science, Dhulikhel.
+
+3. Private Colleges: St. Xavier's College, Prime College, Texas International College.
+
+✔✔Pro Tip: Along with entrance exam preparation, focus on your +2 grades as they play a significant role in the final selection process.
+
+With dedication, strategic preparation, and consistent effort, cracking the B.Sc. CSIT entrance exam is within your reach. Start your preparation early, stay focused, and aim for success in this promising field.`,
+  category: 'CSIT Entrance Exam',
+  date: 'July 3, 2025',
+  readTime: '7 min read',
+  image: 'https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+  featured: true,
+  author: 'Prakash Yadav',
+  authorBio: 'Education specialist with 10+ years of exam preparation experience',
+  authorImage: `${Prakash} `
+},
+    
     {
       id: 1,
       title: '10 Effective Strategies for MCQ Exam Preparation',
@@ -19,9 +135,9 @@ For memorization-heavy topics, create mnemonics or visual associations. Always r
       readTime: '5 min read',
       image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
       featured: true,
-      author: 'Rajesh Sharma',
+      author: 'Prakash Yadav',
       authorBio: 'Education specialist with 10+ years of exam preparation experience',
-      authorImage: 'https://randomuser.me/api/portraits/men/32.jpg'
+      authorImage: `${Prakash}`
     },
     {
       id: 2,
@@ -39,9 +155,9 @@ Familiarity breeds confidence - practice in environments resembling your testing
       readTime: '7 min read',
       image: 'https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
       featured: false,
-      author: 'Priya Patel',
+      author: 'Prakash Yadav',
       authorBio: 'Cognitive psychologist specializing in learning optimization',
-      authorImage: 'https://randomuser.me/api/portraits/women/44.jpg'
+      authorImage: `${Prakash}`
     },
     {
       id: 3,
@@ -59,9 +175,9 @@ Practice with a visible clock to develop internal timing radar. Include 5-minute
       readTime: '4 min read',
       image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
       featured: true,
-      author: 'Amit Joshi',
+      author: 'Prakash Yadav',
       authorBio: 'Competitive exam coach for 8 years',
-      authorImage: 'https://randomuser.me/api/portraits/men/67.jpg'
+      authorImage: `${Prakash}`
     },
     {
       id: 4,
@@ -79,9 +195,9 @@ Contextual learning (studying in similar environments to testing) improves recal
       readTime: '8 min read',
       image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
       featured: false,
-      author: 'Dr. Neha Gupta',
+      author: 'Prakash Yadav',
       authorBio: 'Neuroscience researcher and education consultant',
-      authorImage: 'https://randomuser.me/api/portraits/women/68.jpg'
+      authorImage: `${Prakash}`
     },
     {
       id: 5,
@@ -99,9 +215,9 @@ Track progress quantitatively - aim for at least 5% improvement in weakest areas
       readTime: '6 min read',
       image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
       featured: false,
-      author: 'Sanjay Kapoor',
+      author: 'Prakash Yadav',
       authorBio: 'Test preparation strategist and data analyst',
-      authorImage: 'https://randomuser.me/api/portraits/men/45.jpg'
+      authorImage: `${Prakash}`
     },
     {
       id: 6,
@@ -119,14 +235,16 @@ Regular retrieval practice strengthens neural pathways - testing yourself is far
       readTime: '7 min read',
       image: 'https://images.unsplash.com/photo-1495465798138-718f86d1a4bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
       featured: false,
-      author: 'Ananya Desai',
+      author: 'Prakash Yadav',
       authorBio: 'Memory coach and learning specialist',
-      authorImage: 'https://randomuser.me/api/portraits/women/52.jpg'
+      authorImage: `${Prakash}`
     }
   ];
 
   // Categories
-  const categories = ['All', 'Exam Tips', 'Psychology', 'Learning Science', 'Exam Analysis', 'Study Techniques'];
+  const categories = ['All', 'Exam Tips', 'Psychology', 
+    'Learning Science', 'Exam Analysis', 'Study Techniques' ,
+     'BIT Entrance Exam', 'CSIT Entrance Exam'];
 
   // State
   const [selectedCategory, setSelectedCategory] = useState('All');

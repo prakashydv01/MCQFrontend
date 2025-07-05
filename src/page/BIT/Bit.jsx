@@ -34,27 +34,20 @@ import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
 const questionSets = [
- //English
-    { id: 'bit-english-set-1', name: 'English Set 1', questionCount: 50, color: '#3F51B5' },
-    { id: 'bit-english-set-2', name: 'English Set 2', questionCount: 50, color: '#3F51B5' },
-    { id: 'bit-english-set-3', name: 'English Set 3', questionCount: 50, color: '#3F51B5' },
-    { id: 'bit-english-set-4', name: 'English Set 4', questionCount: 50, color: '#3F51B5' },
-    { id: 'bit-english-set-5', name: 'English Set 5', questionCount: 50, color: '#3F51B5' },
+  { id: 'bit-com-mocktest-1', name: 'For Computer -> MockTest I', color: '#4CAF50', questionCount: '100' },
+  { id: 'bit-com-mocktest-2', name: 'For Computer -> MockTest II', color: '#2196F3', questionCount: '100' },
+  { id: 'bit-com-mocktest-3', name: 'For Computer -> MockTest III', color: '#FF9800', questionCount: '100' },
+  { id: 'bit-com-mocktest-4', name: 'For Computer -> MockTest IV', color: '#9C27B0', questionCount: '100' },
+  { id: 'bit-com-mocktest-5', name: 'For Computer -> MockTest V', color: '#E91E63', questionCount: '100' },
 
-    //Mathematics
-    { id: 'bit-math-set-1', name: 'Mathematics Set 1', questionCount: 50, color: '#4CAF50' },
-    { id: 'bit-math-set-2', name: 'Mathematics Set 2', questionCount: 50, color: '#4CAF50' },
-    { id: 'bit-math-set-3', name: 'Mathematics Set 3', questionCount: 50, color: '#4CAF50' },
-    { id: 'bit-math-set-4', name: 'Mathematics Set 4', questionCount: 50, color: '#4CAF50' },
-    { id: 'bit-math-set-5', name: 'Mathematics Set 5', questionCount: 50, color: '#4CAF50' },
+  //for mathematics
+  {id: 'bit-math-mocktest-1', name: 'For Mathematics -> MockTest I', color: '#FF5722', questionCount: '100' },
+  {id: 'bit-math-mocktest-2', name: 'For Mathematics -> MockTest II', color: '#3F51B5', questionCount: '100' },
+  {id: 'bit-math-mocktest-3', name: 'For Mathematics -> MockTest III', color: '#009688', questionCount: '100' },
+  {id: 'bit-math-mocktest-4', name: 'For Mathematics -> MockTest IV', color: '#8BC34A', questionCount: '100' },
+  {id: 'bit-math-mocktest-5', name: 'For Mathematics -> MockTest V', color: '#FF9800', questionCount: '100' },
 
-    //Computer Science
-    { id: 'bit-computer-set-1', name: 'Computer  Set 1', questionCount: 50, color: '#FF9800' },
-    { id: 'bit-computer-set-2', name: 'Computer  Set 2', questionCount: 50, color: '#FF9800' },
-    { id: 'bit-computer-set-3', name: 'Computer  Set 3', questionCount: 50, color: '#FF9800' },
-    { id: 'bit-computer-set-4', name: 'Computer  Set 4', questionCount: 50, color: '#FF9800' },
-    { id: 'bit-computer-set-5', name: 'Computer  Set 5', questionCount: 50, color: '#FF9800' },
- 
+    
 ];
 
 const TextWithLatex = ({ text }) => {
@@ -81,6 +74,14 @@ const TextWithLatex = ({ text }) => {
   );
 };
 
+const formatTime = (timeInSeconds) => {
+  const hours = Math.floor(timeInSeconds / 3600);
+  const minutes = Math.floor((timeInSeconds % 3600) / 60);
+  const seconds = timeInSeconds % 60;
+  
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+};
+
 const Bit = () => {
   const [mobileOpen, setMobileOpen] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -93,6 +94,9 @@ const Bit = () => {
   const [showResults, setShowResults] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
   const [showAnswerPreview, setShowAnswerPreview] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(7200); // 2 hours in seconds
+  const [timerActive, setTimerActive] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -100,6 +104,33 @@ const Bit = () => {
       setMobileOpen(true);
     }
   }, []);
+
+  // Timer effect
+  useEffect(() => {
+    let interval;
+    if (timerActive && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft(prevTime => {
+          if (prevTime <= 1) {
+            clearInterval(interval);
+            setTimerActive(false);
+            handleSubmit(); // Auto submit when time runs out
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    } else if (timeLeft === 0 && timerActive) {
+      setTimerActive(false);
+      handleSubmit(); // Auto submit when time runs out
+    }
+    return () => clearInterval(interval);
+  }, [timerActive, timeLeft]);
+
+  const startQuiz = () => {
+    setQuizStarted(true);
+    setTimerActive(true);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -113,6 +144,9 @@ const Bit = () => {
       setShowAnswers(false);
       setShowAnswerPreview(false);
       setMobileOpen(false);
+      setQuizStarted(false);
+      setTimerActive(false);
+      setTimeLeft(7200); // Reset timer to 2 hours
       
       const apiUrl = import.meta.env.VITE_GET_MCQ;
       const response = await fetch(`${apiUrl}`, {
@@ -177,6 +211,7 @@ const Bit = () => {
   };
 
   const handleSubmit = () => {
+    setTimerActive(false);
     let score = 0;
     questions.forEach((question, index) => {
       if (answers[index] === question.correctAnswer) {
@@ -209,6 +244,9 @@ const Bit = () => {
     setShowAnswerPreview(false);
     setCurrentQuestion(0);
     setSelectedAnswer('');
+    setQuizStarted(false);
+    setTimerActive(false);
+    setTimeLeft(7200); // Reset timer to 2 hours
     const resetAnswers = {};
     questions.forEach((_, index) => {
       resetAnswers[index] = null;
@@ -369,10 +407,10 @@ const Bit = () => {
             textAlign: 'center'
           }}>
             <Typography variant="h5" sx={{ mb: 2 }}>
-              Welcome to MCQ Practice
+             BIT Entrance MCQ  Questions
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a subject from the sidebar to begin your quiz'}
+              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a Mock Test from the sidebar to begin your Exam'}
             </Typography>
           </Box>
         ) : questions.length === 0 ? (
@@ -390,7 +428,36 @@ const Bit = () => {
               variant="outlined"
               onClick={() => setCurrentSet(null)}
             >
-              Back to Subjects
+              Back to MockTest
+            </Button>
+          </Box>
+        ) : !quizStarted ? (
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            height: '100%',
+            textAlign: 'center'
+          }}>
+            <Typography variant="h4" sx={{ mb: 3 }}>
+              Ready to Start {currentSetData.name}?
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 4 }}>
+              This Exam contains {questions.length} questions and has a time limit of 2 hours.
+            </Typography>
+            <Button 
+              variant="contained" 
+              size="large"
+              onClick={startQuiz}
+              sx={{
+                bgcolor: currentSetData.color,
+                '&:hover': { bgcolor: currentSetData.color },
+                fontSize: '1.2rem',
+                padding: '10px 30px'
+              }}
+            >
+              Start Exam
             </Button>
           </Box>
         ) : (
@@ -399,9 +466,17 @@ const Bit = () => {
               <Typography variant="h5" sx={{ fontWeight: 'bold', color: currentSetData.color }}>
                 {currentSetData.name}
               </Typography>
-              <Typography variant="subtitle1" color="text.secondary">
-                Question {currentQuestion + 1} of {questions.length}
-              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography variant="subtitle1" color="text.secondary" sx={{ mr: 2 }}>
+                  Question {currentQuestion + 1} of {questions.length}
+                </Typography>
+                <Typography variant="subtitle1" sx={{ 
+                  fontWeight: 'bold',
+                  color: timeLeft < 600 ? '#f44336' : 'inherit' // Red when less than 10 minutes left
+                }}>
+                  Time: {formatTime(timeLeft)}
+                </Typography>
+              </Box>
             </Box>
 
             <LinearProgress 
@@ -556,7 +631,7 @@ const Bit = () => {
           backgroundColor: currentSetData?.color || '#3F51B5',
           color: 'white'
         }}>
-          Quiz Results
+          Exam Results
           <IconButton onClick={handleCloseResults} sx={{ color: 'white' }}>
             <CloseIcon />
           </IconButton>
@@ -698,7 +773,7 @@ const Bit = () => {
               '&:hover': { borderColor: currentSetData?.color }
             }}
           >
-            Choose Another Subject
+            Choose Another Mock Test
           </Button>
         </DialogActions>
       </Dialog>

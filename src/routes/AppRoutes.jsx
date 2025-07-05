@@ -20,7 +20,7 @@ const PrivacyPolicy = lazy(() => import('../page/support/PrivacyPolicy'));
 const TermsAndConditions = lazy(() => import('../page/support/Terms'));
 const BlogPage = lazy(() => import('../page/support/blog'));
 const PracticeGuide = lazy(() => import('../page/Resources/practiceGuides'));
-
+const Psc = lazy (() => import('../page/psc/PscComputer'));
 
 export default function AppRoutes() {
   return (
@@ -35,7 +35,9 @@ export default function AppRoutes() {
 
           <Route path="/csit" element={<BscCsit />} />
           <Route path="/bit" element={<Bit />} />
-
+          <Route path="/computerOperator" element={<Psc />} />
+          
+          {/* Practice routes */}
           <Route path="/Pmedical" element={<PMCQApp />} />
           <Route path="/Pcsit" element={<Pcsit />} />
           <Route path="/PBit" element={<PBit />} />
@@ -51,8 +53,7 @@ export default function AppRoutes() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/practice-guides" element={<PracticeGuide />} />
 
-
-          {/* Add more faculty routes as needed */}
+          
           
 
           {/* Add more routes as needed */}

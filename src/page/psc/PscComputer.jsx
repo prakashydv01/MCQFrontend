@@ -34,13 +34,23 @@ import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
 const questionSets = [
-  { id: 'ioe-mocktest-1', name: 'IOE MOCKTEST I ', color: '#4CAF50', questionCount: '25' },
-  { id: 'ioe-mocktest-2', name: 'IOE MOCKTEST II', color: '#2196F3', questionCount: '25' },
-  { id: 'ioe-mocktest-3', name: 'IOE MOCKTEST III', color: '#FF9800', questionCount: '25' },
-  { id: 'ioe-mocktest-4', name: 'IOE MOCKTEST IV', color: '#9C27B0', questionCount: '25' },
-  { id: 'ioe-mocktest-5', name: 'IOE MOCKTEST V', color: '#F44336', questionCount: '25' }
-    
-
+  { id: 'csit-physics-1', name: 'Physics_Set_1', color: '#4CAF50', questionCount: '25' },
+    { id: 'csit-physics-2', name: 'Physics_Set_2', color: '#4CAF50', questionCount: '25' },
+    { id: 'csit-physics-3', name: 'Physics_Set_3', color: '#4CAF50', questionCount: '25' },
+    { id: 'csit-physics-4', name: 'Physics_Set_4', color: '#4CAF50', questionCount: '25' },
+    { id: 'csit-physics-5', name: 'Physics_Set_5', color: '#4CAF50', questionCount: '25' },
+    // Chemistry Sets
+    { id: 'csit-chemistry-1', name: 'Chemistry_Set_1', color: '#FF5722', questionCount: '25' },
+    { id: 'csit-chemistry-2', name: 'Chemistry_Set_2', color: '#FF5722', questionCount: '25' },
+    { id: 'csit-chemistry-3', name: 'Chemistry_Set_3', color: '#FF5722', questionCount: '25' },
+    { id: 'csit-chemistry-4', name: 'Chemistry_Set_4', color: '#FF5722', questionCount: '25' },
+    { id: 'csit-chemistry-5', name: 'Chemistry_Set_5', color: '#FF5722', questionCount: '25' },
+    // Mathematics Sets
+    { id: 'csit-math-1', name: 'Mathematics_Set_1', color: '#2196F3', questionCount: '25' },
+    { id: 'csit-math-2', name: 'Mathematics_Set_2', color: '#2196F3', questionCount: '25' },
+    { id: 'csit-math-3', name: 'Mathematics_Set_3', color: '#2196F3', questionCount: '25' },
+    { id: 'csit-math-4', name: 'Mathematics_Set_4', color: '#2196F3', questionCount: '25' },
+    { id: 'csit-math-5', name: 'Mathematics_Set_5', color: '#2196F3', questionCount: '25' },
 ];
 
 const TextWithLatex = ({ text }) => {
@@ -75,7 +85,7 @@ const formatTime = (timeInSeconds) => {
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 };
 
-const IOE = () => {
+const Psc = () => {
   const [mobileOpen, setMobileOpen] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -139,7 +149,7 @@ const IOE = () => {
       setMobileOpen(false);
       setQuizStarted(false);
       setTimerActive(false);
-      setTimeLeft(7200); // Reset timer to 2 hours
+      setTimeLeft(3600); // Reset timer to 2 hours
       
       const apiUrl = import.meta.env.VITE_GET_MCQ;
       const response = await fetch(`${apiUrl}`, {
@@ -400,10 +410,10 @@ const IOE = () => {
             textAlign: 'center'
           }}>
             <Typography variant="h5" sx={{ mb: 2 }}>
-             IOE Entrance MCQ  Questions
+              Welcome to MCQ Practice
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a Mock Test from the sidebar to begin your Exam'}
+              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a subject from the sidebar to begin your quiz'}
             </Typography>
           </Box>
         ) : questions.length === 0 ? (
@@ -421,7 +431,7 @@ const IOE = () => {
               variant="outlined"
               onClick={() => setCurrentSet(null)}
             >
-              Back to MockTest
+              Back to Subjects
             </Button>
           </Box>
         ) : !quizStarted ? (
@@ -436,11 +446,8 @@ const IOE = () => {
             <Typography variant="h4" sx={{ mb: 3 }}>
               Ready to Start {currentSetData.name}?
             </Typography>
-            <Typography variant="h5" sx={{ mb: 4 }}>
-              both I & II Section are included in this Mock Test
-            </Typography>
             <Typography variant="body1" sx={{ mb: 4 }}>
-              This Exam contains {questions.length} questions and has a time limit of 2 hours.
+              This quiz contains {questions.length} questions and has a time limit of 2 hours.
             </Typography>
             <Button 
               variant="contained" 
@@ -627,7 +634,7 @@ const IOE = () => {
           backgroundColor: currentSetData?.color || '#3F51B5',
           color: 'white'
         }}>
-          Exam Results
+          Quiz Results
           <IconButton onClick={handleCloseResults} sx={{ color: 'white' }}>
             <CloseIcon />
           </IconButton>
@@ -769,7 +776,7 @@ const IOE = () => {
               '&:hover': { borderColor: currentSetData?.color }
             }}
           >
-            Choose Another Mock Test
+            Choose Another Subject
           </Button>
         </DialogActions>
       </Dialog>
@@ -777,4 +784,4 @@ const IOE = () => {
   );
 };
 
-export default IOE;
+export default Psc;

@@ -34,25 +34,12 @@ import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
 const questionSets = [
-  { id: 'csit-physics-1', name: 'Physics_Set_1', color: '#4CAF50', questionCount: '25' },
-    { id: 'csit-physics-2', name: 'Physics_Set_2', color: '#4CAF50', questionCount: '25' },
-    { id: 'csit-physics-3', name: 'Physics_Set_3', color: '#4CAF50', questionCount: '25' },
-    { id: 'csit-physics-4', name: 'Physics_Set_4', color: '#4CAF50', questionCount: '25' },
-    { id: 'csit-physics-5', name: 'Physics_Set_5', color: '#4CAF50', questionCount: '25' },
-    // Chemistry Sets
-    { id: 'csit-chemistry-1', name: 'Chemistry_Set_1', color: '#FF5722', questionCount: '25' },
-    { id: 'csit-chemistry-2', name: 'Chemistry_Set_2', color: '#FF5722', questionCount: '25' },
-    { id: 'csit-chemistry-3', name: 'Chemistry_Set_3', color: '#FF5722', questionCount: '25' },
-    { id: 'csit-chemistry-4', name: 'Chemistry_Set_4', color: '#FF5722', questionCount: '25' },
-    { id: 'csit-chemistry-5', name: 'Chemistry_Set_5', color: '#FF5722', questionCount: '25' },
-    // Mathematics Sets
-    { id: 'csit-math-1', name: 'Mathematics_Set_1', color: '#2196F3', questionCount: '25' },
-    { id: 'csit-math-2', name: 'Mathematics_Set_2', color: '#2196F3', questionCount: '25' },
-    { id: 'csit-math-3', name: 'Mathematics_Set_3', color: '#2196F3', questionCount: '25' },
-    { id: 'csit-math-4', name: 'Mathematics_Set_4', color: '#2196F3', questionCount: '25' },
-    { id: 'csit-math-5', name: 'Mathematics_Set_5', color: '#2196F3', questionCount: '25' },
-
- 
+  { id: 'csit-mocktest-1', name: 'MockTest I', color: '#4CAF50', questionCount: '25' },
+  { id: 'csit-mocktest-2', name: 'MockTest II', color: '#2196F3', questionCount: '25' },
+  { id: 'csit-mocktest-3', name: 'MockTest III', color: '#FF9800', questionCount: '25' },
+  { id: 'csit-mocktest-4', name: 'MockTest IV', color: '#9C27B0', questionCount: '25' },
+  { id: 'csit-mocktest-5', name: 'MockTest V', color: '#E91E63', questionCount: '25' }
+    
 ];
 
 const TextWithLatex = ({ text }) => {
@@ -79,6 +66,14 @@ const TextWithLatex = ({ text }) => {
   );
 };
 
+const formatTime = (timeInSeconds) => {
+  const hours = Math.floor(timeInSeconds / 3600);
+  const minutes = Math.floor((timeInSeconds % 3600) / 60);
+  const seconds = timeInSeconds % 60;
+  
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+};
+
 const BscCsit = () => {
   const [mobileOpen, setMobileOpen] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -91,6 +86,9 @@ const BscCsit = () => {
   const [showResults, setShowResults] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
   const [showAnswerPreview, setShowAnswerPreview] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(7200); // 2 hours in seconds
+  const [timerActive, setTimerActive] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -98,6 +96,33 @@ const BscCsit = () => {
       setMobileOpen(true);
     }
   }, []);
+
+  // Timer effect
+  useEffect(() => {
+    let interval;
+    if (timerActive && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft(prevTime => {
+          if (prevTime <= 1) {
+            clearInterval(interval);
+            setTimerActive(false);
+            handleSubmit(); // Auto submit when time runs out
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    } else if (timeLeft === 0 && timerActive) {
+      setTimerActive(false);
+      handleSubmit(); // Auto submit when time runs out
+    }
+    return () => clearInterval(interval);
+  }, [timerActive, timeLeft]);
+
+  const startQuiz = () => {
+    setQuizStarted(true);
+    setTimerActive(true);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -111,6 +136,9 @@ const BscCsit = () => {
       setShowAnswers(false);
       setShowAnswerPreview(false);
       setMobileOpen(false);
+      setQuizStarted(false);
+      setTimerActive(false);
+      setTimeLeft(7200); // Reset timer to 2 hours
       
       const apiUrl = import.meta.env.VITE_GET_MCQ;
       const response = await fetch(`${apiUrl}`, {
@@ -175,6 +203,7 @@ const BscCsit = () => {
   };
 
   const handleSubmit = () => {
+    setTimerActive(false);
     let score = 0;
     questions.forEach((question, index) => {
       if (answers[index] === question.correctAnswer) {
@@ -207,6 +236,9 @@ const BscCsit = () => {
     setShowAnswerPreview(false);
     setCurrentQuestion(0);
     setSelectedAnswer('');
+    setQuizStarted(false);
+    setTimerActive(false);
+    setTimeLeft(7200); // Reset timer to 2 hours
     const resetAnswers = {};
     questions.forEach((_, index) => {
       resetAnswers[index] = null;
@@ -367,10 +399,10 @@ const BscCsit = () => {
             textAlign: 'center'
           }}>
             <Typography variant="h5" sx={{ mb: 2 }}>
-              Welcome to MCQ Practice
+             BSc CSIT Entrance MCQ  Questions
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a subject from the sidebar to begin your quiz'}
+              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a Mock Test from the sidebar to begin your Exam'}
             </Typography>
           </Box>
         ) : questions.length === 0 ? (
@@ -391,15 +423,52 @@ const BscCsit = () => {
               Back to Subjects
             </Button>
           </Box>
+        ) : !quizStarted ? (
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            height: '100%',
+            textAlign: 'center'
+          }}>
+            <Typography variant="h4" sx={{ mb: 3 }}>
+              Ready to Start {currentSetData.name}?
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 4 }}>
+              This Exam contains {questions.length} questions and has a time limit of 2 hours.
+            </Typography>
+            <Button 
+              variant="contained" 
+              size="large"
+              onClick={startQuiz}
+              sx={{
+                bgcolor: currentSetData.color,
+                '&:hover': { bgcolor: currentSetData.color },
+                fontSize: '1.2rem',
+                padding: '10px 30px'
+              }}
+            >
+              Start Exam
+            </Button>
+          </Box>
         ) : (
           <>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
               <Typography variant="h5" sx={{ fontWeight: 'bold', color: currentSetData.color }}>
                 {currentSetData.name}
               </Typography>
-              <Typography variant="subtitle1" color="text.secondary">
-                Question {currentQuestion + 1} of {questions.length}
-              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography variant="subtitle1" color="text.secondary" sx={{ mr: 2 }}>
+                  Question {currentQuestion + 1} of {questions.length}
+                </Typography>
+                <Typography variant="subtitle1" sx={{ 
+                  fontWeight: 'bold',
+                  color: timeLeft < 600 ? '#f44336' : 'inherit' // Red when less than 10 minutes left
+                }}>
+                  Time: {formatTime(timeLeft)}
+                </Typography>
+              </Box>
             </Box>
 
             <LinearProgress 
@@ -554,7 +623,7 @@ const BscCsit = () => {
           backgroundColor: currentSetData?.color || '#3F51B5',
           color: 'white'
         }}>
-          Quiz Results
+          Exam Results
           <IconButton onClick={handleCloseResults} sx={{ color: 'white' }}>
             <CloseIcon />
           </IconButton>
@@ -696,7 +765,7 @@ const BscCsit = () => {
               '&:hover': { borderColor: currentSetData?.color }
             }}
           >
-            Choose Another Subject
+            Choose Another Mock Test
           </Button>
         </DialogActions>
       </Dialog>

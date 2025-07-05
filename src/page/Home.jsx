@@ -5,6 +5,7 @@ const Header = lazy(() => import('../components/layout/Header'));
 const Hero = lazy(() => import('../components/section/Hero'));
 const FacultyBoxes = lazy(() => import('../components/section/FacultyBoxes'));
 const FacultyPractice = lazy(() => import('../components/section/facultyPractice'));
+const FacultyPSC = lazy(() => import('../components/section/PSC.Computer'));
 const WhyLearnWithUs = lazy(() => import('../components/section/showcase'));
 const Leaderboard = lazy(() => import('../components/section/LeaderBoard'));
 const Footer = lazy(() => import('../components/section/footer'));
@@ -14,8 +15,9 @@ export default function HomePage() {
     <Suspense fallback={<div>Loading...</div>}>
       <Header />
       <Hero />
-      <FacultyBoxes />
       <FacultyPractice />
+      <FacultyBoxes />
+      <FacultyPSC />
       <WhyLearnWithUs />
       <Leaderboard />
       <Footer />
