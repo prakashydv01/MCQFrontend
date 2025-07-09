@@ -138,7 +138,7 @@ const Psc = () => {
       setMobileOpen(false);
       setQuizStarted(false);
       setTimerActive(false);
-      setTimeLeft(3600); // Reset timer to 2 hours
+      setTimeLeft(2700); // Reset timer to 2 hours
       
       const apiUrl = import.meta.env.VITE_GET_MCQ;
       const response = await fetch(`${apiUrl}`, {
@@ -436,7 +436,7 @@ const Psc = () => {
               Ready to Start {currentSetData.name}?
             </Typography>
             <Typography variant="body1" sx={{ mb: 4 }}>
-              This quiz contains {questions.length} questions and has a time limit of 2 hours.
+              This quiz contains {questions.length} questions and has a time limit of 45 minutes.
             </Typography>
             <Button 
               variant="contained" 
