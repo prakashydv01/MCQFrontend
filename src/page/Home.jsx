@@ -7,19 +7,19 @@ const FacultyBoxes = lazy(() => import('../components/section/FacultyBoxes'));
 const FacultyPractice = lazy(() => import('../components/section/facultyPractice'));
 const FacultyPSC = lazy(() => import('../components/section/PSC.Computer'));
 const WhyLearnWithUs = lazy(() => import('../components/section/showcase'));
-const Leaderboard = lazy(() => import('../components/section/LeaderBoard'));
+const TUEntrancePage = lazy(() => import('../components/section/TU'));
 const Footer = lazy(() => import('../components/section/footer'));
 
 export default function HomePage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense >
       <Header />
       <Hero />
       <FacultyPractice />
       <FacultyBoxes />
       <FacultyPSC />
       <WhyLearnWithUs />
-      <Leaderboard />
+      <TUEntrancePage />
       <Footer />
     </Suspense>
   );

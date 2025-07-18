@@ -366,12 +366,25 @@ const PBit = () => {
             height: '100%',
             textAlign: 'center'
           }}>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              Welcome to MCQ Practice
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a subject from the sidebar to begin your quiz'}
-            </Typography>
+            <Typography variant="h5" className="mb-4 text-2xl font-semibold text-gray-800">
+  Welcome to MCQ Practice for BIT Entrance Exam
+</Typography>
+
+<Typography variant="body1" className="text-gray-600 text-base leading-relaxed max-w-4xl">
+  Our platform is designed to help students excel in the <strong className="text-black">Bachelor in Information Technology (BIT) entrance exam</strong> in Nepal. Whether you're applying through <strong className="text-black">Tribhuvan University (TU)</strong>, <strong className="text-black">Purbanchal University</strong>, or other institutions, we offer expertly curated <strong className="text-black">MCQ practice sets</strong> tailored to the official syllabus. 
+  The exam covers key subjects including <strong className="text-black">Mathematics, English, Computer Science, and General Knowledge</strong>, and our platform provides a topic-wise breakdown to boost your understanding and confidence.
+
+  <br /><br />
+
+  Practice with <strong className="text-black">previous year questions, model tests, and real-time scoring</strong> — all in one place. Designed for both desktop and mobile devices, HamroExam makes your BIT entrance preparation more organized and effective. Stay ahead with regular updates, tips, and high-quality content to secure your seat in the top universities.
+
+  <br /><br />
+
+  <span className="text-sm text-gray-500">
+    Keywords: BIT Entrance Exam Nepal, BIT MCQ Practice, BIT Entrance Preparation TU, Computer Science Entrance Nepal, Purbanchal University BIT Syllabus, BIT Entrance Model Questions, BIT Admission Test
+  </span>
+</Typography>
+
           </Box>
         ) : questions.length === 0 ? (
           <Box sx={{ 

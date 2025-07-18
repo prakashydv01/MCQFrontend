@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { Computer, Construction, Clock, Brain, BookOpen, BarChart2, Search, ArrowLeft } from 'lucide-react';
 import Prakash from '../../assets/images/Prakash.jpeg';
 
 const BlogPage = () => {
-  // Complete blog posts data with full articles
+  // Complete blog posts data
   const blogPosts = [
     {
-  id: 1,
-  title: 'BIT Entrance Exam in Nepal: A Complete Guide for Aspiring Students',
-  excerpt: 'Everything you need to know about the BIT entrance exam in Nepal, including syllabus, preparation tips, and career prospects.',
-  content: `The Bachelor of Information Technology (BIT) is one of the most sought-after programs in Nepal for students interested in IT, software development, and computer science. With increasing demand for tech professionals, securing a seat in a reputed college requires thorough preparation for the BIT entrance exam.  
+      id: 1,
+      title: 'BIT Entrance Exam in Nepal: A Complete Guide for Aspiring Students',
+      excerpt: 'Everything you need to know about the BIT entrance exam in Nepal, including syllabus, preparation tips, and career prospects.',
+      content: `The Bachelor of Information Technology (BIT) is one of the most sought-after programs in Nepal for students interested in IT, software development, and computer science. With increasing demand for tech professionals, securing a seat in a reputed college requires thorough preparation for the BIT entrance exam.  
 
 Understanding the BIT Entrance Exam  
 The BIT entrance exam in Nepal is a competitive test conducted by various universities, including Tribhuvan University (TU), Purbanchal University (PU), and Pokhara University (PoU). The exam typically includes:  
@@ -43,25 +44,26 @@ Top Colleges Offering BIT in Nepal
 Pro Tip: Many colleges also consider +2 grades, so maintain a good academic record.  
 
 With proper preparation and dedication, cracking the BIT entrance exam in Nepal is achievable. Start early, stay consistent, and aim for excellence!`,
-  category: 'BIT Entrance Exam',
-  date: 'July 3, 2025',
-  readTime: '6 min read',
-  image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-  featured: true,
-  author: 'Prakash Yadav',
-  authorBio: 'Education specialist with 10+ years of exam preparation experience',
-  authorImage: `${Prakash} `
-},
-{
-  id: 2,
-  title: 'B.Sc. CSIT Entrance Exam in Nepal: A Complete Guide',
-  excerpt: 'Everything you need to know about the B.Sc. CSIT entrance exam in Nepal, including syllabus, preparation tips, and career opportunities.',
-  content: `The Bachelor of Science in Computer Science and Information Technology (B.Sc. CSIT) is one of the most prestigious and competitive undergraduate programs in Nepal for students aspiring to build a career in IT and computer science. Conducted by Tribhuvan University (TU), the B.Sc. CSIT entrance exam is the gateway to securing a seat in this highly sought-after program.
+      category: 'BIT Entrance Exam',
+      date: 'July 3, 2025',
+      readTime: '6 min read',
+      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+      featured: true,
+      author: 'Prakash Yadav',
+      authorBio: 'Education specialist with 10+ years of exam preparation experience',
+      authorImage: Prakash,
+      icon: <Computer className="w-5 h-5" />
+    },
+    {
+      id: 2,
+      title: 'B.Sc. CSIT Entrance Exam in Nepal: A Complete Guide',
+      excerpt: 'Everything you need to know about the B.Sc. CSIT entrance exam in Nepal, including syllabus, preparation tips, and career opportunities.',
+      content: `The Bachelor of Science in Computer Science and Information Technology (B.Sc. CSIT) is one of the most prestigious and competitive undergraduate programs in Nepal for students aspiring to build a career in IT and computer science. Conducted by Tribhuvan University (TU), the B.Sc. CSIT entrance exam is the gateway to securing a seat in this highly sought-after program.
 
 Understanding the B.Sc. CSIT Entrance Exam
 
 The B.Sc. CSIT entrance exam is a centralized test conducted by the Institute of Science and Technology (IOST), Tribhuvan University. The exam is highly competitive, with thousands of applicants vying for limited seats in reputed colleges across Nepal. The exam typically consists of:
-- Multiple-Choice Questions (MCQs) covering Physics, Chemistry, Mathematics,  English and Computer Science.
+- Multiple-Choice Questions (MCQs) covering Physics, Chemistry, Mathematics, English and Computer Science.
 - Questions designed to test analytical and logical reasoning skills.
 - A total of 100 questions to be completed in 2 hours.
 
@@ -77,7 +79,7 @@ Syllabus Breakdown
 
 5. Computer Science (10% weightage): Basics of Computer, Programming Concepts, Data Structures, Algorithms.
 
-Top 5 Preparation Strategies :
+Top 5 Preparation Strategies:
 
 1. Understand the Syllabus: Familiarize yourself with the detailed syllabus and focus on high-weightage topics.
 
@@ -98,7 +100,7 @@ Career Prospects After B.Sc. CSIT:
 - System Analyst,
 - Cybersecurity Specialist
 
-👉Top Colleges Offering B.Sc. CSIT in Nepal
+Top Colleges Offering B.Sc. CSIT in Nepal
 
 1. Tribhuvan University: Institute of Science and Technology (IOST), Amrit Science Campus (ASCOL), Patan Multiple Campus.
 
@@ -106,21 +108,21 @@ Career Prospects After B.Sc. CSIT:
 
 3. Private Colleges: St. Xavier's College, Prime College, Texas International College.
 
-✔✔Pro Tip: Along with entrance exam preparation, focus on your +2 grades as they play a significant role in the final selection process.
+Pro Tip: Along with entrance exam preparation, focus on your +2 grades as they play a significant role in the final selection process.
 
 With dedication, strategic preparation, and consistent effort, cracking the B.Sc. CSIT entrance exam is within your reach. Start your preparation early, stay focused, and aim for success in this promising field.`,
-  category: 'CSIT Entrance Exam',
-  date: 'July 3, 2025',
-  readTime: '7 min read',
-  image: 'https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-  featured: true,
-  author: 'Prakash Yadav',
-  authorBio: 'Education specialist with 10+ years of exam preparation experience',
-  authorImage: `${Prakash} `
-},
-    
+      category: 'CSIT Entrance Exam',
+      date: 'July 3, 2025',
+      readTime: '7 min read',
+      image: 'https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+      featured: true,
+      author: 'Prakash Yadav',
+      authorBio: 'Education specialist with 10+ years of exam preparation experience',
+      authorImage: Prakash,
+      icon: <Computer className="w-5 h-5" />
+    },
     {
-      id: 1,
+      id: 3,
       title: '10 Effective Strategies for MCQ Exam Preparation',
       excerpt: 'Discover proven techniques to improve your performance in multiple-choice exams and maximize your scores.',
       content: `Mastering multiple-choice exams requires a strategic approach beyond just knowing the material. First, always read questions carefully, underlining keywords to avoid misinterpretation. Studies show that 23% of errors come from misreading questions.
@@ -137,10 +139,11 @@ For memorization-heavy topics, create mnemonics or visual associations. Always r
       featured: true,
       author: 'Prakash Yadav',
       authorBio: 'Education specialist with 10+ years of exam preparation experience',
-      authorImage: `${Prakash}`
+      authorImage: Prakash,
+      icon: <Clock className="w-5 h-5" />
     },
     {
-      id: 2,
+      id: 4,
       title: 'Understanding the Psychology of Test-Taking',
       excerpt: 'Learn how mental preparation and psychological techniques can significantly impact your exam results.',
       content: `Test-taking psychology often makes the difference between average and exceptional performance. The phenomenon of "test anxiety" affects nearly 40% of students, triggering fight-or-flight responses that impair recall. 
@@ -157,10 +160,11 @@ Familiarity breeds confidence - practice in environments resembling your testing
       featured: false,
       author: 'Prakash Yadav',
       authorBio: 'Cognitive psychologist specializing in learning optimization',
-      authorImage: `${Prakash}`
+      authorImage: Prakash,
+      icon: <Brain className="w-5 h-5" />
     },
     {
-      id: 3,
+      id: 5,
       title: 'Time Management During Competitive Exams',
       excerpt: 'Essential tips to allocate your time effectively during exams to ensure you complete all sections.',
       content: `Effective time management during competitive exams requires strategic planning and disciplined execution. Begin by analyzing the exam structure during preparation - note sections by difficulty and mark weightage. 
@@ -174,13 +178,14 @@ Practice with a visible clock to develop internal timing radar. Include 5-minute
       date: 'April 15, 2023',
       readTime: '4 min read',
       image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-      featured: true,
+      featured: false,
       author: 'Prakash Yadav',
       authorBio: 'Competitive exam coach for 8 years',
-      authorImage: `${Prakash}`
+      authorImage: Prakash,
+      icon: <Clock className="w-5 h-5" />
     },
     {
-      id: 4,
+      id: 6,
       title: 'The Science Behind Effective Learning',
       excerpt: 'Explore cognitive science principles that can help you study smarter, not harder.',
       content: `Cognitive science reveals powerful evidence-based learning techniques. Spaced repetition, where you review material at increasing intervals, can improve retention by up to 200% compared to cramming. The forgetting curve shows we lose 70% of new information within 24 hours unless reinforced.
@@ -197,10 +202,11 @@ Contextual learning (studying in similar environments to testing) improves recal
       featured: false,
       author: 'Prakash Yadav',
       authorBio: 'Neuroscience researcher and education consultant',
-      authorImage: `${Prakash}`
+      authorImage: Prakash,
+      icon: <BookOpen className="w-5 h-5" />
     },
     {
-      id: 5,
+      id: 7,
       title: 'How to Analyze Your Mock Test Results',
       excerpt: 'A step-by-step guide to interpreting your practice test scores and identifying areas for improvement.',
       content: `Mock tests are only valuable if you properly analyze your results. Begin by categorizing mistakes into knowledge gaps (content you didn't know), application errors (misapplied concepts), and careless mistakes. Research shows this classification improves subsequent performance by 28%.
@@ -217,10 +223,11 @@ Track progress quantitatively - aim for at least 5% improvement in weakest areas
       featured: false,
       author: 'Prakash Yadav',
       authorBio: 'Test preparation strategist and data analyst',
-      authorImage: `${Prakash}`
+      authorImage: Prakash,
+      icon: <BarChart2 className="w-5 h-5" />
     },
     {
-      id: 6,
+      id: 8,
       title: 'Memory Techniques for Long-Term Retention',
       excerpt: 'Powerful memorization methods that can help you retain information for your exams and beyond.',
       content: `Effective memorization requires understanding how memory works. The forgetting curve shows we lose 70% of new information within 24 hours, but spaced repetition can reduce this to just 10%. The Leitner system, using progressively longer review intervals, boosts retention by up to 200%.
@@ -237,21 +244,27 @@ Regular retrieval practice strengthens neural pathways - testing yourself is far
       featured: false,
       author: 'Prakash Yadav',
       authorBio: 'Memory coach and learning specialist',
-      authorImage: `${Prakash}`
+      authorImage: Prakash,
+      icon: <BookOpen className="w-5 h-5" />
     }
   ];
 
-  // Categories
-  const categories = ['All', 'Exam Tips', 'Psychology', 
-    'Learning Science', 'Exam Analysis', 'Study Techniques' ,
-     'BIT Entrance Exam', 'CSIT Entrance Exam'];
+  const categories = ['All', 'Exam Tips', 'Psychology', 'Learning Science', 'Exam Analysis', 'Study Techniques', 'BIT Entrance Exam', 'CSIT Entrance Exam'];
+  
+  const categoryIcons = {
+    'Exam Tips': <Clock className="w-4 h-4 mr-2" />,
+    'Psychology': <Brain className="w-4 h-4 mr-2" />,
+    'Learning Science': <BookOpen className="w-4 h-4 mr-2" />,
+    'Exam Analysis': <BarChart2 className="w-4 h-4 mr-2" />,
+    'Study Techniques': <BookOpen className="w-4 h-4 mr-2" />,
+    'BIT Entrance Exam': <Computer className="w-4 h-4 mr-2" />,
+    'CSIT Entrance Exam': <Computer className="w-4 h-4 mr-2" />
+  };
 
-  // State
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedPost, setExpandedPost] = useState(null);
 
-  // Filter posts by category and search query
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -259,469 +272,90 @@ Regular retrieval practice strengthens neural pathways - testing yourself is far
     return matchesCategory && matchesSearch;
   });
 
-  // Featured posts
   const featuredPosts = blogPosts.filter(post => post.featured);
-
-  // Styles
-  const styles = {
-    container: {
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '20px',
-      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-      color: '#2d3748',
-      '@media (max-width: 768px)': {
-        padding: '15px'
-      }
-    },
-    header: {
-      textAlign: 'center',
-      marginBottom: '50px',
-      '@media (max-width: 768px)': {
-        marginBottom: '30px'
-      }
-    },
-    title: {
-      fontSize: '2.5rem',
-      fontWeight: '800',
-      marginBottom: '15px',
-      background: 'linear-gradient(90deg, #3182ce, #805ad5)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      '@media (max-width: 768px)': {
-        fontSize: '2rem'
-      }
-    },
-    subtitle: {
-      fontSize: '1.1rem',
-      color: '#4a5568',
-      maxWidth: '700px',
-      margin: '0 auto',
-      '@media (max-width: 768px)': {
-        fontSize: '1rem'
-      }
-    },
-    featuredSection: {
-      marginBottom: '60px',
-      '@media (max-width: 768px)': {
-        marginBottom: '40px'
-      }
-    },
-    sectionTitle: {
-      fontSize: '1.8rem',
-      fontWeight: '700',
-      marginBottom: '30px',
-      color: '#1a365d',
-      position: 'relative',
-      paddingBottom: '10px',
-      '::after': {
-        content: '""',
-        position: 'absolute',
-        bottom: '0',
-        left: '0',
-        width: '60px',
-        height: '4px',
-        background: 'linear-gradient(90deg, #3182ce, #805ad5)',
-        borderRadius: '2px'
-      },
-      '@media (max-width: 768px)': {
-        fontSize: '1.5rem',
-        marginBottom: '20px'
-      }
-    },
-    featuredPosts: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-      gap: '30px',
-      '@media (max-width: 768px)': {
-        gridTemplateColumns: '1fr',
-        gap: '20px'
-      }
-    },
-    featuredPostCard: {
-      backgroundColor: 'white',
-      borderRadius: '12px',
-      overflow: 'hidden',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-      cursor: 'pointer',
-      ':hover': {
-        transform: 'translateY(-5px)',
-        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
-      }
-    },
-    featuredPostImage: {
-      width: '100%',
-      height: '200px',
-      objectFit: 'cover'
-    },
-    featuredPostContent: {
-      padding: '25px'
-    },
-    featuredPostCategory: {
-      display: 'inline-block',
-      backgroundColor: '#ebf8ff',
-      color: '#3182ce',
-      padding: '5px 10px',
-      borderRadius: '20px',
-      fontSize: '0.8rem',
-      fontWeight: '600',
-      marginBottom: '15px'
-    },
-    featuredPostTitle: {
-      fontSize: '1.5rem',
-      fontWeight: '700',
-      marginBottom: '15px',
-      color: '#1a365d',
-      '@media (max-width: 768px)': {
-        fontSize: '1.3rem'
-      }
-    },
-    featuredPostExcerpt: {
-      color: '#4a5568',
-      lineHeight: '1.6',
-      marginBottom: '20px'
-    },
-    featuredPostMeta: {
-      display: 'flex',
-      alignItems: 'center',
-      color: '#718096',
-      fontSize: '0.9rem',
-      '> *': {
-        marginRight: '15px',
-        display: 'flex',
-        alignItems: 'center'
-      }
-    },
-    metaIcon: {
-      marginRight: '5px',
-      fontWeight: 'bold'
-    },
-    readMoreLink: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      color: '#3182ce',
-      fontWeight: '600',
-      textDecoration: 'none',
-      marginTop: '15px',
-      ':hover': {
-        textDecoration: 'underline'
-      }
-    },
-    blogControls: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: '40px',
-      flexWrap: 'wrap',
-      '@media (max-width: 768px)': {
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        marginBottom: '30px'
-      }
-    },
-    searchContainer: {
-      position: 'relative',
-      width: '300px',
-      '@media (max-width: 768px)': {
-        width: '100%',
-        marginBottom: '20px'
-      }
-    },
-    searchInput: {
-      width: '100%',
-      padding: '12px 15px',
-      border: '1px solid #e2e8f0',
-      borderRadius: '8px',
-      fontSize: '1rem',
-      transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
-      ':focus': {
-        outline: 'none',
-        borderColor: '#3182ce',
-        boxShadow: '0 0 0 3px rgba(49, 130, 206, 0.2)'
-      }
-    },
-    categoryButtons: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      gap: '10px',
-      '@media (max-width: 768px)': {
-        width: '100%',
-        overflowX: 'auto',
-        paddingBottom: '10px'
-      }
-    },
-    categoryButton: {
-      padding: '8px 16px',
-      backgroundColor: 'white',
-      border: '1px solid #e2e8f0',
-      borderRadius: '20px',
-      cursor: 'pointer',
-      fontSize: '0.9rem',
-      fontWeight: '500',
-      transition: 'all 0.3s ease',
-      ':hover': {
-        backgroundColor: '#f7fafc'
-      }
-    },
-    activeCategoryButton: {
-      backgroundColor: '#3182ce',
-      color: 'white',
-      borderColor: '#3182ce',
-      ':hover': {
-        backgroundColor: '#2c5282'
-      }
-    },
-    blogPostsGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-      gap: '30px',
-      '@media (max-width: 768px)': {
-        gridTemplateColumns: '1fr',
-        gap: '20px'
-      }
-    },
-    postCard: {
-      backgroundColor: 'white',
-      borderRadius: '12px',
-      overflow: 'hidden',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-      cursor: 'pointer',
-      ':hover': {
-        transform: 'translateY(-5px)',
-        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
-      }
-    },
-    postImage: {
-      width: '100%',
-      height: '180px',
-      objectFit: 'cover'
-    },
-    postContent: {
-      padding: '20px'
-    },
-    postCategory: {
-      display: 'inline-block',
-      backgroundColor: '#ebf8ff',
-      color: '#3182ce',
-      padding: '4px 8px',
-      borderRadius: '20px',
-      fontSize: '0.75rem',
-      fontWeight: '600',
-      marginBottom: '12px'
-    },
-    postTitle: {
-      fontSize: '1.25rem',
-      fontWeight: '700',
-      marginBottom: '12px',
-      color: '#1a365d'
-    },
-    postExcerpt: {
-      color: '#4a5568',
-      lineHeight: '1.6',
-      marginBottom: '15px',
-      fontSize: '0.95rem'
-    },
-    postMeta: {
-      display: 'flex',
-      alignItems: 'center',
-      color: '#718096',
-      fontSize: '0.8rem',
-      '> *': {
-        marginRight: '12px',
-        display: 'flex',
-        alignItems: 'center'
-      }
-    },
-    pagination: {
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: '50px',
-      '@media (max-width: 768px)': {
-        marginTop: '30px'
-      }
-    },
-    paginationButton: {
-      padding: '8px 16px',
-      margin: '0 5px',
-      backgroundColor: 'white',
-      border: '1px solid #e2e8f0',
-      borderRadius: '6px',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-      ':hover': {
-        backgroundColor: '#f7fafc'
-      }
-    },
-    activePaginationButton: {
-      backgroundColor: '#3182ce',
-      color: 'white',
-      borderColor: '#3182ce',
-      ':hover': {
-        backgroundColor: '#2c5282'
-      }
-    },
-    // Expanded post styles
-    expandedPostContainer: {
-      maxWidth: '800px',
-      margin: '0 auto',
-      padding: '20px',
-      '@media (max-width: 768px)': {
-        padding: '15px'
-      }
-    },
-    backButton: {
-      display: 'flex',
-      alignItems: 'center',
-      backgroundColor: 'transparent',
-      border: 'none',
-      color: '#3182ce',
-      fontSize: '1rem',
-      cursor: 'pointer',
-      marginBottom: '30px',
-      padding: '8px 0',
-      ':hover': {
-        textDecoration: 'underline'
-      }
-    },
-    backIcon: {
-      marginRight: '8px',
-      fontWeight: 'bold'
-    },
-    expandedPostTitle: {
-      fontSize: '2rem',
-      fontWeight: '800',
-      marginBottom: '20px',
-      color: '#1a365d',
-      lineHeight: '1.3',
-      '@media (max-width: 768px)': {
-        fontSize: '1.7rem'
-      }
-    },
-    expandedPostImage: {
-      width: '100%',
-      maxHeight: '400px',
-      objectFit: 'cover',
-      borderRadius: '12px',
-      margin: '25px 0',
-      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-      '@media (max-width: 768px)': {
-        maxHeight: '250px'
-      }
-    },
-    expandedPostContent: {
-      lineHeight: '1.8',
-      color: '#2d3748',
-      fontSize: '1.1rem',
-      '@media (max-width: 768px)': {
-        fontSize: '1rem'
-      }
-    },
-    contentParagraph: {
-      marginBottom: '25px'
-    },
-    authorInfo: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: '25px',
-      paddingBottom: '20px',
-      borderBottom: '1px solid #e2e8f0'
-    },
-    authorImage: {
-      width: '60px',
-      height: '60px',
-      borderRadius: '50%',
-      objectFit: 'cover',
-      marginRight: '15px',
-      border: '2px solid #ebf8ff'
-    },
-    authorName: {
-      fontWeight: '600',
-      marginBottom: '5px',
-      color: '#1a365d'
-    },
-    authorBio: {
-      color: '#718096',
-      fontSize: '0.9rem'
-    },
-    relatedPosts: {
-      marginTop: '60px',
-      paddingTop: '30px',
-      borderTop: '1px solid #e2e8f0'
-    }
-  };
-
-  // Helper function to apply responsive styles
-  const getStyles = (styleName, isActive = false) => {
-    const baseStyle = styles[styleName] || {};
-    const mobileStyle = styles[styleName]?.['@media (max-width: 768px)'] || {};
-    const activeStyle = isActive ? styles.activeCategoryButton || styles.activePaginationButton || {} : {};
-    
-    return { ...baseStyle, ...mobileStyle, ...activeStyle };
-  };
 
   if (expandedPost) {
     return (
-      <div style={styles.container}>
-        <button onClick={() => setExpandedPost(null)} style={styles.backButton}>
-          <span style={styles.backIcon}>←</span> Back to articles
-        </button>
-        
-        <h1 style={styles.expandedPostTitle}>{expandedPost.title}</h1>
-        
-        <div style={styles.authorInfo}>
-          <img 
-            src={expandedPost.authorImage} 
-            alt={expandedPost.author} 
-            style={styles.authorImage}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = 'https://www.gravatar.com/avatar/?d=mp';
-            }}
-          />
-          <div>
-            <p style={styles.authorName}>{expandedPost.author}</p>
-            <p style={styles.authorBio}>{expandedPost.authorBio}</p>
+      <div className="min-h-screen bg-gray-900 text-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <button 
+            onClick={() => setExpandedPost(null)}
+            className="flex items-center text-blue-400 hover:text-blue-300 mb-8 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Back to articles
+          </button>
+          
+          <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+            {expandedPost.title}
+          </h1>
+          
+          <div className="flex items-center mb-8 pb-6 border-b border-gray-700">
+            <img 
+              src={expandedPost.authorImage} 
+              alt={expandedPost.author}
+              className="w-12 h-12 rounded-full border-2 border-blue-500/30 mr-4"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://www.gravatar.com/avatar/?d=mp';
+              }}
+            />
+            <div>
+              <p className="font-semibold">{expandedPost.author}</p>
+              <p className="text-sm text-gray-400">{expandedPost.authorBio}</p>
+            </div>
+            <div className="ml-auto text-sm text-gray-400">
+              {expandedPost.date} • {expandedPost.readTime}
+            </div>
           </div>
-        </div>
-        
-        <img 
-          src={expandedPost.image} 
-          alt={expandedPost.title} 
-          style={styles.expandedPostImage}
-        />
-        
-        <div style={styles.expandedPostContent}>
-          {expandedPost.content.split('\n\n').map((paragraph, index) => (
-            <p key={index} style={styles.contentParagraph}>{paragraph}</p>
-          ))}
-        </div>
-        
-        <div style={styles.relatedPosts}>
-          <h3 style={styles.sectionTitle}>Related Articles</h3>
-          <div style={styles.blogPostsGrid}>
-            {blogPosts
-              .filter(post => post.id !== expandedPost.id && post.category === expandedPost.category)
-              .slice(0, 3)
-              .map(post => (
-                <div 
-                  key={post.id} 
-                  style={styles.postCard}
-                  onClick={() => setExpandedPost(post)}
-                >
-                  <img src={post.image} alt={post.title} style={styles.postImage} />
-                  <div style={styles.postContent}>
-                    <span style={styles.postCategory}>{post.category}</span>
-                    <h3 style={styles.postTitle}>{post.title}</h3>
-                    <p style={styles.postExcerpt}>{post.excerpt}</p>
-                    <div style={styles.postMeta}>
-                      <span><span style={styles.metaIcon}>📅</span> {post.date}</span>
-                      <span><span style={styles.metaIcon}>⏱</span> {post.readTime}</span>
+          
+          <img 
+            src={expandedPost.image} 
+            alt={expandedPost.title}
+            className="w-full h-64 sm:h-80 object-cover rounded-xl mb-8 shadow-lg"
+          />
+          
+          <div className="prose prose-invert max-w-none">
+            {expandedPost.content.split('\n\n').map((paragraph, index) => (
+              <p key={index} className="mb-6 leading-relaxed">{paragraph}</p>
+            ))}
+          </div>
+          
+          <div className="mt-16 pt-8 border-t border-gray-700">
+            <h3 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+              Related Articles
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {blogPosts
+                .filter(post => post.id !== expandedPost.id && post.category === expandedPost.category)
+                .slice(0, 3)
+                .map(post => (
+                  <div 
+                    key={post.id}
+                    onClick={() => setExpandedPost(post)}
+                    className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl cursor-pointer hover:translate-y-[-4px] transition-transform"
+                  >
+                    <img 
+                      src={post.image} 
+                      alt={post.title}
+                      className="w-full h-40 object-cover"
+                    />
+                    <div className="p-5">
+                      <div className="flex items-center mb-3">
+                        <span className="text-xs font-semibold px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full">
+                          {post.category}
+                        </span>
+                      </div>
+                      <h4 className="font-bold text-lg mb-2 line-clamp-2">{post.title}</h4>
+                      <p className="text-gray-400 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
+                      <div className="flex justify-between text-xs text-gray-500">
+                        <span>{post.date}</span>
+                        <span>{post.readTime}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+            </div>
           </div>
         </div>
       </div>
@@ -729,98 +363,161 @@ Regular retrieval practice strengthens neural pathways - testing yourself is far
   }
 
   return (
-    <div style={styles.container}>
-      {/* Header */}
-      <div style={styles.header}>
-        <h1 style={styles.title}>Hamro Exam Blog</h1>
-        <p style={styles.subtitle}>
-          Expert tips, study strategies, and exam preparation resources to help you succeed
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-900 text-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+            Hamro Exam Blog
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Expert tips, study strategies, and exam preparation resources to help you succeed
+          </p>
+        </div>
 
-      {/* Featured Posts Section */}
-      <div style={styles.featuredSection}>
-        <h2 style={styles.sectionTitle}>Featured Articles</h2>
-        <div style={styles.featuredPosts}>
-          {featuredPosts.map(post => (
-            <div 
-              key={post.id} 
-              style={styles.featuredPostCard}
-              onClick={() => setExpandedPost(post)}
-            >
-              <img src={post.image} alt={post.title} style={styles.featuredPostImage} />
-              <div style={styles.featuredPostContent}>
-                <span style={styles.featuredPostCategory}>{post.category}</span>
-                <h3 style={styles.featuredPostTitle}>{post.title}</h3>
-                <p style={styles.featuredPostExcerpt}>{post.excerpt}</p>
-                <div style={styles.featuredPostMeta}>
-                  <span><span style={styles.metaIcon}>📅</span> {post.date}</span>
-                  <span><span style={styles.metaIcon}>⏱</span> {post.readTime}</span>
+        {/* Featured Posts */}
+        <div className="mb-20">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+            Featured Articles
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {featuredPosts.map(post => (
+              <div 
+                key={post.id}
+                onClick={() => setExpandedPost(post)}
+                className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer group"
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                  <div className="absolute top-4 right-4">
+                    <span className="text-xs font-semibold px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full">
+                      {post.category}
+                    </span>
+                  </div>
                 </div>
-                <div style={styles.readMoreLink}>
-                  Read more →
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">
+                    {post.title}
+                  </h3>
+                  <p className="text-gray-400 mb-4 line-clamp-2">{post.excerpt}</p>
+                  <div className="flex justify-between items-center text-sm text-gray-500">
+                    <span>{post.date}</span>
+                    <span>{post.readTime}</span>
+                  </div>
+                  <div className="mt-4 flex items-center text-blue-400 group-hover:text-blue-300 transition-colors">
+                    Read more
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* All Posts Section */}
-      <div>
-        <div style={styles.blogControls}>
-          <div style={styles.searchContainer}>
-            <input
-              type="text"
-              placeholder="🔍 Search articles..."
-              style={styles.searchInput}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          <div style={styles.categoryButtons}>
-            {categories.map(category => (
-              <button
-                key={category}
-                style={{
-                  ...getStyles('categoryButton'),
-                  ...(selectedCategory === category ? getStyles('activeCategoryButton', true) : {})
-                }}
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </button>
             ))}
           </div>
         </div>
 
-        <div style={styles.blogPostsGrid}>
-          {filteredPosts.map(post => (
-            <div 
-              key={post.id} 
-              style={styles.postCard}
-              onClick={() => setExpandedPost(post)}
-            >
-              <img src={post.image} alt={post.title} style={styles.postImage} />
-              <div style={styles.postContent}>
-                <span style={styles.postCategory}>{post.category}</span>
-                <h3 style={styles.postTitle}>{post.title}</h3>
-                <p style={styles.postExcerpt}>{post.excerpt}</p>
-                <div style={styles.postMeta}>
-                  <span><span style={styles.metaIcon}>📅</span> {post.date}</span>
-                  <span><span style={styles.metaIcon}>⏱</span> {post.readTime}</span>
+        {/* All Posts */}
+        <div>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+            <div className="relative w-full sm:w-64">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="w-5 h-5 text-gray-500" />
+              </div>
+              <input
+                type="text"
+                placeholder="Search articles..."
+                className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+              {categories.map(category => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    selectedCategory === category
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                      : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                  }`}
+                >
+                  {category !== 'All' && categoryIcons[category]}
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredPosts.map(post => (
+              <div 
+                key={post.id}
+                onClick={() => setExpandedPost(post)}
+                className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer hover:translate-y-[-4px] transition-transform"
+              >
+                <img 
+                  src={post.image} 
+                  alt={post.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-5">
+                  <div className="flex items-center mb-3">
+                    <span className="text-xs font-semibold px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full">
+                      {post.category}
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 line-clamp-2">{post.title}</h3>
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
+                  <div className="flex justify-between text-xs text-gray-500">
+                    <span>{post.date}</span>
+                    <span>{post.readTime}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Pagination */}
-        <div style={styles.pagination}>
-          <button style={getStyles('paginationButton', true)}>1</button>
-          <button style={getStyles('paginationButton')}>2</button>
-          <button style={getStyles('paginationButton')}>3</button>
-          <button style={getStyles('paginationButton')}>Next →</button>
+          {filteredPosts.length === 0 && (
+            <div className="text-center py-12">
+              <h3 className="text-xl font-medium text-gray-400">No articles found matching your criteria</h3>
+              <button 
+                onClick={() => {
+                  setSelectedCategory('All');
+                  setSearchQuery('');
+                }}
+                className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+              >
+                Reset filters
+              </button>
+            </div>
+          )}
+
+          {/* Pagination */}
+          <div className="flex justify-center mt-12">
+            <nav className="flex items-center space-x-2">
+              <button className="px-4 py-2 border border-gray-700 rounded-lg text-gray-400 hover:bg-gray-800 transition-colors">
+                Previous
+              </button>
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg">
+                1
+              </button>
+              <button className="px-4 py-2 border border-gray-700 rounded-lg text-gray-400 hover:bg-gray-800 transition-colors">
+                2
+              </button>
+              <button className="px-4 py-2 border border-gray-700 rounded-lg text-gray-400 hover:bg-gray-800 transition-colors">
+                3
+              </button>
+              <button className="px-4 py-2 border border-gray-700 rounded-lg text-gray-400 hover:bg-gray-800 transition-colors">
+                Next
+              </button>
+            </nav>
+          </div>
         </div>
       </div>
     </div>

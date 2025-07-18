@@ -362,12 +362,28 @@ const Pcsit = () => {
             height: '100%',
             textAlign: 'center'
           }}>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              Welcome to MCQ Practice
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a subject from the sidebar to begin your quiz'}
-            </Typography>
+            <Typography variant="h5" className="mb-4 text-2xl font-semibold text-gray-800">
+  B.Sc. CSIT Entrance MCQ Practice
+</Typography>
+
+<Typography variant="body1" className="text-gray-600 text-base leading-relaxed max-w-4xl">
+  Get ready to excel in the <strong className="text-black">B.Sc. CSIT Entrance Examination</strong> with our dedicated MCQ practice platform. The Bachelor of Science in Computer Science and Information Technology (<strong className="text-black">B.Sc. CSIT</strong>) program offered by <strong className="text-black">Tribhuvan University (TU)</strong> is one of the most competitive and prestigious IT programs in Nepal. Our question sets are designed to reflect the official exam pattern and difficulty level, helping you to prepare smartly and efficiently.
+
+  <br /><br />
+
+  The <strong className="text-black">CSIT entrance syllabus</strong> includes four major subjects: <strong className="text-black">Mathematics, Physics, English, and Computer Science</strong>. Each section requires deep understanding and time-managed practice. With topic-wise quizzes, previous year questions, and full mock tests, HamroExam empowers you to build confidence and accuracy for the actual exam day.
+
+  <br /><br />
+
+  Our mobile-friendly platform offers real-time performance tracking, instant feedback, and curated resources to support your journey. Stay updated with the latest exam notices, model sets, and CSIT preparation strategies all in one place.
+
+  <br /><br />
+
+  <span className="text-sm text-gray-500">
+    Keywords: B.Sc. CSIT Entrance Exam, CSIT TU MCQ Practice, CSIT Entrance Questions Nepal, Tribhuvan University CSIT, CSIT Entrance Syllabus, CSIT Model Questions, B.Sc. CSIT Preparation
+  </span>
+</Typography>
+
           </Box>
         ) : questions.length === 0 ? (
           <Box sx={{ 

@@ -21,11 +21,15 @@ const TermsAndConditions = lazy(() => import('../page/support/Terms'));
 const BlogPage = lazy(() => import('../page/support/blog'));
 const PracticeGuide = lazy(() => import('../page/Resources/practiceGuides'));
 const Psc = lazy (() => import('../page/psc/PscComputer'));
+// TU entrance details pages
+const BScCSITDetails = lazy(() => import('../page/section page/csit'));
+const BITDetails = lazy(() => import('../page/section page/bit'));
+const IOEDetails = lazy(() => import('../page/section page/ioe'));
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense >
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/Signup" element={<Signup />} />
@@ -33,17 +37,17 @@ export default function AppRoutes() {
           <Route path="/MCQUploadForm" element={<MCQUploadForm />} />
           <Route path="/medical" element={<MedicalPage />} />
 
-          <Route path="/csit" element={<BscCsit />} />
-          <Route path="/bit" element={<Bit />} />
-          <Route path="/computerOperator" element={<Psc />} />
+          <Route path="/mock-test/csit" element={<BscCsit />} />
+          <Route path="/mock-test/bit" element={<Bit />} />
+          <Route path="/loksewa/computer-operator" element={<Psc />} />
           
           {/* Practice routes */}
           <Route path="/Pmedical" element={<PMCQApp />} />
-          <Route path="/Pcsit" element={<Pcsit />} />
-          <Route path="/PBit" element={<PBit />} />
+          <Route path="/practice/csit" element={<Pcsit />} />
+          <Route path="/practice/bit" element={<PBit />} />
 
-          <Route path="/ioe" element={<IOE />} />
-          <Route path="/pioe" element={<PIOE />} />
+          <Route path="/mock-test/ioe" element={<IOE />} />
+          <Route path="/practice/ioe" element={<PIOE />} />
 
           // Resource routes
           <Route path="/about" element={<AboutPage />} />
@@ -51,9 +55,13 @@ export default function AppRoutes() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />      
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/blog" element={<BlogPage />} />
-          <Route path="/practice-guides" element={<PracticeGuide />} />
+          <Route path="/guidance" element={<PracticeGuide />} />
 
-          
+          //tu details pages
+          <Route path="/csit-details" element={<BScCSITDetails />} />
+          <Route path="/bit-details" element={<BITDetails />} />
+          <Route path="/ioe-details" element={<IOEDetails />} />
+
           
 
           {/* Add more routes as needed */}

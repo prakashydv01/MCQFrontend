@@ -1,38 +1,10 @@
-// MUI Components
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import Divider from '@mui/material/Divider';
-
-// MUI Icons
-import Facebook from '@mui/icons-material/Facebook';
-import Twitter from '@mui/icons-material/Twitter';
-import Instagram from '@mui/icons-material/Instagram';
-import LinkedIn from '@mui/icons-material/LinkedIn';
-import YouTube from '@mui/icons-material/YouTube';
-
-// Framer Motion
-import { motion } from 'framer-motion';
-
-// Emotion (for animation keyframes)
-import { keyframes } from '@emotion/react';
-
-// React Router
 import { useNavigate } from 'react-router-dom';
- // Changed from next/router
-
-const gradientAnimation = keyframes`
-  0% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-  100% { background-position: 0% 50% }
-`;
+import { motion } from 'framer-motion';
+import { Facebook, Twitter, Instagram, LinkedIn, YouTube } from '@mui/icons-material';
 
 const Footer = () => {
-  const navigate = useNavigate(); // Changed from useRouter
+  const navigate = useNavigate();
 
-  // Define all routes in one place for easy management
   const routes = {
     home: '/',
     PracticeGuides: '/practice-guides',
@@ -40,7 +12,6 @@ const Footer = () => {
     contact: '/contact',
     PrivacyPolicy: '/privacy-policy',
     terms: '/terms',
-    // Social media links
     social: {
       facebook: 'https://www.facebook.com/profile.php?id=61577236957852',
       linkedin: 'www.linkedin.com/in/prakash-yadav-6b7b00320',
@@ -48,273 +19,130 @@ const Footer = () => {
     }
   };
 
-  // Handle navigation
   const handleNavigation = (path) => {
     navigate(path);
   };
 
   return (
-    <Box 
-      component="footer" 
-      sx={{
-        background: 'linear-gradient(45deg,rgb(46, 33, 230),rgb(57, 91, 187),rgb(88, 34, 236),rgb(18, 34, 179))',
-        backgroundSize: '300% 300%',
-        animation: `${gradientAnimation} 12s ease infinite`,
-        py: { xs: 4, md: 6 },
-        position: 'relative',
-        overflow: 'hidden',
-        width: '100vw',
-        left: '50%',
-        right: '50%',
-        marginLeft: '-50vw',
-        marginRight: '-50vw',
-        '&:before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '4px',
-          background: 'linear-gradient(90deg, #3f51b5, #ff4081)'
-        }
-      }}
-    >
-      <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-        <Grid container spacing={3}>
-          {/* Company Info - Animated */}
-          <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Typography 
-                variant="h6" 
-                gutterBottom 
-                sx={{ 
-                  fontWeight: 700,
-                  color: 'white',
-                  textShadow: '0 2px 4px rgba(0,0,0,0.2)'
-                }}
-              >
-                Hamro Exam
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)', mb: 2 }}>
-                The ultimate platform for exam preparation through smart practice.
-              </Typography>
-              <Box sx={{ 
-                display: 'flex', 
-                gap: 2,
-                justifyContent: { xs: 'center', md: 'flex-start' }
-              }}>
-                {[
-                  { Icon: Facebook, link: routes.social.facebook },
-                  { Icon: LinkedIn, link: routes.social.linkedin },
-                  { Icon: YouTube, link: routes.social.YouTube }
-                ].map(({ Icon, link }, index) => (
-                  <motion.div
-                    key={index}
-                    whileHover={{ 
-                      y: -4,
-                      scale: 1.1,
-                      transition: { type: 'spring', stiffness: 400 }
-                    }}
-                  >
-                    <Link 
-                      href={link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      sx={{ color: 'white' }}
-                    >
-                      <Icon fontSize="medium" />
-                    </Link>
-                  </motion.div>
-                ))}
-              </Box>
-            </motion.div>
-          </Grid>
-
-          {/* Quick Links - Staggered Animation */}
-          <Grid item xs={6} sm={3} md={2}>
-            <Typography 
-              variant="subtitle1" 
-              gutterBottom 
-              sx={{ 
-                fontWeight: 600,
-                color: 'white',
-                textAlign: { xs: 'center', sm: 'left' }
-              }}
-            >
-              Resources
-            </Typography>
-            {[
-              { name: 'Practice Guides', path: routes.PracticeGuides },
-            ].map(({ name, path }, i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-              >
-                <Link 
-                  component="button" // Changed to button for better navigation handling
-                  onClick={() => handleNavigation(path)}
-                  sx={{ 
-                    display: 'block', 
-                    mb: 1,
-                    color: window.location.pathname === path ? 'white' : 'rgba(255,255,255,0.8)',
-                    '&:hover': { color: 'white' },
-                    textAlign: { xs: 'center', sm: 'left' },
-                    fontWeight: window.location.pathname === path ? 600 : 'normal',
-                    textDecoration: 'none',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {name}
-                </Link>
-              </motion.div>
-            ))}
-          </Grid>
-
-          {/* Support - Staggered Animation */}
-          <Grid item xs={6} sm={3} md={2}>
-            <Typography 
-              variant="subtitle1" 
-              gutterBottom 
-              sx={{ 
-                fontWeight: 600,
-                color: 'white',
-                textAlign: { xs: 'center', sm: 'left' }
-              }}
-            >
-              Support
-            </Typography>
-            {[
-              { name: 'About us', path: routes.about },
-              { name: 'Contact Us', path: routes.contact },
-              { name: 'Privacy Policy', path: routes.PrivacyPolicy },
-              { name: 'Terms & Conditions ', path: '/terms' }
-            ].map(({ name, path }, i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 + 0.2, duration: 0.5 }}
-              >
-                <Link 
-                  component="button"
-                  onClick={() => handleNavigation(path)}
-                  sx={{ 
-                    display: 'block', 
-                    mb: 1,
-                    color: window.location.pathname === path ? 'white' : 'rgba(255,255,255,0.8)',
-                    '&:hover': { color: 'white' },
-                    textAlign: { xs: 'center', sm: 'left' },
-                    fontWeight: window.location.pathname === path ? 600 : 'normal',
-                    textDecoration: 'none',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {name}
-                </Link>
-              </motion.div>
-            ))}
-          </Grid>
-
-          {/* Newsletter - Special Animation */}
-          <Grid item xs={12} sm={6} md={4}>
-            <motion.div
-              initial={{ scale: 0.9 }}
-              whileInView={{ scale: 1 }}
-              transition={{ type: 'spring' }}
-            >
-              <Typography 
-                variant="subtitle1" 
-                gutterBottom 
-                sx={{ 
-                  fontWeight: 600,
-                  color: 'white',
-                  textAlign: { xs: 'center', sm: 'left' }
-                }}
-              >
-                Stay Updated
-              </Typography>
-              <Box 
-                component="form"
-                sx={{
-                  display: 'flex',
-                  gap: 1,
-                  flexDirection: { xs: 'column', sm: 'row' },
-                  alignItems: 'center'
-                }}
-              >
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  style={{
-                    flexGrow: 1,
-                    padding: '10px 12px',
-                    borderRadius: '8px',
-                    border: 'none',
-                    outline: 'none',
-                    fontSize: '14px',
-                    width: '100%',
-                    maxWidth: '300px'
-                  }}
-                />
-                <motion.button
-                  type="submit"
-                  style={{
-                    backgroundColor: '#3f51b5',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    padding: '10px 20px',
-                    cursor: 'pointer',
-                    fontWeight: 600,
-                    width: { xs: '100%', sm: 'auto' },
-                    maxWidth: '300px'
-                  }}
+    <footer className="w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Gradient border top */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600"></div>
+      
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          {/* Company Info */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="md:col-span-4"
+          >
+            <h3 className="text-2xl font-bold text-white mb-4">Hamro Exam</h3>
+            <p className="text-gray-400 mb-6">
+              The ultimate platform for exam preparation through smart practice.
+            </p>
+            <div className="flex space-x-4">
+              {[
+                { Icon: Facebook, link: routes.social.facebook },
+                { Icon: LinkedIn, link: routes.social.linkedin },
+                { Icon: YouTube, link: routes.social.YouTube }
+              ].map(({ Icon, link }, index) => (
+                <motion.a
+                  key={index}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ 
-                    backgroundColor: '#303f9f',
-                    scale: 1.05
+                    y: -4,
+                    scale: 1.1,
+                    transition: { type: 'spring', stiffness: 400 }
                   }}
-                  whileTap={{ scale: 0.95 }}
+                  className="text-blue-400 hover:text-blue-300 transition-colors"
                 >
-                  Subscribe
-                </motion.button>
-              </Box>
-            </motion.div>
-          </Grid>
-        </Grid>
+                  <Icon className="text-2xl" />
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
 
-        <Divider sx={{ 
-          my: 4, 
-          backgroundColor: 'rgba(255,255,255,0.2)' 
-        }} />
+          {/* Resources Links */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="md:col-span-2"
+          >
+            <h4 className="text-lg font-semibold text-white mb-4">Resources</h4>
+            <ul className="space-y-2">
+              <li>
+                <button
+                  onClick={() => handleNavigation('/guidance')}
+                  className="text-blue-400 hover:text-blue-300 transition-colors text-left"
+                >
+                  Practice Guides
+                </button>
+              </li>
+            </ul>
+          </motion.div>
 
+          {/* Support Links */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="md:col-span-2"
+          >
+            <h4 className="text-lg font-semibold text-white mb-4">Support</h4>
+            <ul className="space-y-2">
+              {[
+                { name: 'About us', path: routes.about },
+                { name: 'Contact Us', path: routes.contact },
+                { name: 'Privacy Policy', path: routes.PrivacyPolicy },
+                { name: 'Terms & Conditions', path: routes.terms }
+              ].map(({ name, path }, i) => (
+                <motion.li
+                  key={name}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <button
+                    onClick={() => handleNavigation(path)}
+                    className={`text-blue-400 hover:text-blue-300 transition-colors text-left ${
+                      window.location.pathname === path ? 'font-medium text-blue-300' : ''
+                    }`}
+                  >
+                    {name}
+                  </button>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Empty column to balance layout */}
+          <div className="md:col-span-4"></div>
+        </div>
+
+        {/* Divider */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="border-t border-gray-700 my-8"
+        ></motion.div>
+
+        {/* Copyright */}
         <motion.div
           whileInView={{ opacity: [0, 1] }}
           transition={{ duration: 0.8 }}
+          className="text-center"
         >
-          <Typography 
-            variant="body2" 
-            align="center"
-            sx={{ 
-              color: 'rgba(242, 241, 250, 0.8)',
-              '&:hover': { color: 'white' },
-              px: 2
-            }}
-          >
+          <p className="text-gray-500 hover:text-blue-400 transition-colors">
             © {new Date().getFullYear()} Hamro Exam. All rights reserved.
-          </Typography>
+          </p>
         </motion.div>
-      </Container>
-    </Box>
+      </div>
+    </footer>
   );
 };
 

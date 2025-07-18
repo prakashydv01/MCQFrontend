@@ -354,12 +354,28 @@ const Pioe = () => {
             height: '100%',
             textAlign: 'center'
           }}>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              Welcome to MCQ Practice
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a subject from the sidebar to begin your quiz'}
-            </Typography>
+            <Typography variant="h5" className="mb-4 text-2xl font-semibold text-gray-800">
+  IOE Entrance MCQ Practice
+</Typography>
+
+<Typography variant="body1" className="text-gray-600 text-base leading-relaxed max-w-4xl">
+  Prepare for the highly competitive <strong className="text-black">IOE Entrance Examination</strong> with our advanced MCQ practice platform. The <strong className="text-black">Institute of Engineering (IOE)</strong>, under <strong className="text-black">Tribhuvan University (TU)</strong>, conducts entrance exams for programs like <strong className="text-black">BE and B.Arch</strong>, making it one of the most sought-after engineering admissions in Nepal. Our practice sets are tailored to match the official entrance format and help students master each subject effectively.
+
+  <br /><br />
+
+  The <strong className="text-black">IOE entrance syllabus</strong> includes four main subjects: <strong className="text-black">Mathematics, Physics, Chemistry, and English</strong>. With our platform, you can access chapter-wise MCQs, full-length model tests, and past question collections that are crucial for scoring high. Each quiz is designed to strengthen your problem-solving speed, accuracy, and conceptual clarity.
+
+  <br /><br />
+
+  HamroExam offers mobile-friendly access, real-time results, instant feedback, and regular updates aligned with the <strong className="text-black">Pulchowk Engineering Campus</strong> and other IOE-affiliated colleges' entrance standards. Whether you're aiming for Civil, Computer, Electrical, or any other engineering field, our platform supports your preparation from the ground up.
+
+  <br /><br />
+
+  <span className="text-sm text-gray-500">
+    Keywords: IOE Entrance Exam Nepal, IOE MCQ Practice, Pulchowk Engineering Entrance, IOE Model Questions, TU Engineering Admission, BE Entrance Nepal, IOE Syllabus, IOE Entrance Preparation Platform
+  </span>
+</Typography>
+
           </Box>
         ) : questions.length === 0 ? (
           <Box sx={{ 
