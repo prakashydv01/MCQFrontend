@@ -22,6 +22,9 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import Collapse from '@mui/material/Collapse';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 // React Router
 import { useNavigate } from 'react-router-dom';
@@ -33,8 +36,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
-const questionSets = [
- { id: 'csit-physics-1', name: 'Physics_Set_1', color: '#4CAF50', questionCount: '25' },
+const questionSets = [{ id: 'csit-physics-1', name: 'Physics_Set_1', color: '#4CAF50', questionCount: '25' },
     { id: 'csit-physics-2', name: 'Physics_Set_2', color: '#4CAF50', questionCount: '25' },
     { id: 'csit-physics-3', name: 'Physics_Set_3', color: '#4CAF50', questionCount: '25' },
     { id: 'csit-physics-4', name: 'Physics_Set_4', color: '#4CAF50', questionCount: '25' },
@@ -51,7 +53,6 @@ const questionSets = [
     { id: 'csit-math-3', name: 'Mathematics_Set_3', color: '#2196F3', questionCount: '25' },
     { id: 'csit-math-4', name: 'Mathematics_Set_4', color: '#2196F3', questionCount: '25' },
     { id: 'csit-math-5', name: 'Mathematics_Set_5', color: '#2196F3', questionCount: '25' },
-
 ];
 
 const TextWithLatex = ({ text }) => {
@@ -86,6 +87,7 @@ const Pcsit = () => {
   const [showResults, setShowResults] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
   const [showAnswerPreview, setShowAnswerPreview] = useState(false);
+  const [expandedExplanation, setExpandedExplanation] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -106,6 +108,7 @@ const Pcsit = () => {
       setShowAnswers(false);
       setShowAnswerPreview(false);
       setMobileOpen(false);
+      setExpandedExplanation(null);
       
       const apiUrl = import.meta.env.VITE_GET_MCQ;
       const response = await fetch(`${apiUrl}`, {
@@ -149,12 +152,22 @@ const Pcsit = () => {
     const newAnswers = { ...answers, [currentQuestion]: answer };
     setAnswers(newAnswers);
     setSelectedAnswer(answer);
+    
+    // Show explanation when an answer is selected
+    if (questions[currentQuestion]?.explanation) {
+      setExpandedExplanation(currentQuestion);
+    }
+  };
+
+  const toggleExplanation = (questionIndex) => {
+    setExpandedExplanation(expandedExplanation === questionIndex ? null : questionIndex);
   };
 
   const handleNextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(answers[currentQuestion + 1] || '');
+      setExpandedExplanation(null);
     }
   };
 
@@ -162,12 +175,14 @@ const Pcsit = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
       setSelectedAnswer(answers[currentQuestion - 1] || '');
+      setExpandedExplanation(null);
     }
   };
 
   const handleQuestionSelect = (number) => {
     setCurrentQuestion(number - 1);
     setSelectedAnswer(answers[number - 1] || '');
+    setExpandedExplanation(null);
   };
 
   const handleSubmit = () => {
@@ -209,6 +224,7 @@ const Pcsit = () => {
     });
     setAnswers(resetAnswers);
     setResults(null);
+    setExpandedExplanation(null);
   };
 
   const currentSetData = questionSets.find(set => set.id === currentSet);
@@ -383,7 +399,6 @@ const Pcsit = () => {
     Keywords: B.Sc. CSIT Entrance Exam, CSIT TU MCQ Practice, CSIT Entrance Questions Nepal, Tribhuvan University CSIT, CSIT Entrance Syllabus, CSIT Model Questions, B.Sc. CSIT Preparation
   </span>
 </Typography>
-
           </Box>
         ) : questions.length === 0 ? (
           <Box sx={{ 
@@ -512,6 +527,45 @@ const Pcsit = () => {
                   );
                 })}
               </RadioGroup>
+
+              {/* Explanation section */}
+              {questions[currentQuestion]?.explanation && (
+                <Box sx={{ mt: 3 }}>
+                  <Button
+                    onClick={() => toggleExplanation(currentQuestion)}
+                    sx={{
+                      color: currentSetData.color,
+                      textTransform: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1
+                    }}
+                  >
+                    {expandedExplanation === currentQuestion ? (
+                      <ExpandLessIcon />
+                    ) : (
+                      <ExpandMoreIcon />
+                    )}
+                    {expandedExplanation === currentQuestion ? 'Hide Explanation' : 'Show Explanation'}
+                  </Button>
+                  
+                  <Collapse in={expandedExplanation === currentQuestion}>
+                    <Paper 
+                      elevation={0} 
+                      sx={{ 
+                        p: 2, 
+                        mt: 1,
+                        bgcolor: '#f5f5f5',
+                        borderRadius: 1
+                      }}
+                    >
+                      <Typography variant="body1">
+                        <TextWithLatex text={questions[currentQuestion].explanation} />
+                      </Typography>
+                    </Paper>
+                  </Collapse>
+                </Box>
+              )}
             </Paper>
 
             <Box sx={{ 
@@ -682,6 +736,16 @@ const Pcsit = () => {
                         >
                           (Not answered)
                         </Typography>
+                      )}
+                      {question.explanation && (
+                        <Box sx={{ mt: 2 }}>
+                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                            Explanation:
+                          </Typography>
+                          <Typography variant="body2">
+                            <TextWithLatex text={question.explanation} />
+                          </Typography>
+                        </Box>
                       )}
                     </Box>
                   ))}

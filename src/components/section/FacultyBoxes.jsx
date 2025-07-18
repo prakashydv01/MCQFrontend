@@ -74,7 +74,7 @@ export default function FacultyBoxes() {
               </p>
               <div className={`mt-auto px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200`}>
                 <p className="text-sm flex items-center justify-center gap-2">
-                  <QuizIcon className="w-4 h-4" /> {faculty.count}+ Practice Questions
+                  <div className="w-4 h-4" /> {faculty.count}+ Practice Questions
                 </p>
               </div>
             </Link>

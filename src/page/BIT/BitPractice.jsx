@@ -22,6 +22,9 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import Collapse from '@mui/material/Collapse';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 // React Router
 import { useNavigate } from 'react-router-dom';
@@ -34,28 +37,26 @@ import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
 const questionSets = [
-//English
-    { id: 'bit-english-set-1', name: 'English Set 1', questionCount: 50, color: '#3F51B5' },
-    { id: 'bit-english-set-2', name: 'English Set 2', questionCount: 50, color: '#3F51B5' },
-    { id: 'bit-english-set-3', name: 'English Set 3', questionCount: 50, color: '#3F51B5' },
-    { id: 'bit-english-set-4', name: 'English Set 4', questionCount: 50, color: '#3F51B5' },
-    { id: 'bit-english-set-5', name: 'English Set 5', questionCount: 50, color: '#3F51B5' },
+  //English
+  { id: 'bit-english-set-1', name: 'English Set 1', questionCount: 50, color: '#3F51B5' },
+  { id: 'bit-english-set-2', name: 'English Set 2', questionCount: 50, color: '#3F51B5' },
+  { id: 'bit-english-set-3', name: 'English Set 3', questionCount: 50, color: '#3F51B5' },
+  { id: 'bit-english-set-4', name: 'English Set 4', questionCount: 50, color: '#3F51B5' },
+  { id: 'bit-english-set-5', name: 'English Set 5', questionCount: 50, color: '#3F51B5' },
 
-    //Mathematics
-    { id: 'bit-math-set-1', name: 'Mathematics Set 1', questionCount: 50, color: '#4CAF50' },
-    { id: 'bit-math-set-2', name: 'Mathematics Set 2', questionCount: 50, color: '#4CAF50' },
-    { id: 'bit-math-set-3', name: 'Mathematics Set 3', questionCount: 50, color: '#4CAF50' },
-    { id: 'bit-math-set-4', name: 'Mathematics Set 4', questionCount: 50, color: '#4CAF50' },
-    { id: 'bit-math-set-5', name: 'Mathematics Set 5', questionCount: 50, color: '#4CAF50' },
+  //Mathematics
+  { id: 'bit-math-set-1', name: 'Mathematics Set 1', questionCount: 50, color: '#4CAF50' },
+  { id: 'bit-math-set-2', name: 'Mathematics Set 2', questionCount: 50, color: '#4CAF50' },
+  { id: 'bit-math-set-3', name: 'Mathematics Set 3', questionCount: 50, color: '#4CAF50' },
+  { id: 'bit-math-set-4', name: 'Mathematics Set 4', questionCount: 50, color: '#4CAF50' },
+  { id: 'bit-math-set-5', name: 'Mathematics Set 5', questionCount: 50, color: '#4CAF50' },
 
-    //Computer Science
-    { id: 'bit-computer-set-1', name: 'Computer  Set 1', questionCount: 50, color: '#FF9800' },
-    { id: 'bit-computer-set-2', name: 'Computer  Set 2', questionCount: 50, color: '#FF9800' },
-    { id: 'bit-computer-set-3', name: 'Computer  Set 3', questionCount: 50, color: '#FF9800' },
-    { id: 'bit-computer-set-4', name: 'Computer  Set 4', questionCount: 50, color: '#FF9800' },
-    { id: 'bit-computer-set-5', name: 'Computer  Set 5', questionCount: 50, color: '#FF9800' },
- 
-
+  //Computer Science
+  { id: 'bit-computer-set-1', name: 'Computer  Set 1', questionCount: 50, color: '#FF9800' },
+  { id: 'bit-computer-set-2', name: 'Computer  Set 2', questionCount: 50, color: '#FF9800' },
+  { id: 'bit-computer-set-3', name: 'Computer  Set 3', questionCount: 50, color: '#FF9800' },
+  { id: 'bit-computer-set-4', name: 'Computer  Set 4', questionCount: 50, color: '#FF9800' },
+  { id: 'bit-computer-set-5', name: 'Computer  Set 5', questionCount: 50, color: '#FF9800' },
 ];
 
 const TextWithLatex = ({ text }) => {
@@ -90,6 +91,7 @@ const PBit = () => {
   const [showResults, setShowResults] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
   const [showAnswerPreview, setShowAnswerPreview] = useState(false);
+  const [expandedExplanation, setExpandedExplanation] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -110,6 +112,7 @@ const PBit = () => {
       setShowAnswers(false);
       setShowAnswerPreview(false);
       setMobileOpen(false);
+      setExpandedExplanation(null);
       
       const apiUrl = import.meta.env.VITE_GET_MCQ;
       const response = await fetch(`${apiUrl}`, {
@@ -153,12 +156,22 @@ const PBit = () => {
     const newAnswers = { ...answers, [currentQuestion]: answer };
     setAnswers(newAnswers);
     setSelectedAnswer(answer);
+    
+    // Show explanation when an answer is selected
+    if (questions[currentQuestion]?.explanation) {
+      setExpandedExplanation(currentQuestion);
+    }
+  };
+
+  const toggleExplanation = (questionIndex) => {
+    setExpandedExplanation(expandedExplanation === questionIndex ? null : questionIndex);
   };
 
   const handleNextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(answers[currentQuestion + 1] || '');
+      setExpandedExplanation(null);
     }
   };
 
@@ -166,12 +179,14 @@ const PBit = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
       setSelectedAnswer(answers[currentQuestion - 1] || '');
+      setExpandedExplanation(null);
     }
   };
 
   const handleQuestionSelect = (number) => {
     setCurrentQuestion(number - 1);
     setSelectedAnswer(answers[number - 1] || '');
+    setExpandedExplanation(null);
   };
 
   const handleSubmit = () => {
@@ -213,6 +228,7 @@ const PBit = () => {
     });
     setAnswers(resetAnswers);
     setResults(null);
+    setExpandedExplanation(null);
   };
 
   const currentSetData = questionSets.find(set => set.id === currentSet);
@@ -367,24 +383,23 @@ const PBit = () => {
             textAlign: 'center'
           }}>
             <Typography variant="h5" className="mb-4 text-2xl font-semibold text-gray-800">
-  Welcome to MCQ Practice for BIT Entrance Exam
-</Typography>
+              Welcome to MCQ Practice for BIT Entrance Exam
+            </Typography>
 
-<Typography variant="body1" className="text-gray-600 text-base leading-relaxed max-w-4xl">
-  Our platform is designed to help students excel in the <strong className="text-black">Bachelor in Information Technology (BIT) entrance exam</strong> in Nepal. Whether you're applying through <strong className="text-black">Tribhuvan University (TU)</strong>, <strong className="text-black">Purbanchal University</strong>, or other institutions, we offer expertly curated <strong className="text-black">MCQ practice sets</strong> tailored to the official syllabus. 
-  The exam covers key subjects including <strong className="text-black">Mathematics, English, Computer Science, and General Knowledge</strong>, and our platform provides a topic-wise breakdown to boost your understanding and confidence.
+            <Typography variant="body1" className="text-gray-600 text-base leading-relaxed max-w-4xl">
+              Our platform is designed to help students excel in the <strong className="text-black">Bachelor in Information Technology (BIT) entrance exam</strong> in Nepal. Whether you're applying through <strong className="text-black">Tribhuvan University (TU)</strong>, <strong className="text-black">Purbanchal University</strong>, or other institutions, we offer expertly curated <strong className="text-black">MCQ practice sets</strong> tailored to the official syllabus. 
+              The exam covers key subjects including <strong className="text-black">Mathematics, English, Computer Science, and General Knowledge</strong>, and our platform provides a topic-wise breakdown to boost your understanding and confidence.
 
-  <br /><br />
+              <br /><br />
 
-  Practice with <strong className="text-black">previous year questions, model tests, and real-time scoring</strong> — all in one place. Designed for both desktop and mobile devices, HamroExam makes your BIT entrance preparation more organized and effective. Stay ahead with regular updates, tips, and high-quality content to secure your seat in the top universities.
+              Practice with <strong className="text-black">previous year questions, model tests, and real-time scoring</strong> — all in one place. Designed for both desktop and mobile devices, HamroExam makes your BIT entrance preparation more organized and effective. Stay ahead with regular updates, tips, and high-quality content to secure your seat in the top universities.
 
-  <br /><br />
+              <br /><br />
 
-  <span className="text-sm text-gray-500">
-    Keywords: BIT Entrance Exam Nepal, BIT MCQ Practice, BIT Entrance Preparation TU, Computer Science Entrance Nepal, Purbanchal University BIT Syllabus, BIT Entrance Model Questions, BIT Admission Test
-  </span>
-</Typography>
-
+              <span className="text-sm text-gray-500">
+                Keywords: BIT Entrance Exam Nepal, BIT MCQ Practice, BIT Entrance Preparation TU, Computer Science Entrance Nepal, Purbanchal University BIT Syllabus, BIT Entrance Model Questions, BIT Admission Test
+              </span>
+            </Typography>
           </Box>
         ) : questions.length === 0 ? (
           <Box sx={{ 
@@ -513,6 +528,45 @@ const PBit = () => {
                   );
                 })}
               </RadioGroup>
+
+              {/* Explanation section */}
+              {questions[currentQuestion]?.explanation && (
+                <Box sx={{ mt: 3 }}>
+                  <Button
+                    onClick={() => toggleExplanation(currentQuestion)}
+                    sx={{
+                      color: currentSetData.color,
+                      textTransform: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1
+                    }}
+                  >
+                    {expandedExplanation === currentQuestion ? (
+                      <ExpandLessIcon />
+                    ) : (
+                      <ExpandMoreIcon />
+                    )}
+                    {expandedExplanation === currentQuestion ? 'Hide Explanation' : 'Show Explanation'}
+                  </Button>
+                  
+                  <Collapse in={expandedExplanation === currentQuestion}>
+                    <Paper 
+                      elevation={0} 
+                      sx={{ 
+                        p: 2, 
+                        mt: 1,
+                        bgcolor: '#f5f5f5',
+                        borderRadius: 1
+                      }}
+                    >
+                      <Typography variant="body1">
+                        <TextWithLatex text={questions[currentQuestion].explanation} />
+                      </Typography>
+                    </Paper>
+                  </Collapse>
+                </Box>
+              )}
             </Paper>
 
             <Box sx={{ 
@@ -683,6 +737,16 @@ const PBit = () => {
                         >
                           (Not answered)
                         </Typography>
+                      )}
+                      {question.explanation && (
+                        <Box sx={{ mt: 2 }}>
+                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                            Explanation:
+                          </Typography>
+                          <Typography variant="body2">
+                            <TextWithLatex text={question.explanation} />
+                          </Typography>
+                        </Box>
                       )}
                     </Box>
                   ))}
