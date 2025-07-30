@@ -17,7 +17,7 @@ export default function Hero() {
       <div className="relative z-10 w-full max-w-4xl px-6 py-12 mx-auto text-left">
         <div className="space-y-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white">
-            <span className="text-blue-400">B.Sc. CSIT</span>, <span className="text-blue-400">BIT</span> & <span className="text-blue-400">IOE</span> 
+            <span className="text-blue-400">B.Sc. CSIT</span>, <span className="text-blue-400">BIT</span> & <span className="text-blue-400">IOE etc</span> 
             <br />
             Entrance Preparation
           </h1>

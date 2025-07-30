@@ -213,6 +213,7 @@ const Pioe = () => {
         sx={{ 
           p: 2, 
           fontWeight: 'bold',
+
           textAlign: 'center',
           borderBottom: '1px solid',
           borderColor: 'divider'
