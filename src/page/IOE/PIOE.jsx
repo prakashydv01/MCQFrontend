@@ -21,18 +21,17 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-
-// React Router
+import Collapse from '@mui/material/Collapse';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { useNavigate } from 'react-router-dom';
-
-// MUI Icons
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
 const questionSets = [
-    { id: 'ioe_1_sec_1', name: 'SET 1 ->Section 1', color: '#4CAF50', questionCount: '25' },
+  { id: 'ioe_1_sec_1', name: 'SET 1 ->Section 1', color: '#4CAF50', questionCount: '25' },
     { id: 'ioe_1_sec_2', name: 'SET 1 ->Section 2', color: '#2196F3', questionCount: '25' },
     { id: 'ioe_2_sec_1', name: 'SET 2 ->Section 1', color: '#FF9800', questionCount: '25' },
     { id: 'ioe_2_sec_2', name: 'SET 2 ->Section 2', color: '#9C27B0', questionCount: '25' },
@@ -42,15 +41,11 @@ const questionSets = [
     { id: 'ioe_4_sec_2', name: 'SET 4 ->Section 2', color: '#009688', questionCount: '25' },
     { id: 'ioe_5_sec_1', name: 'SET 5 ->Section 1', color: '#FF5722', questionCount: '25' },
     { id: 'ioe_5_sec_2', name: 'SET 5 ->Section 2', color: '#795548', questionCount: '25' }
- 
-
 ];
 
 const TextWithLatex = ({ text }) => {
   if (!text) return null;
-
   const parts = text.split(/(\$\$.*?\$\$|\$.*?\$)/g);
-  
   return (
     <>
       {parts.map((part, i) => {
@@ -78,6 +73,7 @@ const Pioe = () => {
   const [showResults, setShowResults] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
   const [showAnswerPreview, setShowAnswerPreview] = useState(false);
+  const [expandedExplanation, setExpandedExplanation] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -98,6 +94,7 @@ const Pioe = () => {
       setShowAnswers(false);
       setShowAnswerPreview(false);
       setMobileOpen(false);
+      setExpandedExplanation(null);
       
       const apiUrl = import.meta.env.VITE_GET_MCQ;
       const response = await fetch(`${apiUrl}`, {
@@ -141,12 +138,21 @@ const Pioe = () => {
     const newAnswers = { ...answers, [currentQuestion]: answer };
     setAnswers(newAnswers);
     setSelectedAnswer(answer);
+    
+    if (questions[currentQuestion]?.explanation) {
+      setExpandedExplanation(currentQuestion);
+    }
+  };
+
+  const toggleExplanation = (questionIndex) => {
+    setExpandedExplanation(expandedExplanation === questionIndex ? null : questionIndex);
   };
 
   const handleNextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(answers[currentQuestion + 1] || '');
+      setExpandedExplanation(null);
     }
   };
 
@@ -154,12 +160,14 @@ const Pioe = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
       setSelectedAnswer(answers[currentQuestion - 1] || '');
+      setExpandedExplanation(null);
     }
   };
 
   const handleQuestionSelect = (number) => {
     setCurrentQuestion(number - 1);
     setSelectedAnswer(answers[number - 1] || '');
+    setExpandedExplanation(null);
   };
 
   const handleSubmit = () => {
@@ -201,6 +209,7 @@ const Pioe = () => {
     });
     setAnswers(resetAnswers);
     setResults(null);
+    setExpandedExplanation(null);
   };
 
   const currentSetData = questionSets.find(set => set.id === currentSet);
@@ -213,7 +222,6 @@ const Pioe = () => {
         sx={{ 
           p: 2, 
           fontWeight: 'bold',
-
           textAlign: 'center',
           borderBottom: '1px solid',
           borderColor: 'divider'
@@ -263,7 +271,7 @@ const Pioe = () => {
   );
 
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
+    <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
       <AppBar
         position="fixed"
         sx={{
@@ -326,15 +334,23 @@ const Pioe = () => {
         </Drawer>
       </Box>
 
-      <Box 
-        component="main" 
-        sx={{ 
-          flexGrow: 1, 
-          p: 3, 
-          overflow: 'auto',
-          mt: { xs: '64px', md: 0 }
-        }}
-      >
+      
+
+  <Box 
+    component="main" 
+  sx={{ 
+    flexGrow: 1, 
+    p: 3, 
+    mt: { xs: '64px', md: 0 }, // Account for app bar height on mobile
+    height: { 
+      xs: 'calc(100vh - 64px)', // Subtract app bar height on mobile
+      md: '100vh' // Full height on desktop
+    },
+    display: 'flex',
+          flexDirection: 'column',
+          overflow: 'auto', // Control page scrolling here
+  }}
+>
         {loading ? (
           <Box sx={{ 
             display: 'flex', 
@@ -348,35 +364,63 @@ const Pioe = () => {
           </Box>
         ) : !currentSet ? (
           <Box sx={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            height: '100%',
-            textAlign: 'center'
+            flex: 1,
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            textAlign: 'center',
+            p: 2,
+            '&::-webkit-scrollbar': { // [FIX #4] Custom scrollbar styling
+        width: '6px',
+      },
+          
           }}>
-            <Typography variant="h5" className="mb-4 text-2xl font-semibold text-gray-800">
-  IOE Entrance MCQ Practice
+            <>
+<Typography variant="h5" sx={{ mb: 4, fontSize: '2rem', fontWeight: 'semibold', color: 'text.primary' }}>
+  IOE B.E./B.Arch Entrance MCQ Practice
 </Typography>
 
-<Typography variant="body1" className="text-gray-600 text-base leading-relaxed max-w-4xl">
-  Prepare for the highly competitive <strong className="text-black">IOE Entrance Examination</strong> with our advanced MCQ practice platform. The <strong className="text-black">Institute of Engineering (IOE)</strong>, under <strong className="text-black">Tribhuvan University (TU)</strong>, conducts entrance exams for programs like <strong className="text-black">BE and B.Arch</strong>, making it one of the most sought-after engineering admissions in Nepal. Our practice sets are tailored to match the official entrance format and help students master each subject effectively.
-
-  <br /><br />
-
-  The <strong className="text-black">IOE entrance syllabus</strong> includes four main subjects: <strong className="text-black">Mathematics, Physics, Chemistry, and English</strong>. With our platform, you can access chapter-wise MCQs, full-length model tests, and past question collections that are crucial for scoring high. Each quiz is designed to strengthen your problem-solving speed, accuracy, and conceptual clarity.
-
-  <br /><br />
-
-  HamroExam offers mobile-friendly access, real-time results, instant feedback, and regular updates aligned with the <strong className="text-black">Pulchowk Engineering Campus</strong> and other IOE-affiliated colleges' entrance standards. Whether you're aiming for Civil, Computer, Electrical, or any other engineering field, our platform supports your preparation from the ground up.
-
-  <br /><br />
-
-  <span className="text-sm text-gray-500">
-    Keywords: IOE Entrance Exam Nepal, IOE MCQ Practice, Pulchowk Engineering Entrance, IOE Model Questions, TU Engineering Admission, BE Entrance Nepal, IOE Syllabus, IOE Entrance Preparation Platform
-  </span>
+<Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+  The Institute of Engineering (IOE), a constituent campus of Tribhuvan University, is Nepal's premier institution for engineering and architecture education. Admission to the B.E. and B.Arch programs is highly competitive, requiring students to clear the IOE Entrance Examination. Our MCQ practice platform is designed to help aspiring engineers and architects prepare effectively for this crucial exam.
 </Typography>
 
+<Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+  The entrance exam primarily covers three core subjects: Physics, Chemistry, and Mathematics. Each subject carries significant weightage, making thorough preparation essential. Our platform provides:
+</Typography>
+
+<Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+  • <strong>Physics Practice Sets:</strong> Covering mechanics, optics, electricity, and modern physics
+  <br />
+  • <strong>Chemistry Practice Sets:</strong> Including physical, inorganic, and organic chemistry
+  <br />
+  • <strong>Mathematics Practice Sets:</strong> Focused on calculus, algebra, and trigonometry
+</Typography>
+
+<Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+  Each question set follows the exact pattern of the actual IOE entrance exam, with multiple-choice questions and time-bound practice tests. Our intelligent feedback system highlights correct answers immediately and provides detailed explanations for each question, helping students learn effectively.
+</Typography>
+
+<Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+  The platform features:
+  <br />
+  • <strong>Progress Tracking:</strong> Visual indicators show your improvement over time
+  <br />
+  • <strong>Performance Analytics:</strong> Detailed breakdowns of strengths and weaknesses
+  <br />
+  • <strong>Mobile-Friendly Design:</strong> Practice anytime, anywhere
+</Typography>
+
+<Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+  Regular practice with our question bank can significantly improve your speed and accuracy—two crucial factors for success in the IOE entrance examination. We recommend starting with subject-specific practice before attempting full-length mock tests.
+</Typography>
+
+<Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl' }}>
+  Select a subject from the sidebar to begin your preparation journey. Consistent practice with our platform will give you the confidence and competence needed to ace the IOE B.E./B.Arch entrance exam.
+</Typography>
+
+</>
           </Box>
         ) : questions.length === 0 ? (
           <Box sx={{ 
@@ -398,172 +442,264 @@ const Pioe = () => {
           </Box>
         ) : (
           <>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-              <Typography variant="h5" sx={{ fontWeight: 'bold', color: currentSetData.color }}>
-                {currentSetData.name}
-              </Typography>
-              <Typography variant="subtitle1" color="text.secondary">
-                Question {currentQuestion + 1} of {questions.length}
-              </Typography>
-            </Box>
-
-            <LinearProgress 
-              variant="determinate" 
-              value={progress} 
-              sx={{ 
-                height: 8,
-                borderRadius: 4,
-                mb: 3,
-                bgcolor: 'divider',
-                '& .MuiLinearProgress-bar': {
-                  bgcolor: currentSetData.color
-                }
-              }} 
-            />
-
-            <Paper 
-              elevation={3} 
-              sx={{ 
-                p: 3, 
-                mb: 3,
-                borderLeft: `4px solid ${currentSetData.color}`
-              }}
-            >
-              <Typography variant="h6" sx={{ mb: 3, fontWeight: 'medium' }}>
-                <TextWithLatex text={questions[currentQuestion].question} />
-              </Typography>
-              
-              <RadioGroup
-                value={selectedAnswer}
-                onChange={handleAnswerSelect}
-                disabled={showAnswers}
-              >
-                {questions[currentQuestion].options.map((option, index) => {
-                  const isCorrect = option === questions[currentQuestion].correctAnswer;
-                  const isSelected = selectedAnswer === option;
-                  const showFeedback = selectedAnswer && (isSelected || isCorrect);
-                  
-                  return (
-                    <Box key={index} sx={{ mb: 1 }}>
-                      <FormControlLabel
-                        value={option}
-                        control={<Radio sx={{ 
-                          color: showAnswers 
-                            ? isCorrect 
-                              ? '#4CAF50' 
-                              : isSelected 
-                                ? '#F44336' 
-                                : currentSetData.color
-                            : currentSetData.color 
-                        }} />}
-                        label={
-                          <Typography variant="body1">
-                            <TextWithLatex text={option} />
-                          </Typography>
-                        }
-                        sx={{ 
-                          p: '8px 12px',
-                          borderRadius: 1,
-                          width: '100%',
-                          bgcolor: showAnswers 
-                            ? isCorrect 
-                              ? '#E8F5E9' 
-                              : isSelected 
-                                ? '#FFEBEE' 
-                                : 'transparent'
-                            : selectedAnswer === option 
-                              ? `${currentSetData.color}20` 
-                              : 'transparent',
-                          '&:hover': { 
-                            bgcolor: !showAnswers && `${currentSetData.color}10` 
-                          }
-                        }}
-                      />
-                      {showFeedback && (
-                        <Typography 
-                          variant="body2" 
-                          sx={{ 
-                            ml: 4,
-                            color: isCorrect ? '#4CAF50' : '#F44336',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 1
-                          }}
-                        >
-                          {isCorrect ? (
-                            <>
-                              <span style={{ fontSize: '1.2rem' }}>✓</span> Correct Answer
-                            </>
-                          ) : isSelected ? (
-                            <>
-                              <span style={{ fontSize: '1.2rem' }}>✗</span> Your Answer
-                            </>
-                          ) : null}
-                        </Typography>
-                      )}
-                    </Box>
-                  );
-                })}
-              </RadioGroup>
-            </Paper>
-
+            {/* Main question container with natural expansion */}
             <Box sx={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              mb: 4,
-              flexDirection: { xs: 'column', sm: 'row' },
-              gap: { xs: 2, sm: 0 }
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 3
             }}>
-              <Button
-                variant="outlined"
-                onClick={handlePreviousQuestion}
-                disabled={currentQuestion === 0}
-                sx={{ width: { xs: '100%', sm: 120 } }}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="contained"
-                onClick={currentQuestion === questions.length - 1 ? handleSubmit : handleNextQuestion}
-                disabled={showAnswers && currentQuestion === questions.length - 1}
-                sx={{ 
-                  width: { xs: '100%', sm: 120 },
-                  bgcolor: currentSetData.color,
-                  '&:hover': { bgcolor: currentSetData.color }
-                }}
-              >
-                {currentQuestion === questions.length - 1 ? 'Submit' : 'Next'}
-              </Button>
+              <Paper elevation={3} sx={{ 
+                p: 3, 
+                mb: 2,
+                borderLeft: `4px solid ${currentSetData.color}`,
+                display: 'flex',
+                flexDirection: 'column',
+                flex: 1
+              }}>
+                {/* Question header */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 'bold', color: currentSetData.color }}>
+                    {currentSetData.name}
+                  </Typography>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    Question {currentQuestion + 1} of {questions.length}
+                  </Typography>
+                </Box>
+
+                <LinearProgress 
+                  variant="determinate" 
+                  value={progress} 
+                  sx={{ 
+                    height: 8,
+                    borderRadius: 4,
+                    mb: 3,
+                    bgcolor: 'divider',
+                    '& .MuiLinearProgress-bar': {
+                      bgcolor: currentSetData.color
+                    }
+                  }} 
+                />
+
+                {/* Question text with automatic sizing */}
+                <Typography variant="h6" sx={{ 
+                  fontWeight: 'medium', 
+                  wordBreak: 'break-word',
+                  mb: 3
+                }}>
+                  <TextWithLatex text={questions[currentQuestion]?.question} />
+                </Typography>
+                
+                {/* Options container - now expands naturally */}
+                <Box sx={{ flex: 1 }}>
+                 <RadioGroup
+                                value={selectedAnswer}
+                                onChange={handleAnswerSelect}
+                                disabled={showAnswers}
+                                sx={{ gap: 0 }} // Reduced gap between options
+                              >
+                                {questions[currentQuestion]?.options?.map((option, index) => {
+                                  const isCorrect = option === questions[currentQuestion]?.correctAnswer;
+                                  const isSelected = selectedAnswer === option;
+                                  
+                                  return (
+                                    // CHANGED: Wrapped in flex container for side-by-side layout
+                                    <Box key={index} sx={{ 
+                                      display: 'flex', 
+                                      alignItems: 'center', 
+                                      gap: 1,
+                                      width: '100%'
+                                    }}>
+                                      {/* Option label (unchanged except for flex adjustments) */}
+                                      <FormControlLabel
+                                        value={option}
+                                        control={<Radio sx={{ 
+                                          color: showAnswers 
+                                            ? isCorrect 
+                                              ? '#4CAF50' 
+                                              : isSelected 
+                                                ? '#F44336' 
+                                                : currentSetData.color
+                                            : currentSetData.color,
+                                          padding: '4px 9px'
+                                        }} />}
+                                        label={
+                                          <Typography variant="body1" sx={{ wordBreak: 'break-word' }}>
+                                            <TextWithLatex text={option} />
+                                          </Typography>
+                                        }
+                                        sx={{ 
+                                          flex: 1, // ADDED: Allows feedback to appear on same line
+                                          p: '4px 8px',
+                                          m: 0,
+                                          borderRadius: 1,
+                                          bgcolor: showAnswers 
+                                            ? isCorrect 
+                                              ? '#E8F5E9' 
+                                              : isSelected 
+                                                ? '#FFEBEE' 
+                                                : 'transparent'
+                                            : selectedAnswer === option 
+                                              ? `${currentSetData.color}20` 
+                                              : 'transparent',
+                                          '&:hover': { 
+                                            bgcolor: !showAnswers && `${currentSetData.color}10` 
+                                          },
+                                          '& .MuiButtonBase-root': {
+                                            padding: '6px'
+                                          }
+                                        }}
+                                      />
+                                      
+                                      {/* NEW: Parallel feedback indicators */}
+                                      {selectedAnswer && (
+                                        <Box sx={{ 
+                                          minWidth: 100, // Fixed width for alignment
+                                          display: 'flex', 
+                                          justifyContent: 'flex-center',
+                                          pr: 1 // Right padding
+                                        }}>
+                                          {/* Show green "Correct" tag for right answer */}
+                                          {isCorrect && (
+                                            <Chip 
+                                              label="Correct" 
+                                              size="small" 
+                                              sx={{ 
+                                                bgcolor: '#4CAF50',
+                                                color: 'white',
+                                                fontSize: '0.75rem'
+                                              }} 
+                                            />
+                                          )}
+                                          
+                                          {/* Show red "Your Answer" tag for wrong selection */}
+                                          {isSelected && !isCorrect && (
+                                            <Chip 
+                                              label="Wrong Answer" 
+                                              size="small" 
+                                              sx={{ 
+                                                bgcolor: '#F44336',
+                                                color: 'white',
+                                                fontSize: '0.75rem'
+                                              }} 
+                                            />
+                                          )}
+                                        </Box>
+                                      )}
+                                    </Box>
+                                  );
+                                })}
+                              </RadioGroup>
+                </Box>
+
+                {/* Explanation section */}
+                {questions[currentQuestion]?.explanation && (
+                  <Box sx={{ mt: 3 }}>
+                    <Button
+                      onClick={() => toggleExplanation(currentQuestion)}
+                      sx={{
+                        color: currentSetData.color,
+                        textTransform: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        padding: '4px 8px'
+                      }}
+                    >
+                      {expandedExplanation === currentQuestion ? (
+                        <ExpandLessIcon />
+                      ) : (
+                        <ExpandMoreIcon />
+                      )}
+                      {expandedExplanation === currentQuestion ? 'Hide Explanation' : 'Show Explanation'}
+                    </Button>
+                    
+                    <Collapse in={expandedExplanation === currentQuestion}>
+                      <Paper 
+                        elevation={0} 
+                        sx={{ 
+                          p: 2, 
+                          mt: 1,
+                          bgcolor: '#f5f5f5',
+                          borderRadius: 1
+                        }}
+                      >
+                        <Typography variant="body1" sx={{ wordBreak: 'break-word' }}>
+                          <TextWithLatex text={questions[currentQuestion].explanation} />
+                        </Typography>
+                      </Paper>
+                    </Collapse>
+                  </Box>
+                )}
+              </Paper>
             </Box>
 
-            <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 'medium' }}>
-              Question Navigation
-            </Typography>
-            <Grid container spacing={1}>
-              {Array.from({ length: questions.length }, (_, i) => i + 1).map((number) => (
-                <Grid item xs={4} sm={3} md={2.4} key={number}>
-                  <Button
-                    variant={currentQuestion + 1 === number ? "contained" : "outlined"}
-                    onClick={() => handleQuestionSelect(number)}
-                    fullWidth
-                    sx={{
-                      minWidth: 40,
-                      p: '6px 0',
-                      ...(currentQuestion + 1 === number && {
-                        bgcolor: currentSetData.color,
-                        '&:hover': { bgcolor: currentSetData.color }
-                      })
-                    }}
-                  >
-                    {number}
-                  </Button>
-                </Grid>
-              ))}
-            </Grid>
+            {/* Fixed navigation buttons at bottom */}
+            <Box sx={{ 
+              backgroundColor: 'background.paper',
+              pt: 2,
+              pb: 2,
+              borderTop: '1px solid #eee'
+            }}>
+              <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'space-between',
+                mb: 2,
+                flexDirection: { xs: 'column', sm: 'row' },
+                gap: { xs: 2, sm: 0 }
+              }}>
+                <Button
+                  variant="outlined"
+                  onClick={handlePreviousQuestion}
+                  disabled={currentQuestion === 0}
+                  sx={{ width: { xs: '100%', sm: 120 } }}
+                >
+                  Previous
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={currentQuestion === questions.length - 1 ? handleSubmit : handleNextQuestion}
+                  disabled={showAnswers && currentQuestion === questions.length - 1}
+                  sx={{ 
+                    width: { xs: '100%', sm: 120 },
+                    bgcolor: currentSetData.color,
+                    '&:hover': { bgcolor: currentSetData.color }
+                  }}
+                >
+                  {currentQuestion === questions.length - 1 ? 'Submit' : 'Next'}
+                </Button>
+              </Box>
+
+              <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: 'medium' }}>
+                Question Navigation
+              </Typography>
+              <Grid container spacing={1}>
+                {Array.from({ length: questions.length }, (_, i) => i + 1).map((number) => (
+                  <Grid item xs={4} sm={3} md={2.4} key={number}>
+                    <Button
+                      variant={currentQuestion + 1 === number ? "contained" : "outlined"}
+                      onClick={() => handleQuestionSelect(number)}
+                      fullWidth
+                      sx={{
+                        minWidth: 40,
+                        p: '6px 0',
+                        ...(currentQuestion + 1 === number && {
+                          bgcolor: currentSetData.color,
+                          '&:hover': { bgcolor: currentSetData.color }
+                        })
+                      }}
+                    >
+                      {number}
+                    </Button>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
           </>
         )}
       </Box>
 
+      {/* Results dialog */}
       <Dialog
         open={showResults}
         onClose={handleCloseResults}
@@ -640,7 +776,7 @@ const Pioe = () => {
                   </Typography>
                   {questions.map((question, index) => (
                     <Box key={index} sx={{ mb: 3, p: 2, border: '1px solid #eee', borderRadius: 1 }}>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 'medium' }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 'medium', wordBreak: 'break-word' }}>
                         {index + 1}. <TextWithLatex text={question.question} />
                       </Typography>
                       <Typography 
@@ -648,7 +784,8 @@ const Pioe = () => {
                         sx={{ 
                           color: '#4CAF50',
                           fontWeight: 'bold',
-                          mt: 1
+                          mt: 1,
+                          wordBreak: 'break-word'
                         }}
                       >
                         ✓ Correct: <TextWithLatex text={question.correctAnswer} />
@@ -658,7 +795,8 @@ const Pioe = () => {
                           variant="body1" 
                           sx={{ 
                             color: '#F44336',
-                            mt: 0.5
+                            mt: 0.5,
+                            wordBreak: 'break-word'
                           }}
                         >
                           ✗ Your Answer: <TextWithLatex text={answers[index]} />
@@ -675,6 +813,16 @@ const Pioe = () => {
                         >
                           (Not answered)
                         </Typography>
+                      )}
+                      {question.explanation && (
+                        <Box sx={{ mt: 2 }}>
+                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                            Explanation:
+                          </Typography>
+                          <Typography variant="body2" sx={{ wordBreak: 'break-word' }}>
+                            <TextWithLatex text={question.explanation} />
+                          </Typography>
+                        </Box>
                       )}
                     </Box>
                   ))}

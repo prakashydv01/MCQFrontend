@@ -46,8 +46,6 @@ const questionSets = [
   {id: 'bit-math-mocktest-3', name: 'For Mathematics -> MockTest III', color: '#009688', questionCount: '100' },
   {id: 'bit-math-mocktest-4', name: 'For Mathematics -> MockTest IV', color: '#8BC34A', questionCount: '100' },
   {id: 'bit-math-mocktest-5', name: 'For Mathematics -> MockTest V', color: '#FF9800', questionCount: '100' },
-
-    
 ];
 
 const TextWithLatex = ({ text }) => {
@@ -314,7 +312,7 @@ const Bit = () => {
   );
 
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
+    <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
       <AppBar
         position="fixed"
         sx={{
@@ -356,6 +354,7 @@ const Bit = () => {
             '& .MuiDrawer-paper': {
               width: 240,
               boxSizing: 'border-box',
+              overflowY: 'auto',
             },
           }}
         >
@@ -369,6 +368,7 @@ const Bit = () => {
             '& .MuiDrawer-paper': {
               width: 240,
               boxSizing: 'border-box',
+              overflowY: 'auto',
             },
           }}
           open
@@ -381,9 +381,10 @@ const Bit = () => {
         component="main" 
         sx={{ 
           flexGrow: 1, 
-          p: 3, 
-          overflow: 'auto',
-          mt: { xs: '64px', md: 0 }
+          p: 3,
+          mt: { xs: '64px', md: 0 },
+          height: 'calc(100vh - 64px)',
+          overflowY: 'auto',
         }}
       >
         {loading ? (
@@ -403,14 +404,86 @@ const Bit = () => {
             flexDirection: 'column', 
             alignItems: 'center', 
             justifyContent: 'center', 
-            height: '100%',
             textAlign: 'center'
           }}>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-             BIT Entrance MCQ  Questions
+            <Typography variant="h5" sx={{ mb: 2, textAlign: 'justify' }}>
+              BIT Entrance MCQ Questions
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'justify' }}>
               {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a Mock Test from the sidebar to begin your Exam'}
+            </Typography>
+
+            <Typography variant="h4" component="h1" sx={{ mt: 4, mb: 3, fontWeight: 'bold', textAlign: 'justify' }}>
+              Mastering the BIT Entrance Exam: The Ultimate Mock Test Guide
+            </Typography>
+
+            <Typography variant="body1" paragraph sx={{ textAlign: 'justify' }}>
+              Preparing for the Bachelor in Information Technology (BIT) entrance exam in Nepal requires more than just textbook knowledge - it demands strategic practice through <strong>mock tests</strong>. These simulated exams mirror the actual testing environment, helping you identify strengths and weaknesses while building exam-day stamina.
+            </Typography>
+
+            <Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+              Why Mock Tests Are Essential
+            </Typography>
+
+            <Typography variant="body1" paragraph sx={{ textAlign: 'justify' }}>
+              <strong>1. Real Exam Simulation:</strong> Our mock tests follow the exact pattern of TU/Purbanchal University's BIT entrance - 100 MCQs covering Mathematics (40%), English (20%), Computer Science (20%), and General Knowledge (20%). <strong>2. Time Management:</strong> With a strict 2-hour time limit, you'll learn to allocate approximately 1 minute per question - a crucial skill for the actual exam. <strong>3. Performance Analytics:</strong> Get detailed breakdowns of your speed, accuracy, and subject-wise performance after each attempt.
+            </Typography>
+
+            <Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+              Mock Test Rules and Regulations
+            </Typography>
+
+            <Typography variant="body1" paragraph sx={{ textAlign: 'justify' }}>
+              To ensure fair practice and accurate results, all mock tests follow these guidelines:
+            </Typography>
+
+            <Box component="ul" sx={{ pl: 4, mb: 3, textAlign: 'justify' }}>
+              <Typography component="li" variant="body1" sx={{ textAlign: 'justify' }}>
+                <strong>Time Limit:</strong> Strictly 120 minutes (2 hours) - the timer automatically submits your test when expired
+              </Typography>
+              <Typography component="li" variant="body1" sx={{ textAlign: 'justify' }}>
+                <strong>Navigation:</strong> Questions can be reviewed and changed anytime during the test
+              </Typography>
+              <Typography component="li" variant="body1" sx={{ textAlign: 'justify' }}>
+                <strong>Scoring:</strong> +1 for correct answers, 0 for unanswered, and -0.25 for wrong answers (matches actual exam pattern)
+              </Typography>
+              <Typography component="li" variant="body1" sx={{ textAlign: 'justify' }}>
+                <strong>Attempt Limit:</strong> Each test can be taken maximum 3 times to prevent memorization
+              </Typography>
+              <Typography component="li" variant="body1" sx={{ textAlign: 'justify' }}>
+                <strong>Environment:</strong> Recommended to take tests in distraction-free conditions with stable internet
+              </Typography>
+            </Box>
+
+            <Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+              Subject-Wise Preparation Strategy
+            </Typography>
+
+            <Typography variant="body1" paragraph sx={{ textAlign: 'justify' }}>
+              <strong>Mathematics (40 Questions):</strong> Focus on algebra, trigonometry, and coordinate geometry. Practice quick calculations - our mock tests provide on-screen calculator but speed matters. <strong>English (20 Questions):</strong> Regular vocabulary practice and grammar rules. Our tests include previous years' comprehension patterns. <strong>Computer Science (20 Questions):</strong> Cover basic programming concepts, computer fundamentals, and logical reasoning. <strong>General Knowledge (20 Questions):</strong> Current affairs (last 6 months) and basic science concepts.
+            </Typography>
+
+            <Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+              Pro Tips for Maximum Results
+            </Typography>
+
+            <Box component="ul" sx={{ pl: 4, mb: 3, textAlign: 'justify' }}>
+              <Typography component="li" variant="body1" sx={{ textAlign: 'justify' }}>
+                Take at least 1 full-length mock test weekly in exam conditions
+              </Typography>
+              <Typography component="li" variant="body1" sx={{ textAlign: 'justify' }}>
+                Analyze mistakes using our detailed solutions - focus on repeating patterns
+              </Typography>
+              <Typography component="li" variant="body1" sx={{ textAlign: 'justify' }}>
+                Gradually reduce time per test from 2 hours to 1 hour 45 minutes
+              </Typography>
+              <Typography component="li" variant="body1" sx={{ textAlign: 'justify' }}>
+                Combine mock tests with our chapter-wise practice for weak areas
+              </Typography>
+            </Box>
+
+            <Typography variant="body1" paragraph sx={{ fontStyle: 'italic', textAlign: 'justify' }}>
+              Remember: Consistent mock test practice with proper analysis can improve your predicted score by 15-20% in just 4 weeks. Start with our "Beginner Level" tests and progressively move to "Advanced Level" as your confidence grows.
             </Typography>
           </Box>
         ) : questions.length === 0 ? (
@@ -498,7 +571,8 @@ const Bit = () => {
               sx={{ 
                 p: 3, 
                 mb: 3,
-                borderLeft: `4px solid ${currentSetData.color}`
+                borderLeft: `4px solid ${currentSetData.color}`,
+                
               }}
             >
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 'medium' }}>
@@ -506,59 +580,74 @@ const Bit = () => {
               </Typography>
               
               <RadioGroup
-                value={selectedAnswer}
-                onChange={handleAnswerSelect}
-                disabled={showAnswers}
-              >
-                {questions[currentQuestion].options.map((option, index) => {
-                  const isCorrect = option === questions[currentQuestion].correctAnswer;
-                  const isSelected = selectedAnswer === option;
-                  
-                  return (
-                    <FormControlLabel
-                      key={index}
-                      value={option}
-                      control={<Radio sx={{ 
-                        color: showAnswers 
-                          ? isCorrect 
-                            ? '#4CAF50' 
-                            : isSelected 
-                              ? '#F44336' 
-                              : currentSetData.color
-                          : currentSetData.color 
-                      }} />}
-                      label={
-                        <Typography variant="body1">
-                          <TextWithLatex text={option} />
-                          {showAnswers && isCorrect && (
-                            <span style={{ marginLeft: '8px', color: '#4CAF50' }}>✓ Correct Answer</span>
-                          )}
-                          {showAnswers && isSelected && !isCorrect && (
-                            <span style={{ marginLeft: '8px', color: '#F44336' }}>✗ Your Answer</span>
-                          )}
-                        </Typography>
-                      }
-                      sx={{ 
-                        mb: 1,
-                        p: '8px 12px',
-                        borderRadius: 1,
-                        bgcolor: showAnswers 
-                          ? isCorrect 
-                            ? '#E8F5E9' 
-                            : isSelected 
-                              ? '#FFEBEE' 
-                              : 'transparent'
-                          : selectedAnswer === option 
-                            ? `${currentSetData.color}20` 
-                            : 'transparent',
-                        '&:hover': { 
-                          bgcolor: !showAnswers && `${currentSetData.color}10` 
-                        }
-                      }}
-                    />
-                  );
-                })}
-              </RadioGroup>
+  value={selectedAnswer}
+  onChange={handleAnswerSelect}
+  disabled={showAnswers}
+  sx={{
+    gap: 0, // This removes gap between RadioGroup items
+    '& .MuiFormControlLabel-root': {
+      margin: 0, // Removes default margin from FormControlLabel
+      padding: '4px 8px', // Adjust padding to make it tighter
+    },
+    '& .MuiTypography-root': {
+      marginLeft: '8px', // Adjust space between radio and text
+    }
+  }}
+>
+  {questions[currentQuestion].options.map((option, index) => {
+    const isCorrect = option === questions[currentQuestion].correctAnswer;
+    const isSelected = selectedAnswer === option;
+    
+    return (
+      <FormControlLabel
+        key={index}
+        value={option}
+        control={
+          <Radio 
+            sx={{ 
+              color: showAnswers 
+                ? isCorrect 
+                  ? '#4CAF50' 
+                  : isSelected 
+                    ? '#F44336' 
+                    : currentSetData.color
+                : currentSetData.color,
+              padding: '6px', // Smaller radio button padding
+            }} 
+          />
+        }
+        label={
+          <Typography variant="body1" sx={{ fontSize: '0.9rem' }}>
+            <TextWithLatex text={option} />
+            {showAnswers && isCorrect && (
+              <span style={{ marginLeft: '8px', color: '#4CAF50', fontSize: '0.8rem' }}>✓ Correct</span>
+            )}
+            {showAnswers && isSelected && !isCorrect && (
+              <span style={{ marginLeft: '8px', color: '#F44336', fontSize: '0.8rem' }}>✗ Your Answer</span>
+            )}
+          </Typography>
+        }
+        sx={{ 
+          margin: 0, // Remove default margin
+          padding: '4px 8px', // Tighter padding
+          borderRadius: 1,
+          bgcolor: showAnswers 
+            ? isCorrect 
+              ? '#E8F5E9' 
+              : isSelected 
+                ? '#FFEBEE' 
+                : 'transparent'
+            : selectedAnswer === option 
+              ? `${currentSetData.color}20` 
+              : 'transparent',
+          '&:hover': { 
+            bgcolor: !showAnswers && `${currentSetData.color}10` 
+          }
+        }}
+      />
+    );
+  })}
+</RadioGroup>
             </Paper>
 
             <Box sx={{ 
@@ -593,7 +682,7 @@ const Bit = () => {
             <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 'medium' }}>
               Question Navigation
             </Typography>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} sx={{ overflow: 'auto', maxHeight: '150px' }}>
               {Array.from({ length: questions.length }, (_, i) => i + 1).map((number) => (
                 <Grid item xs={4} sm={3} md={2.4} key={number}>
                   <Button
@@ -623,6 +712,15 @@ const Bit = () => {
         onClose={handleCloseResults}
         fullWidth
         maxWidth="sm"
+        sx={{
+          '& .MuiDialog-paper': {
+            maxHeight: 'calc(100vh - 64px)',
+            overflow: 'hidden',
+          },
+          '& .MuiDialogContent-root': {
+            overflowY: 'auto',
+          }
+        }}
       >
         <DialogTitle sx={{ 
           display: 'flex', 

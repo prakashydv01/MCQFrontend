@@ -34,13 +34,12 @@ import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
 const questionSets = [
-  { id: 'ioe-mocktest-1', name: 'IOE MOCKTEST I ', color: '#4CAF50', questionCount: '25' },
+      { id: 'ioe-mocktest-1', name: 'IOE MOCKTEST I ', color: '#4CAF50', questionCount: '25' },
   { id: 'ioe-mocktest-2', name: 'IOE MOCKTEST II', color: '#2196F3', questionCount: '25' },
   { id: 'ioe-mocktest-3', name: 'IOE MOCKTEST III', color: '#FF9800', questionCount: '25' },
   { id: 'ioe-mocktest-4', name: 'IOE MOCKTEST IV', color: '#9C27B0', questionCount: '25' },
   { id: 'ioe-mocktest-5', name: 'IOE MOCKTEST V', color: '#F44336', questionCount: '25' }
     
-
 ];
 
 const TextWithLatex = ({ text }) => {
@@ -307,7 +306,7 @@ const IOE = () => {
   );
 
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
+    <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
       <AppBar
         position="fixed"
         sx={{
@@ -349,6 +348,7 @@ const IOE = () => {
             '& .MuiDrawer-paper': {
               width: 240,
               boxSizing: 'border-box',
+              overflowY: 'auto',
             },
           }}
         >
@@ -362,6 +362,7 @@ const IOE = () => {
             '& .MuiDrawer-paper': {
               width: 240,
               boxSizing: 'border-box',
+              overflowY: 'auto',
             },
           }}
           open
@@ -374,9 +375,10 @@ const IOE = () => {
         component="main" 
         sx={{ 
           flexGrow: 1, 
-          p: 3, 
-          overflow: 'auto',
-          mt: { xs: '64px', md: 0 }
+          p: 3,
+          mt: { xs: '64px', md: 0 },
+          height: 'calc(100vh - 64px)',
+          overflowY: 'auto',
         }}
       >
         {loading ? (
@@ -396,15 +398,92 @@ const IOE = () => {
             flexDirection: 'column', 
             alignItems: 'center', 
             justifyContent: 'center', 
-            height: '100%',
             textAlign: 'center'
           }}>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-             IOE Entrance MCQ  Questions
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a Mock Test from the sidebar to begin your Exam'}
-            </Typography>
+            <Typography variant="h5" sx={{ mb: 2, textAlign: 'justify' }}>
+  IOE Entrance Mock Tests
+</Typography>
+
+<Typography variant="body1" color="text.secondary" sx={{ textAlign: 'justify' }}>
+  {window.innerWidth < 960
+    ? 'Tap the menu icon to choose your subject'
+    : 'Pick a mock test from the sidebar to start practicing'}
+</Typography>
+
+<Typography variant="h4" component="h1" sx={{ mt: 4, mb: 3, fontWeight: 'bold', textAlign: 'justify' }}>
+  Your Path to IOE Success: The Power of Mock Tests
+</Typography>
+
+<Typography variant="body1" paragraph sx={{ textAlign: 'justify' }}>
+  The Institute of Engineering (IOE), under Tribhuvan University, is Nepal’s leading destination for aspiring engineers. Admission here is highly competitive, and the entrance exam tests not only your knowledge but also your ability to manage time and stress.  
+  Regular mock tests are one of the most effective ways to sharpen your preparation and boost your confidence for exam day.
+</Typography>
+
+<Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+  Why You Should Take Mock Tests
+</Typography>
+
+<Typography variant="body1" paragraph sx={{ textAlign: 'justify' }}>
+  <strong>1. Real Exam Simulation:</strong> IOE uses a computer-based test format with two parts—Part A (60 × 1 mark) and Part B (40 × 2 marks)—making a total of 140 marks.  
+  <strong>2. Time Discipline:</strong> You have only 120 minutes, so practicing under time pressure trains you to think fast without sacrificing accuracy.  
+  <strong>3. Weakness Detection:</strong> Detailed review after each mock helps identify which chapters need more attention.
+</Typography>
+
+<Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+  Basic Rules for IOE Mock Tests
+</Typography>
+
+<Box component="ul" sx={{ pl: 4, mb: 3, textAlign: 'justify' }}>
+  <Typography component="li" variant="body1">
+    Set a strict timer for 120 minutes to match the real exam environment.
+  </Typography>
+  <Typography component="li" variant="body1">
+    Practice both Part A (1 mark) and Part B (2 mark) questions.
+  </Typography>
+  <Typography component="li" variant="body1">
+    Remember: negative marking applies—avoid blind guessing.
+  </Typography>
+  <Typography component="li" variant="body1">
+    Always review answers after the test to learn from mistakes.
+  </Typography>
+  <Typography component="li" variant="body1">
+    Attempt the same mock multiple times with shuffled questions for better mastery.
+  </Typography>
+</Box>
+
+<Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+  Subject Focus
+</Typography>
+
+<Typography variant="body1" paragraph sx={{ textAlign: 'justify' }}>
+  The IOE entrance syllabus covers <strong>Mathematics, Physics, Chemistry, and English</strong> from the +2 science curriculum.  
+  Mathematics and Physics carry the most weight, while Chemistry tests both theory and numerical skills. English focuses on grammar, vocabulary, and comprehension.  
+  Prioritize high-yield topics like algebra, mechanics, organic chemistry basics, and technical reading comprehension.
+</Typography>
+
+<Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+  Smart Preparation Tips
+</Typography>
+
+<Box component="ul" sx={{ pl: 4, mb: 3, textAlign: 'justify' }}>
+  <Typography component="li" variant="body1">
+    Take a full-length mock test once a week.
+  </Typography>
+  <Typography component="li" variant="body1">
+    Review every wrong answer and revise that topic the same day.
+  </Typography>
+  <Typography component="li" variant="body1">
+    Mix chapter-wise quizzes with full mocks to maintain both detail and speed.
+  </Typography>
+  <Typography component="li" variant="body1">
+    Simulate exam pressure by practicing in one uninterrupted sitting.
+  </Typography>
+</Box>
+
+<Typography variant="body1" paragraph sx={{ fontStyle: 'italic', textAlign: 'justify' }}>
+  Remember, IOE preparation is a marathon, not a sprint. Consistent practice, regular analysis, and steady improvement will help you enter the exam hall with complete confidence.
+</Typography>
+
           </Box>
         ) : questions.length === 0 ? (
           <Box sx={{ 
@@ -435,9 +514,6 @@ const IOE = () => {
           }}>
             <Typography variant="h4" sx={{ mb: 3 }}>
               Ready to Start {currentSetData.name}?
-            </Typography>
-            <Typography variant="h5" sx={{ mb: 4 }}>
-              both I & II Section are included in this Mock Test
             </Typography>
             <Typography variant="body1" sx={{ mb: 4 }}>
               This Exam contains {questions.length} questions and has a time limit of 2 hours.
@@ -494,7 +570,8 @@ const IOE = () => {
               sx={{ 
                 p: 3, 
                 mb: 3,
-                borderLeft: `4px solid ${currentSetData.color}`
+                borderLeft: `4px solid ${currentSetData.color}`,
+                
               }}
             >
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 'medium' }}>
@@ -502,59 +579,74 @@ const IOE = () => {
               </Typography>
               
               <RadioGroup
-                value={selectedAnswer}
-                onChange={handleAnswerSelect}
-                disabled={showAnswers}
-              >
-                {questions[currentQuestion].options.map((option, index) => {
-                  const isCorrect = option === questions[currentQuestion].correctAnswer;
-                  const isSelected = selectedAnswer === option;
-                  
-                  return (
-                    <FormControlLabel
-                      key={index}
-                      value={option}
-                      control={<Radio sx={{ 
-                        color: showAnswers 
-                          ? isCorrect 
-                            ? '#4CAF50' 
-                            : isSelected 
-                              ? '#F44336' 
-                              : currentSetData.color
-                          : currentSetData.color 
-                      }} />}
-                      label={
-                        <Typography variant="body1">
-                          <TextWithLatex text={option} />
-                          {showAnswers && isCorrect && (
-                            <span style={{ marginLeft: '8px', color: '#4CAF50' }}>✓ Correct Answer</span>
-                          )}
-                          {showAnswers && isSelected && !isCorrect && (
-                            <span style={{ marginLeft: '8px', color: '#F44336' }}>✗ Your Answer</span>
-                          )}
-                        </Typography>
-                      }
-                      sx={{ 
-                        mb: 1,
-                        p: '8px 12px',
-                        borderRadius: 1,
-                        bgcolor: showAnswers 
-                          ? isCorrect 
-                            ? '#E8F5E9' 
-                            : isSelected 
-                              ? '#FFEBEE' 
-                              : 'transparent'
-                          : selectedAnswer === option 
-                            ? `${currentSetData.color}20` 
-                            : 'transparent',
-                        '&:hover': { 
-                          bgcolor: !showAnswers && `${currentSetData.color}10` 
-                        }
-                      }}
-                    />
-                  );
-                })}
-              </RadioGroup>
+  value={selectedAnswer}
+  onChange={handleAnswerSelect}
+  disabled={showAnswers}
+  sx={{
+    gap: 0, // This removes gap between RadioGroup items
+    '& .MuiFormControlLabel-root': {
+      margin: 0, // Removes default margin from FormControlLabel
+      padding: '4px 8px', // Adjust padding to make it tighter
+    },
+    '& .MuiTypography-root': {
+      marginLeft: '8px', // Adjust space between radio and text
+    }
+  }}
+>
+  {questions[currentQuestion].options.map((option, index) => {
+    const isCorrect = option === questions[currentQuestion].correctAnswer;
+    const isSelected = selectedAnswer === option;
+    
+    return (
+      <FormControlLabel
+        key={index}
+        value={option}
+        control={
+          <Radio 
+            sx={{ 
+              color: showAnswers 
+                ? isCorrect 
+                  ? '#4CAF50' 
+                  : isSelected 
+                    ? '#F44336' 
+                    : currentSetData.color
+                : currentSetData.color,
+              padding: '6px', // Smaller radio button padding
+            }} 
+          />
+        }
+        label={
+          <Typography variant="body1" sx={{ fontSize: '0.9rem' }}>
+            <TextWithLatex text={option} />
+            {showAnswers && isCorrect && (
+              <span style={{ marginLeft: '8px', color: '#4CAF50', fontSize: '0.8rem' }}>✓ Correct</span>
+            )}
+            {showAnswers && isSelected && !isCorrect && (
+              <span style={{ marginLeft: '8px', color: '#F44336', fontSize: '0.8rem' }}>✗ Your Answer</span>
+            )}
+          </Typography>
+        }
+        sx={{ 
+          margin: 0, // Remove default margin
+          padding: '4px 8px', // Tighter padding
+          borderRadius: 1,
+          bgcolor: showAnswers 
+            ? isCorrect 
+              ? '#E8F5E9' 
+              : isSelected 
+                ? '#FFEBEE' 
+                : 'transparent'
+            : selectedAnswer === option 
+              ? `${currentSetData.color}20` 
+              : 'transparent',
+          '&:hover': { 
+            bgcolor: !showAnswers && `${currentSetData.color}10` 
+          }
+        }}
+      />
+    );
+  })}
+</RadioGroup>
             </Paper>
 
             <Box sx={{ 
@@ -589,7 +681,7 @@ const IOE = () => {
             <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 'medium' }}>
               Question Navigation
             </Typography>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} sx={{ overflow: 'auto', maxHeight: '150px' }}>
               {Array.from({ length: questions.length }, (_, i) => i + 1).map((number) => (
                 <Grid item xs={4} sm={3} md={2.4} key={number}>
                   <Button
@@ -619,6 +711,15 @@ const IOE = () => {
         onClose={handleCloseResults}
         fullWidth
         maxWidth="sm"
+        sx={{
+          '& .MuiDialog-paper': {
+            maxHeight: 'calc(100vh - 64px)',
+            overflow: 'hidden',
+          },
+          '& .MuiDialogContent-root': {
+            overflowY: 'auto',
+          }
+        }}
       >
         <DialogTitle sx={{ 
           display: 'flex', 

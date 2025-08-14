@@ -34,12 +34,17 @@ import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
 const questionSets = [
-  { id: 'psc-computer-1', name: 'Computer Set 1', color: '#4CAF50', questionCount: '25' },
+       { id: 'psc-computer-1', name: 'Computer Set 1', color: '#4CAF50', questionCount: '25' },
   { id: 'psc-computer-2', name: 'Computer Set 2', color: '#2196F3', questionCount: '25' },
   { id: 'psc-computer-3', name: 'Computer Set 3', color: '#FF9800', questionCount: '25' },
   { id: 'psc-computer-4', name: 'Computer Set 4', color: '#9C27B0', questionCount: '25' },
-  { id: 'psc-computer-5', name: 'Computer Set 5', color: '#F44336', questionCount: '25' }
-   
+  { id: 'psc-computer-5', name: 'Computer Set 5', color: '#F44336', questionCount: '25' },
+  { id: 'psc-computer-6', name: 'Computer Set 6', color: '#3F51B5', questionCount: '25' },
+  { id: 'psc-computer-7', name: 'Computer Set 7', color: '#009688', questionCount: '25' },
+  { id: 'psc-computer-8', name: 'Computer Set 8', color: '#795548', questionCount: '25' },
+  { id: 'psc-computer-9', name: 'Computer Set 9', color: '#607D8B', questionCount: '25' },
+  { id: 'psc-computer-10', name: 'Computer Set 10', color: '#8BC34A', questionCount: '25' }
+    
 ];
 
 const TextWithLatex = ({ text }) => {
@@ -138,7 +143,7 @@ const Psc = () => {
       setMobileOpen(false);
       setQuizStarted(false);
       setTimerActive(false);
-      setTimeLeft(3600); // Reset timer to 2 hours
+      setTimeLeft(2700); // Reset timer to 2 hours
       
       const apiUrl = import.meta.env.VITE_GET_MCQ;
       const response = await fetch(`${apiUrl}`, {
@@ -306,7 +311,7 @@ const Psc = () => {
   );
 
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
+    <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
       <AppBar
         position="fixed"
         sx={{
@@ -348,6 +353,7 @@ const Psc = () => {
             '& .MuiDrawer-paper': {
               width: 240,
               boxSizing: 'border-box',
+              overflowY: 'auto',
             },
           }}
         >
@@ -361,6 +367,7 @@ const Psc = () => {
             '& .MuiDrawer-paper': {
               width: 240,
               boxSizing: 'border-box',
+              overflowY: 'auto',
             },
           }}
           open
@@ -373,9 +380,10 @@ const Psc = () => {
         component="main" 
         sx={{ 
           flexGrow: 1, 
-          p: 3, 
-          overflow: 'auto',
-          mt: { xs: '64px', md: 0 }
+          p: 3,
+          mt: { xs: '64px', md: 0 },
+          height: 'calc(100vh - 64px)',
+          overflowY: 'auto',
         }}
       >
         {loading ? (
@@ -395,15 +403,92 @@ const Psc = () => {
             flexDirection: 'column', 
             alignItems: 'center', 
             justifyContent: 'center', 
-            height: '100%',
             textAlign: 'center'
           }}>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              Welcome to MCQ Practice
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {window.innerWidth < 960 ? 'Tap the menu icon to select a subject' : 'Select a subject from the sidebar to begin your quiz'}
-            </Typography>
+            <Typography variant="h5" sx={{ mb: 2, textAlign: 'justify' }}>
+  Lok Sewa Computer Operator Exam
+</Typography>
+
+<Typography variant="body1" color="text.secondary" sx={{ textAlign: 'justify' }}>
+  {window.innerWidth < 960
+    ? 'Tap the menu icon to choose your subject'
+    : 'Select a mock test from the sidebar to start practicing'}
+</Typography>
+
+<Typography variant="h4" component="h1" sx={{ mt: 4, mb: 3, fontWeight: 'bold', textAlign: 'justify' }}>
+  Mock Test Guide for Lok Sewa Computer Operator
+</Typography>
+
+<Typography variant="body1" paragraph sx={{ textAlign: 'justify' }}>
+  The Lok Sewa Aayog Computer Operator exam demands technical skill, accuracy, and time control. Mock tests help you experience the real exam environment, strengthen your knowledge, and improve speed.
+</Typography>
+
+<Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+  Why Practice with Mock Tests?
+</Typography>
+
+<Box component="ul" sx={{ pl: 4, mb: 3, textAlign: 'justify' }}>
+  <Typography component="li" variant="body1">
+    <strong>Real Exam Simulation:</strong> Get used to the pressure and question style.
+  </Typography>
+  <Typography component="li" variant="body1">
+    <strong>Better Time Management:</strong> Master pacing for both written and practical parts.
+  </Typography>
+  <Typography component="li" variant="body1">
+    <strong>Weakness Detection:</strong> Identify areas needing extra revision.
+  </Typography>
+</Box>
+
+<Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+  Exam Pattern
+</Typography>
+
+<Box component="ul" sx={{ pl: 4, mb: 3, textAlign: 'justify' }}>
+  <Typography component="li" variant="body1">
+    <strong>Objective Paper:</strong> 50 MCQs (General Awareness & Job-Based Knowledge). 2 marks each, 20% negative marking, 45 minutes.
+  </Typography>
+  <Typography component="li" variant="body1">
+    <strong>Subjective Paper:</strong> Short & long answer questions based on job knowledge, approx. 3 hours.
+  </Typography>
+  <Typography component="li" variant="body1">
+    <strong>Practical Test:</strong> Typing (Nepali & English), MS Office, Database, Presentation, Web Design — 50 marks, 45 minutes.
+  </Typography>
+  <Typography component="li" variant="body1">
+    <strong>Interview:</strong> Technical and communication skills, 30 marks.
+  </Typography>
+</Box>
+
+<Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+  Key Topics to Cover
+</Typography>
+
+<Typography variant="body1" paragraph sx={{ textAlign: 'justify' }}>
+  Computer Fundamentals, Operating Systems, MS Office (Word, Excel, PowerPoint), Database, Web Design, Cyber Security, Typing (Devnagari & English), and IT-related laws.
+</Typography>
+
+<Typography variant="h5" sx={{ mt: 4, mb: 2, fontWeight: 'bold', textAlign: 'justify' }}>
+  Preparation Tips
+</Typography>
+
+<Box component="ul" sx={{ pl: 4, mb: 3, textAlign: 'justify' }}>
+  <Typography component="li" variant="body1">
+    Take full-length mock tests weekly with strict timing.
+  </Typography>
+  <Typography component="li" variant="body1">
+    Review mistakes immediately and work on weak areas.
+  </Typography>
+  <Typography component="li" variant="body1">
+    Practice daily typing in Nepali and English.
+  </Typography>
+  <Typography component="li" variant="body1">
+    Mix mock tests with topic-wise practice for deeper learning.
+  </Typography>
+</Box>
+
+<Typography variant="body1" paragraph sx={{ fontStyle: 'italic', textAlign: 'justify' }}>
+  Consistent mock practice not only boosts knowledge but also builds confidence to handle the real exam with ease.
+</Typography>
+
           </Box>
         ) : questions.length === 0 ? (
           <Box sx={{ 
@@ -420,7 +505,7 @@ const Psc = () => {
               variant="outlined"
               onClick={() => setCurrentSet(null)}
             >
-              Back to Subjects
+              Back to MockTest
             </Button>
           </Box>
         ) : !quizStarted ? (
@@ -436,7 +521,7 @@ const Psc = () => {
               Ready to Start {currentSetData.name}?
             </Typography>
             <Typography variant="body1" sx={{ mb: 4 }}>
-              This quiz contains {questions.length} questions and has a time limit of 2 hours.
+              This Exam contains {questions.length} questions and has a time limit of 2 hours.
             </Typography>
             <Button 
               variant="contained" 
@@ -490,7 +575,8 @@ const Psc = () => {
               sx={{ 
                 p: 3, 
                 mb: 3,
-                borderLeft: `4px solid ${currentSetData.color}`
+                borderLeft: `4px solid ${currentSetData.color}`,
+                
               }}
             >
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 'medium' }}>
@@ -498,59 +584,74 @@ const Psc = () => {
               </Typography>
               
               <RadioGroup
-                value={selectedAnswer}
-                onChange={handleAnswerSelect}
-                disabled={showAnswers}
-              >
-                {questions[currentQuestion].options.map((option, index) => {
-                  const isCorrect = option === questions[currentQuestion].correctAnswer;
-                  const isSelected = selectedAnswer === option;
-                  
-                  return (
-                    <FormControlLabel
-                      key={index}
-                      value={option}
-                      control={<Radio sx={{ 
-                        color: showAnswers 
-                          ? isCorrect 
-                            ? '#4CAF50' 
-                            : isSelected 
-                              ? '#F44336' 
-                              : currentSetData.color
-                          : currentSetData.color 
-                      }} />}
-                      label={
-                        <Typography variant="body1">
-                          <TextWithLatex text={option} />
-                          {showAnswers && isCorrect && (
-                            <span style={{ marginLeft: '8px', color: '#4CAF50' }}>✓ Correct Answer</span>
-                          )}
-                          {showAnswers && isSelected && !isCorrect && (
-                            <span style={{ marginLeft: '8px', color: '#F44336' }}>✗ Your Answer</span>
-                          )}
-                        </Typography>
-                      }
-                      sx={{ 
-                        mb: 1,
-                        p: '8px 12px',
-                        borderRadius: 1,
-                        bgcolor: showAnswers 
-                          ? isCorrect 
-                            ? '#E8F5E9' 
-                            : isSelected 
-                              ? '#FFEBEE' 
-                              : 'transparent'
-                          : selectedAnswer === option 
-                            ? `${currentSetData.color}20` 
-                            : 'transparent',
-                        '&:hover': { 
-                          bgcolor: !showAnswers && `${currentSetData.color}10` 
-                        }
-                      }}
-                    />
-                  );
-                })}
-              </RadioGroup>
+  value={selectedAnswer}
+  onChange={handleAnswerSelect}
+  disabled={showAnswers}
+  sx={{
+    gap: 0, // This removes gap between RadioGroup items
+    '& .MuiFormControlLabel-root': {
+      margin: 0, // Removes default margin from FormControlLabel
+      padding: '4px 8px', // Adjust padding to make it tighter
+    },
+    '& .MuiTypography-root': {
+      marginLeft: '8px', // Adjust space between radio and text
+    }
+  }}
+>
+  {questions[currentQuestion].options.map((option, index) => {
+    const isCorrect = option === questions[currentQuestion].correctAnswer;
+    const isSelected = selectedAnswer === option;
+    
+    return (
+      <FormControlLabel
+        key={index}
+        value={option}
+        control={
+          <Radio 
+            sx={{ 
+              color: showAnswers 
+                ? isCorrect 
+                  ? '#4CAF50' 
+                  : isSelected 
+                    ? '#F44336' 
+                    : currentSetData.color
+                : currentSetData.color,
+              padding: '6px', // Smaller radio button padding
+            }} 
+          />
+        }
+        label={
+          <Typography variant="body1" sx={{ fontSize: '0.9rem' }}>
+            <TextWithLatex text={option} />
+            {showAnswers && isCorrect && (
+              <span style={{ marginLeft: '8px', color: '#4CAF50', fontSize: '0.8rem' }}>✓ Correct</span>
+            )}
+            {showAnswers && isSelected && !isCorrect && (
+              <span style={{ marginLeft: '8px', color: '#F44336', fontSize: '0.8rem' }}>✗ Your Answer</span>
+            )}
+          </Typography>
+        }
+        sx={{ 
+          margin: 0, // Remove default margin
+          padding: '4px 8px', // Tighter padding
+          borderRadius: 1,
+          bgcolor: showAnswers 
+            ? isCorrect 
+              ? '#E8F5E9' 
+              : isSelected 
+                ? '#FFEBEE' 
+                : 'transparent'
+            : selectedAnswer === option 
+              ? `${currentSetData.color}20` 
+              : 'transparent',
+          '&:hover': { 
+            bgcolor: !showAnswers && `${currentSetData.color}10` 
+          }
+        }}
+      />
+    );
+  })}
+</RadioGroup>
             </Paper>
 
             <Box sx={{ 
@@ -585,7 +686,7 @@ const Psc = () => {
             <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 'medium' }}>
               Question Navigation
             </Typography>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} sx={{ overflow: 'auto', maxHeight: '150px' }}>
               {Array.from({ length: questions.length }, (_, i) => i + 1).map((number) => (
                 <Grid item xs={4} sm={3} md={2.4} key={number}>
                   <Button
@@ -615,6 +716,15 @@ const Psc = () => {
         onClose={handleCloseResults}
         fullWidth
         maxWidth="sm"
+        sx={{
+          '& .MuiDialog-paper': {
+            maxHeight: 'calc(100vh - 64px)',
+            overflow: 'hidden',
+          },
+          '& .MuiDialogContent-root': {
+            overflowY: 'auto',
+          }
+        }}
       >
         <DialogTitle sx={{ 
           display: 'flex', 
@@ -623,7 +733,7 @@ const Psc = () => {
           backgroundColor: currentSetData?.color || '#3F51B5',
           color: 'white'
         }}>
-          Quiz Results
+          Exam Results
           <IconButton onClick={handleCloseResults} sx={{ color: 'white' }}>
             <CloseIcon />
           </IconButton>
@@ -765,7 +875,7 @@ const Psc = () => {
               '&:hover': { borderColor: currentSetData?.color }
             }}
           >
-            Choose Another Subject
+            Choose Another Mock Test
           </Button>
         </DialogActions>
       </Dialog>

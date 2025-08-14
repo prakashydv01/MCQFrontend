@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Lazy loaded layout and pages
-const Layout = lazy(() => import('../components/layout/fixlayout'));
+
 const HomePage = lazy(() => import('../page/Home'));
 const ScrollToTop = lazy(() => import('../components/layout/scrollTotop'));
 // Authentication and medical pages
@@ -37,7 +37,7 @@ export default function AppRoutes() {
         <Routes>
 
           {/* Layout Route that wraps everything */}
-          <Route path="/" element={<Layout />}>
+          
             <Route index element={<HomePage />} />
             <Route path="Signup" element={<Signup />} />
             <Route path="MCQUploadForm" element={<MCQUploadForm />} />
@@ -65,7 +65,6 @@ export default function AppRoutes() {
             <Route path="csit-details" element={<BScCSITDetails />} />
             <Route path="bit-details" element={<BITDetails />} />
             <Route path="ioe-details" element={<IOEDetails />} />
-          </Route>
 
         </Routes>
       </Suspense>

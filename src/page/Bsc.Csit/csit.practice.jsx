@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// MUI Components
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -25,41 +24,33 @@ import Toolbar from '@mui/material/Toolbar';
 import Collapse from '@mui/material/Collapse';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-
-// React Router
 import { useNavigate } from 'react-router-dom';
-
-// MUI Icons
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
-
 import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
 
-const questionSets = [{ id: 'csit-physics-1', name: 'Physics_Set_1', color: '#4CAF50', questionCount: '25' },
-    { id: 'csit-physics-2', name: 'Physics_Set_2', color: '#4CAF50', questionCount: '25' },
-    { id: 'csit-physics-3', name: 'Physics_Set_3', color: '#4CAF50', questionCount: '25' },
-    { id: 'csit-physics-4', name: 'Physics_Set_4', color: '#4CAF50', questionCount: '25' },
-    { id: 'csit-physics-5', name: 'Physics_Set_5', color: '#4CAF50', questionCount: '25' },
-    // Chemistry Sets
-    { id: 'csit-chemistry-1', name: 'Chemistry_Set_1', color: '#FF5722', questionCount: '25' },
-    { id: 'csit-chemistry-2', name: 'Chemistry_Set_2', color: '#FF5722', questionCount: '25' },
-    { id: 'csit-chemistry-3', name: 'Chemistry_Set_3', color: '#FF5722', questionCount: '25' },
-    { id: 'csit-chemistry-4', name: 'Chemistry_Set_4', color: '#FF5722', questionCount: '25' },
-    { id: 'csit-chemistry-5', name: 'Chemistry_Set_5', color: '#FF5722', questionCount: '25' },
-    // Mathematics Sets
-    { id: 'csit-math-1', name: 'Mathematics_Set_1', color: '#2196F3', questionCount: '25' },
-    { id: 'csit-math-2', name: 'Mathematics_Set_2', color: '#2196F3', questionCount: '25' },
-    { id: 'csit-math-3', name: 'Mathematics_Set_3', color: '#2196F3', questionCount: '25' },
-    { id: 'csit-math-4', name: 'Mathematics_Set_4', color: '#2196F3', questionCount: '25' },
-    { id: 'csit-math-5', name: 'Mathematics_Set_5', color: '#2196F3', questionCount: '25' },
+const questionSets = [
+  { id: 'csit-physics-1', name: 'Physics_Set_1', color: '#4CAF50', questionCount: '25' },
+  { id: 'csit-physics-2', name: 'Physics_Set_2', color: '#4CAF50', questionCount: '25' },
+  { id: 'csit-physics-3', name: 'Physics_Set_3', color: '#4CAF50', questionCount: '25' },
+  { id: 'csit-physics-4', name: 'Physics_Set_4', color: '#4CAF50', questionCount: '25' },
+  { id: 'csit-physics-5', name: 'Physics_Set_5', color: '#4CAF50', questionCount: '25' },
+  { id: 'csit-chemistry-1', name: 'Chemistry_Set_1', color: '#FF5722', questionCount: '25' },
+  { id: 'csit-chemistry-2', name: 'Chemistry_Set_2', color: '#FF5722', questionCount: '25' },
+  { id: 'csit-chemistry-3', name: 'Chemistry_Set_3', color: '#FF5722', questionCount: '25' },
+  { id: 'csit-chemistry-4', name: 'Chemistry_Set_4', color: '#FF5722', questionCount: '25' },
+  { id: 'csit-chemistry-5', name: 'Chemistry_Set_5', color: '#FF5722', questionCount: '25' },
+  { id: 'csit-math-1', name: 'Mathematics_Set_1', color: '#2196F3', questionCount: '25' },
+  { id: 'csit-math-2', name: 'Mathematics_Set_2', color: '#2196F3', questionCount: '25' },
+  { id: 'csit-math-3', name: 'Mathematics_Set_3', color: '#2196F3', questionCount: '25' },
+  { id: 'csit-math-4', name: 'Mathematics_Set_4', color: '#2196F3', questionCount: '25' },
+  { id: 'csit-math-5', name: 'Mathematics_Set_5', color: '#2196F3', questionCount: '25' },
 ];
 
 const TextWithLatex = ({ text }) => {
   if (!text) return null;
-
   const parts = text.split(/(\$\$.*?\$\$|\$.*?\$)/g);
-  
   return (
     <>
       {parts.map((part, i) => {
@@ -153,7 +144,6 @@ const Pcsit = () => {
     setAnswers(newAnswers);
     setSelectedAnswer(answer);
     
-    // Show explanation when an answer is selected
     if (questions[currentQuestion]?.explanation) {
       setExpandedExplanation(currentQuestion);
     }
@@ -286,7 +276,7 @@ const Pcsit = () => {
   );
 
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
+    <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
       <AppBar
         position="fixed"
         sx={{
@@ -349,15 +339,23 @@ const Pcsit = () => {
         </Drawer>
       </Box>
 
-      <Box 
-        component="main" 
-        sx={{ 
-          flexGrow: 1, 
-          p: 3, 
-          overflow: 'auto',
-          mt: { xs: '64px', md: 0 }
-        }}
-      >
+      
+
+  <Box 
+    component="main" 
+  sx={{ 
+    flexGrow: 1, 
+    p: 3, 
+    mt: { xs: '64px', md: 0 }, // Account for app bar height on mobile
+    height: { 
+      xs: 'calc(100vh - 64px)', // Subtract app bar height on mobile
+      md: '100vh' // Full height on desktop
+    },
+    display: 'flex',
+          flexDirection: 'column',
+          overflow: 'auto', // Control page scrolling here
+  }}
+>
         {loading ? (
           <Box sx={{ 
             display: 'flex', 
@@ -371,34 +369,62 @@ const Pcsit = () => {
           </Box>
         ) : !currentSet ? (
           <Box sx={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            height: '100%',
-            textAlign: 'center'
+            flex: 1,
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            textAlign: 'center',
+            p: 2,
+            '&::-webkit-scrollbar': { // [FIX #4] Custom scrollbar styling
+        width: '6px',
+      },
+          
           }}>
-            <Typography variant="h5" className="mb-4 text-2xl font-semibold text-gray-800">
-  B.Sc. CSIT Entrance MCQ Practice
-</Typography>
+            <>
+  <Typography variant="h5" sx={{ mb: 4, fontSize: '2rem', fontWeight: 'semibold', color: 'text.primary' }}>
+    B.Sc. CSIT Entrance MCQ Practice
+  </Typography>
+  
+  <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+    The B.Sc. CSIT program in Nepal is one of the most prestigious undergraduate degrees for aspiring IT professionals. Admission to this program requires clearing a highly competitive entrance examination conducted by Tribhuvan University's Institute of Science and Technology (IOST). Our MCQ practice platform is specifically designed to help students prepare effectively for this crucial examination.
+  </Typography>
 
-<Typography variant="body1" className="text-gray-600 text-base leading-relaxed max-w-4xl">
-  Get ready to excel in the <strong className="text-black">B.Sc. CSIT Entrance Examination</strong> with our dedicated MCQ practice platform. The Bachelor of Science in Computer Science and Information Technology (<strong className="text-black">B.Sc. CSIT</strong>) program offered by <strong className="text-black">Tribhuvan University (TU)</strong> is one of the most competitive and prestigious IT programs in Nepal. Our question sets are designed to reflect the official exam pattern and difficulty level, helping you to prepare smartly and efficiently.
+  <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+    The entrance exam typically covers three core subjects: Physics, Chemistry, and Mathematics. Each subject carries equal weightage, making comprehensive preparation essential. Our platform provides:
+  </Typography>
 
-  <br /><br />
+  <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+    • <strong>Physics Practice Sets:</strong> Covering mechanics, optics, electricity, and modern physics
+    <br />
+    • <strong>Chemistry Practice Sets:</strong> Including physical, inorganic, and organic chemistry
+    <br />
+    • <strong>Mathematics Practice Sets:</strong> Focused on calculus, algebra, and trigonometry
+  </Typography>
 
-  The <strong className="text-black">CSIT entrance syllabus</strong> includes four major subjects: <strong className="text-black">Mathematics, Physics, English, and Computer Science</strong>. Each section requires deep understanding and time-managed practice. With topic-wise quizzes, previous year questions, and full mock tests, HamroExam empowers you to build confidence and accuracy for the actual exam day.
+  <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+    Each question set follows the exact pattern of the actual entrance exam, with multiple-choice questions and time-bound practice tests. Our intelligent feedback system immediately highlights correct answers and provides detailed explanations for each question, helping students learn from their mistakes.
+  </Typography>
 
-  <br /><br />
+  <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+    The platform features:
+    <br />
+    • <strong>Progress Tracking:</strong> Visual indicators show your improvement over time
+    <br />
+    • <strong>Performance Analytics:</strong> Detailed breakdowns of strengths and weaknesses
+    <br />
+    • <strong>Mobile-Friendly Design:</strong> Practice anytime, anywhere
+  </Typography>
 
-  Our mobile-friendly platform offers real-time performance tracking, instant feedback, and curated resources to support your journey. Stay updated with the latest exam notices, model sets, and CSIT preparation strategies all in one place.
+  <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl', mb: 2 }}>
+    Regular practice with our question bank can significantly improve your speed and accuracy - two crucial factors for success in the actual examination. We recommend starting with subject-specific practice before attempting full-length mock tests.
+  </Typography>
 
-  <br /><br />
-
-  <span className="text-sm text-gray-500">
-    Keywords: B.Sc. CSIT Entrance Exam, CSIT TU MCQ Practice, CSIT Entrance Questions Nepal, Tribhuvan University CSIT, CSIT Entrance Syllabus, CSIT Model Questions, B.Sc. CSIT Preparation
-  </span>
-</Typography>
+  <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'justify', maxWidth: '4xl' }}>
+    Select a subject from the sidebar to begin your preparation journey. Consistent practice with our platform will give you the confidence and competence needed to ace the B.Sc. CSIT entrance exam.
+  </Typography>
+</>
           </Box>
         ) : questions.length === 0 ? (
           <Box sx={{ 
@@ -420,211 +446,264 @@ const Pcsit = () => {
           </Box>
         ) : (
           <>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-              <Typography variant="h5" sx={{ fontWeight: 'bold', color: currentSetData.color }}>
-                {currentSetData.name}
-              </Typography>
-              <Typography variant="subtitle1" color="text.secondary">
-                Question {currentQuestion + 1} of {questions.length}
-              </Typography>
-            </Box>
-
-            <LinearProgress 
-              variant="determinate" 
-              value={progress} 
-              sx={{ 
-                height: 8,
-                borderRadius: 4,
-                mb: 3,
-                bgcolor: 'divider',
-                '& .MuiLinearProgress-bar': {
-                  bgcolor: currentSetData.color
-                }
-              }} 
-            />
-
-            <Paper 
-              elevation={3} 
-              sx={{ 
+            {/* Main question container with natural expansion */}
+            <Box sx={{ 
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 3
+            }}>
+              <Paper elevation={3} sx={{ 
                 p: 3, 
-                mb: 3,
-                borderLeft: `4px solid ${currentSetData.color}`
-              }}
-            >
-              <Typography variant="h6" sx={{ mb: 3, fontWeight: 'medium' }}>
-                <TextWithLatex text={questions[currentQuestion].question} />
-              </Typography>
-              
-              <RadioGroup
-                value={selectedAnswer}
-                onChange={handleAnswerSelect}
-                disabled={showAnswers}
-              >
-                {questions[currentQuestion].options.map((option, index) => {
-                  const isCorrect = option === questions[currentQuestion].correctAnswer;
-                  const isSelected = selectedAnswer === option;
-                  const showFeedback = selectedAnswer && (isSelected || isCorrect);
-                  
-                  return (
-                    <Box key={index} sx={{ mb: 1 }}>
-                      <FormControlLabel
-                        value={option}
-                        control={<Radio sx={{ 
-                          color: showAnswers 
-                            ? isCorrect 
-                              ? '#4CAF50' 
-                              : isSelected 
-                                ? '#F44336' 
-                                : currentSetData.color
-                            : currentSetData.color 
-                        }} />}
-                        label={
-                          <Typography variant="body1">
-                            <TextWithLatex text={option} />
-                          </Typography>
-                        }
-                        sx={{ 
-                          p: '8px 12px',
-                          borderRadius: 1,
-                          width: '100%',
-                          bgcolor: showAnswers 
-                            ? isCorrect 
-                              ? '#E8F5E9' 
-                              : isSelected 
-                                ? '#FFEBEE' 
-                                : 'transparent'
-                            : selectedAnswer === option 
-                              ? `${currentSetData.color}20` 
-                              : 'transparent',
-                          '&:hover': { 
-                            bgcolor: !showAnswers && `${currentSetData.color}10` 
-                          }
-                        }}
-                      />
-                      {showFeedback && (
-                        <Typography 
-                          variant="body2" 
-                          sx={{ 
-                            ml: 4,
-                            color: isCorrect ? '#4CAF50' : '#F44336',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 1
-                          }}
-                        >
-                          {isCorrect ? (
-                            <>
-                              <span style={{ fontSize: '1.2rem' }}>✓</span> Correct Answer
-                            </>
-                          ) : isSelected ? (
-                            <>
-                              <span style={{ fontSize: '1.2rem' }}>✗</span> Your Answer
-                            </>
-                          ) : null}
-                        </Typography>
-                      )}
-                    </Box>
-                  );
-                })}
-              </RadioGroup>
+                mb: 2,
+                borderLeft: `4px solid ${currentSetData.color}`,
+                display: 'flex',
+                flexDirection: 'column',
+                flex: 1
+              }}>
+                {/* Question header */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 'bold', color: currentSetData.color }}>
+                    {currentSetData.name}
+                  </Typography>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    Question {currentQuestion + 1} of {questions.length}
+                  </Typography>
+                </Box>
 
-              {/* Explanation section */}
-              {questions[currentQuestion]?.explanation && (
-                <Box sx={{ mt: 3 }}>
-                  <Button
-                    onClick={() => toggleExplanation(currentQuestion)}
-                    sx={{
-                      color: currentSetData.color,
-                      textTransform: 'none',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 1
-                    }}
-                  >
-                    {expandedExplanation === currentQuestion ? (
-                      <ExpandLessIcon />
-                    ) : (
-                      <ExpandMoreIcon />
-                    )}
-                    {expandedExplanation === currentQuestion ? 'Hide Explanation' : 'Show Explanation'}
-                  </Button>
-                  
-                  <Collapse in={expandedExplanation === currentQuestion}>
-                    <Paper 
-                      elevation={0} 
-                      sx={{ 
-                        p: 2, 
-                        mt: 1,
-                        bgcolor: '#f5f5f5',
-                        borderRadius: 1
+                <LinearProgress 
+                  variant="determinate" 
+                  value={progress} 
+                  sx={{ 
+                    height: 8,
+                    borderRadius: 4,
+                    mb: 3,
+                    bgcolor: 'divider',
+                    '& .MuiLinearProgress-bar': {
+                      bgcolor: currentSetData.color
+                    }
+                  }} 
+                />
+
+                {/* Question text with automatic sizing */}
+                <Typography variant="h6" sx={{ 
+                  fontWeight: 'medium', 
+                  wordBreak: 'break-word',
+                  mb: 3
+                }}>
+                  <TextWithLatex text={questions[currentQuestion]?.question} />
+                </Typography>
+                
+                {/* Options container - now expands naturally */}
+                <Box sx={{ flex: 1 }}>
+                 <RadioGroup
+                                value={selectedAnswer}
+                                onChange={handleAnswerSelect}
+                                disabled={showAnswers}
+                                sx={{ gap: 0 }} // Reduced gap between options
+                              >
+                                {questions[currentQuestion]?.options?.map((option, index) => {
+                                  const isCorrect = option === questions[currentQuestion]?.correctAnswer;
+                                  const isSelected = selectedAnswer === option;
+                                  
+                                  return (
+                                    // CHANGED: Wrapped in flex container for side-by-side layout
+                                    <Box key={index} sx={{ 
+                                      display: 'flex', 
+                                      alignItems: 'center', 
+                                      gap: 1,
+                                      width: '100%'
+                                    }}>
+                                      {/* Option label (unchanged except for flex adjustments) */}
+                                      <FormControlLabel
+                                        value={option}
+                                        control={<Radio sx={{ 
+                                          color: showAnswers 
+                                            ? isCorrect 
+                                              ? '#4CAF50' 
+                                              : isSelected 
+                                                ? '#F44336' 
+                                                : currentSetData.color
+                                            : currentSetData.color,
+                                          padding: '4px 9px'
+                                        }} />}
+                                        label={
+                                          <Typography variant="body1" sx={{ wordBreak: 'break-word' }}>
+                                            <TextWithLatex text={option} />
+                                          </Typography>
+                                        }
+                                        sx={{ 
+                                          flex: 1, // ADDED: Allows feedback to appear on same line
+                                          p: '4px 8px',
+                                          m: 0,
+                                          borderRadius: 1,
+                                          bgcolor: showAnswers 
+                                            ? isCorrect 
+                                              ? '#E8F5E9' 
+                                              : isSelected 
+                                                ? '#FFEBEE' 
+                                                : 'transparent'
+                                            : selectedAnswer === option 
+                                              ? `${currentSetData.color}20` 
+                                              : 'transparent',
+                                          '&:hover': { 
+                                            bgcolor: !showAnswers && `${currentSetData.color}10` 
+                                          },
+                                          '& .MuiButtonBase-root': {
+                                            padding: '6px'
+                                          }
+                                        }}
+                                      />
+                                      
+                                      {/* NEW: Parallel feedback indicators */}
+                                      {selectedAnswer && (
+                                        <Box sx={{ 
+                                          minWidth: 100, // Fixed width for alignment
+                                          display: 'flex', 
+                                          justifyContent: 'flex-center',
+                                          pr: 1 // Right padding
+                                        }}>
+                                          {/* Show green "Correct" tag for right answer */}
+                                          {isCorrect && (
+                                            <Chip 
+                                              label="Correct" 
+                                              size="small" 
+                                              sx={{ 
+                                                bgcolor: '#4CAF50',
+                                                color: 'white',
+                                                fontSize: '0.75rem'
+                                              }} 
+                                            />
+                                          )}
+                                          
+                                          {/* Show red "Your Answer" tag for wrong selection */}
+                                          {isSelected && !isCorrect && (
+                                            <Chip 
+                                              label="Wrong Answer" 
+                                              size="small" 
+                                              sx={{ 
+                                                bgcolor: '#F44336',
+                                                color: 'white',
+                                                fontSize: '0.75rem'
+                                              }} 
+                                            />
+                                          )}
+                                        </Box>
+                                      )}
+                                    </Box>
+                                  );
+                                })}
+                              </RadioGroup>
+                </Box>
+
+                {/* Explanation section */}
+                {questions[currentQuestion]?.explanation && (
+                  <Box sx={{ mt: 3 }}>
+                    <Button
+                      onClick={() => toggleExplanation(currentQuestion)}
+                      sx={{
+                        color: currentSetData.color,
+                        textTransform: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        padding: '4px 8px'
                       }}
                     >
-                      <Typography variant="body1">
-                        <TextWithLatex text={questions[currentQuestion].explanation} />
-                      </Typography>
-                    </Paper>
-                  </Collapse>
-                </Box>
-              )}
-            </Paper>
-
-            <Box sx={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              mb: 4,
-              flexDirection: { xs: 'column', sm: 'row' },
-              gap: { xs: 2, sm: 0 }
-            }}>
-              <Button
-                variant="outlined"
-                onClick={handlePreviousQuestion}
-                disabled={currentQuestion === 0}
-                sx={{ width: { xs: '100%', sm: 120 } }}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="contained"
-                onClick={currentQuestion === questions.length - 1 ? handleSubmit : handleNextQuestion}
-                disabled={showAnswers && currentQuestion === questions.length - 1}
-                sx={{ 
-                  width: { xs: '100%', sm: 120 },
-                  bgcolor: currentSetData.color,
-                  '&:hover': { bgcolor: currentSetData.color }
-                }}
-              >
-                {currentQuestion === questions.length - 1 ? 'Submit' : 'Next'}
-              </Button>
+                      {expandedExplanation === currentQuestion ? (
+                        <ExpandLessIcon />
+                      ) : (
+                        <ExpandMoreIcon />
+                      )}
+                      {expandedExplanation === currentQuestion ? 'Hide Explanation' : 'Show Explanation'}
+                    </Button>
+                    
+                    <Collapse in={expandedExplanation === currentQuestion}>
+                      <Paper 
+                        elevation={0} 
+                        sx={{ 
+                          p: 2, 
+                          mt: 1,
+                          bgcolor: '#f5f5f5',
+                          borderRadius: 1
+                        }}
+                      >
+                        <Typography variant="body1" sx={{ wordBreak: 'break-word' }}>
+                          <TextWithLatex text={questions[currentQuestion].explanation} />
+                        </Typography>
+                      </Paper>
+                    </Collapse>
+                  </Box>
+                )}
+              </Paper>
             </Box>
 
-            <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 'medium' }}>
-              Question Navigation
-            </Typography>
-            <Grid container spacing={1}>
-              {Array.from({ length: questions.length }, (_, i) => i + 1).map((number) => (
-                <Grid item xs={4} sm={3} md={2.4} key={number}>
-                  <Button
-                    variant={currentQuestion + 1 === number ? "contained" : "outlined"}
-                    onClick={() => handleQuestionSelect(number)}
-                    fullWidth
-                    sx={{
-                      minWidth: 40,
-                      p: '6px 0',
-                      ...(currentQuestion + 1 === number && {
-                        bgcolor: currentSetData.color,
-                        '&:hover': { bgcolor: currentSetData.color }
-                      })
-                    }}
-                  >
-                    {number}
-                  </Button>
-                </Grid>
-              ))}
-            </Grid>
+            {/* Fixed navigation buttons at bottom */}
+            <Box sx={{ 
+              backgroundColor: 'background.paper',
+              pt: 2,
+              pb: 2,
+              borderTop: '1px solid #eee'
+            }}>
+              <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'space-between',
+                mb: 2,
+                flexDirection: { xs: 'column', sm: 'row' },
+                gap: { xs: 2, sm: 0 }
+              }}>
+                <Button
+                  variant="outlined"
+                  onClick={handlePreviousQuestion}
+                  disabled={currentQuestion === 0}
+                  sx={{ width: { xs: '100%', sm: 120 } }}
+                >
+                  Previous
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={currentQuestion === questions.length - 1 ? handleSubmit : handleNextQuestion}
+                  disabled={showAnswers && currentQuestion === questions.length - 1}
+                  sx={{ 
+                    width: { xs: '100%', sm: 120 },
+                    bgcolor: currentSetData.color,
+                    '&:hover': { bgcolor: currentSetData.color }
+                  }}
+                >
+                  {currentQuestion === questions.length - 1 ? 'Submit' : 'Next'}
+                </Button>
+              </Box>
+
+              <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: 'medium' }}>
+                Question Navigation
+              </Typography>
+              <Grid container spacing={1}>
+                {Array.from({ length: questions.length }, (_, i) => i + 1).map((number) => (
+                  <Grid item xs={4} sm={3} md={2.4} key={number}>
+                    <Button
+                      variant={currentQuestion + 1 === number ? "contained" : "outlined"}
+                      onClick={() => handleQuestionSelect(number)}
+                      fullWidth
+                      sx={{
+                        minWidth: 40,
+                        p: '6px 0',
+                        ...(currentQuestion + 1 === number && {
+                          bgcolor: currentSetData.color,
+                          '&:hover': { bgcolor: currentSetData.color }
+                        })
+                      }}
+                    >
+                      {number}
+                    </Button>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
           </>
         )}
       </Box>
 
+      {/* Results dialog */}
       <Dialog
         open={showResults}
         onClose={handleCloseResults}
@@ -701,7 +780,7 @@ const Pcsit = () => {
                   </Typography>
                   {questions.map((question, index) => (
                     <Box key={index} sx={{ mb: 3, p: 2, border: '1px solid #eee', borderRadius: 1 }}>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 'medium' }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 'medium', wordBreak: 'break-word' }}>
                         {index + 1}. <TextWithLatex text={question.question} />
                       </Typography>
                       <Typography 
@@ -709,7 +788,8 @@ const Pcsit = () => {
                         sx={{ 
                           color: '#4CAF50',
                           fontWeight: 'bold',
-                          mt: 1
+                          mt: 1,
+                          wordBreak: 'break-word'
                         }}
                       >
                         ✓ Correct: <TextWithLatex text={question.correctAnswer} />
@@ -719,7 +799,8 @@ const Pcsit = () => {
                           variant="body1" 
                           sx={{ 
                             color: '#F44336',
-                            mt: 0.5
+                            mt: 0.5,
+                            wordBreak: 'break-word'
                           }}
                         >
                           ✗ Your Answer: <TextWithLatex text={answers[index]} />
@@ -742,7 +823,7 @@ const Pcsit = () => {
                           <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                             Explanation:
                           </Typography>
-                          <Typography variant="body2">
+                          <Typography variant="body2" sx={{ wordBreak: 'break-word' }}>
                             <TextWithLatex text={question.explanation} />
                           </Typography>
                         </Box>
