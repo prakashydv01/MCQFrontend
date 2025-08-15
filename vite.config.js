@@ -4,7 +4,6 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import sitemap from 'vite-plugin-sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-
 export default defineConfig({
   plugins: [
     react(),
@@ -12,6 +11,9 @@ export default defineConfig({
     tailwindcss(),
     sitemap({
       hostname: 'https://www.hamroexam.com',
+      gzip: true,
+      changefreq: 'daily',
+      priority: 0.8,
       routes: [
         '/',
         '/about',
