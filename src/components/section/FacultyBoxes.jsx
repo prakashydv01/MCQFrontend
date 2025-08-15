@@ -43,13 +43,13 @@ const faculties = [
 
 export default function FacultyBoxes() {
   return (
-    <section className="py-12 px-4 sm:px-6 bg-gray-50 dark:bg-gray-900">
+    <section className="py-12 px-4 sm:px-6 bg-gray-900 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-50 dark:text-white">
           Practice Entrance Exam Mock Tests
         </h2>
         
-        <p className="text-lg text-gray-600 dark:text-gray-300 text-center mb-12">
+        <p className="text-lg text-gray-100 dark:text-gray-300 text-center mb-12">
           Comprehensive test preparation for TU B.Sc. CSIT, BIT, and IOE entrance examinations
         </p>
 
@@ -58,18 +58,18 @@ export default function FacultyBoxes() {
             <Link
               key={faculty.name}
               to={`/${faculty.id}`}
-              className={`group p-6 border rounded-xl text-center no-underline text-current flex flex-col items-center bg-white dark:bg-gray-800 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 border-gray-200 dark:border-gray-700 hover:${faculty.borderColor} hover:border-2`}
+              className={`group p-6 border rounded-xl text-center no-underline text-current flex flex-col items-center bg-dark dark:bg-gray-800 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 border-gray-500 dark:border-gray-700 hover:${faculty.borderColor} hover:border-2`}
             >
               <div className={`${faculty.color} mb-6 p-3 rounded-full ${faculty.bgColor} dark:bg-opacity-20`}>
                 {faculty.icon}
               </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+              <h3 className="text-xl font-bold mb-2 text-gray-50 dark:text-white">
                 {faculty.name}
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+              <p className="text-sm text-gray-200 dark:text-gray-300 mb-4">
                 {faculty.fullName}
               </p>
-              <p className="text-base mb-6 italic text-gray-700 dark:text-gray-200">
+              <p className="text-base mb-6 italic text-gray-200 dark:text-gray-200">
                 {faculty.description}
               </p>
               <div className={`mt-auto px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200`}>
@@ -81,7 +81,7 @@ export default function FacultyBoxes() {
           ))}
         </div>
 
-        <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-12 max-w-3xl mx-auto">
+        <p className="text-sm text-gray-400 dark:text-gray-400 text-center mt-12 max-w-3xl mx-auto">
           Trusted by thousands of students preparing for Tribhuvan University B.Sc. CSIT, 
           Bachelor in Information Technology (BIT), and Institute of Engineering (IOE) entrance exams.
           Our mock tests include previous year questions with detailed solutions.
