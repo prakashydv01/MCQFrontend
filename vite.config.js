@@ -14,7 +14,7 @@ export default defineConfig({
       gzip: true,
       changefreq: 'daily',
       priority: 0.8,
-      routes: [
+      dynamicRoutes: [
         '/',
         '/about',
         '/contact',
