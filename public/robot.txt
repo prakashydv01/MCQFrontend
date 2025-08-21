@@ -1,0 +1,28 @@
+# robots.txt for https://www.hamroexam.com/
+
+User-agent: *
+Allow: /
+
+# Disallow private or unnecessary files/folders
+Disallow: /admin/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /api/
+Disallow: /server/
+Disallow: /backend/
+
+# Block query search pages from indexing (to avoid duplicate content)
+Disallow: /*?*
+
+# Allow CSS, JS, images (important for SEO rendering)
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Sitemap location
+Sitemap: https://www.hamroexam.com/sitemap.xml
