@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+   <!-- Main Pages -->
+   <url><loc>https://www.hamroexam.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+   <url><loc>https://www.hamroexam.com/about</loc></url>
+   <url><loc>https://www.hamroexam.com/contact</loc></url>
+   <url><loc>https://www.hamroexam.com/privacy-policy</loc></url>
+   <url><loc>https://www.hamroexam.com/terms</loc></url>
+   <url><loc>https://www.hamroexam.com/blog</loc></url>
+   <url><loc>https://www.hamroexam.com/guidance</loc></url>
+   <url><loc>https://www.hamroexam.com/signup</loc></url>
+
+   <!-- Mock Test Pages -->
+   <url><loc>https://www.hamroexam.com/mock-test/csit</loc></url>
+   <url><loc>https://www.hamroexam.com/mock-test/bit</loc></url>
+   <url><loc>https://www.hamroexam.com/mock-test/ioe</loc></url>
+
+   <!-- Practice Pages -->
+   <url><loc>https://www.hamroexam.com/practice/ioe</loc></url>
+   <url><loc>https://www.hamroexam.com/practice/csit</loc></url>
+   <url><loc>https://www.hamroexam.com/practice/bit</loc></url>
+   <url><loc>https://www.hamroexam.com/loksewa/computer-operator</loc></url>
+
+</urlset>
