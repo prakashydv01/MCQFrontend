@@ -3,22 +3,21 @@
 
 /* src/index.css */
 #root {
-  width: 100%;
+  
   margin: 0 auto;
   box-sizing: border-box;
+  max-width: 100%;
 }
 
-@media (min-width: 768px) {
-  #root {
-    max-width: 1200px; /* Adjust as needed */
-  }
-}
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  max-width: 100%;
+ 
+  
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -103,9 +102,12 @@ button:focus-visible {
 html {
   overflow-x: hidden;
   width: 100%;
+  max-width: 100%;
 }
 
 
 body {
   padding-right: 0 !important;
+  max-width: 100%;
 }
+
